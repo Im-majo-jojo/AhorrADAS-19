@@ -3,9 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- //bootstrap  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- //css -->
+    <link rel="stylesheet" href="styles.css">
+
     <title>Document</title>
 </head>
 <body>
-    
+    <header>
+        <div class="logo">
+            <i></i>
+            <h1>AhorrADAS</h1>
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <i></i>
+                    <p>Balance</p>
+                </li>
+                <li>
+                    <i></i>
+                    <p>Categorías</p>
+                </li>
+                <li>
+                    <i></i>
+                    <p>Reportes</p>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <!-- BALANCE -->
+        <div class="balance-view">
+            <div class="balcane-box">
+                <h2>Balance</h2>
+                <p>Ganancia</p>
+                <div class="ganancia-valor">+$0</div>
+                <p>Gastos</p>
+                <div class="gastos-valor">-$0</div>
+                <p>Total</p>
+                <div class="total-valor">$0</div>
+            </div>
+            <div class="filtros-box">
+                <h2>Filtros</h2>
+                <form>
+                    <label for="tipo-select">Tipo</label>
+                    <select name="" id="tipo-select">
+                        <option value="">Todos</option>
+                        <option value="">Gasto</option>
+                        <option value="">Ganancia</option>
+                    </select>
+                    <label for="categoria-select">Categorías</label>
+                    <select name="" id="categoria-select">
+                        <option value="">Todas</option>
+                        <option value="">Comida</option>
+                        <option value="">Transporte</option>
+                    </select>
+                    <label for="desde-select">Desde</label>
+                    <input type="date" id="desde-select">
+                    <label for="ordenar-por-select">Ordenar por</label>
+                    <select name="" id="ordenar-por-select">
+                        <option value="Más reciente">Más reciente</option>
+                        <option value="Menos reciente">Menos reciente</option>
+                        <option value="Mayor monto">Mayor monto</option>
+                        <option value="Menor monto">Menor monto</option>
+                        <option value="A/Z">A/Z</option>
+                        <option value="Z/A">Z/A</option>
+                    </select>
+                </form>
+            </div>
+            <div class="operaciones-box">
+                <h2>Operaciones</h2>
+                <button>+ Nueva operación</button>
+
+
+
+                <!-- SIN OPERACIONES -->
+                <div class="sin-operaciones">
+                    <img src="#" alt="">
+                    <p>Sin resultados</p>
+                    <p>Cambia los filtros o agrega operaciones</p>
+                </div>
+            </div>
+        </div>
+        <!-- NUEVA OPERACION -->
+        <div class="nueva-operacion-view">
+            <h2>Nueva operación</h2>
+            <div>
+                <form action="">
+                    <label for="descripcion-nueva operacion">Descripción</label>
+                    <input type="text" id="descripcion-nueva operacion">
+                    <label for="monto-nueva-operacion">Monto</label>
+                    <input type="number" value="0" id="monto-nueva-operacion">
+                    <label for="tipo-nueva-operacion">Tipo</label>
+                    <select id="tipo-nueva-operacion">
+                        <option value="gasto">Gasto</option>
+                        <option value="ganancia">Ganancia</option>
+                    </select>
+                    <label for="categoria-nueva-operacion">Categoría</label>
+                    <select id="categoria-nueva-operacion">
+                        <option value="comida">Comida</option>
+                        <option value="transporte">Transporte</option>
+                    </select>
+                    <label for="date-nueva-operacion"></label>
+                    <input type="date" id="date-nueva-operacion">
+                </form>
+            </div>
+            <div>
+                <button>Cancelar</button>
+                <button>Agregar</button>
+            </div>
+        </div>
+        <!-- CATEGORÍAS -->
+        <div class="categorias-view">
+            <h2>Categorías</h2>
+                <div>
+                    <form>
+                        <label for="nombre-categoria">Nombre</label>
+                        <input type="text" id="nombre-categoria">
+                        <button>Agregar</button>
+                    </form>
+                </div>
+                <div>
+                    <div>
+                        <div class="titulo-categoria">Comida</div>
+                        <div>
+                            <button>Editar</button>
+                            <button>Eliminar</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="titulo-categoria">Transporte</div>
+                        <div>
+                            <button>Editar</button>
+                            <button>Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- EDITAR CATEGORÍA -->
+        <div class="editar-categoria-view">
+            <h2>Editar Categoría</h2>
+            <div>
+                <form>
+                    <label for="editar-titulo-categoria">Nombre</label>
+                    <input type="text" id="editar-titulo-categoria">
+                </form>
+            </div>
+            <div>
+                <button>Cancelar</button>
+                <button>Editar</button>
+            </div>
+        </div>
+        <!-- REPORTES -->
+        <div class="reportes-view">
+            <h2>Reportes</h2>
+
+
+
+            <!-- SIN REPORTES -->
+            <div>
+                <img src="#" alt="">
+                <p>Operaciones insuficientes </p>
+                <p>Prueba agregando más operaciones </p>
+            </div>
+        </div>
+    </main>
+
+
+
+<!-- //js -->
+    <script src="javaScript.js"></script>
+<!-- //bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

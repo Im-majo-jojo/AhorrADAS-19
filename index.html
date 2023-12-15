@@ -97,31 +97,33 @@
             </div>
         </div>
         <!-- NUEVA OPERACION -->
-        <div class="nueva-operacion-view hidden">
-            <h2>Nueva operación</h2>
-            <div>
-                <form action="">
-                    <label for="descripcion-nueva operacion">Descripción</label>
-                    <input type="text" id="descripcion-nueva operacion" class="border-stone-100 bg-slate-300">
-                    <label for="monto-nueva-operacion">Monto</label>
-                    <input type="number" value="0" id="monto-nueva-operacion">
-                    <label for="tipo-nueva-operacion">Tipo</label>
-                    <select id="tipo-nueva-operacion">
-                        <option value="gasto">Gasto</option>
-                        <option value="ganancia">Ganancia</option>
-                    </select>
-                    <label for="categoria-nueva-operacion">Categoría</label>
-                    <select id="categoria-nueva-operacion">
-                        <option value="comida">Comida</option>
-                        <option value="transporte">Transporte</option>
-                    </select>
-                    <label for="date-nueva-operacion"></label>
-                    <input type="date" id="date-nueva-operacion">
-                </form>
-            </div>
-            <div>
-                <button>Cancelar</button>
-                <button>Agregar</button>
+        <div class="nueva-operacion-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
+            <div class="newOperation-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2">
+                <h2 class="text-2xl font-bold">Nueva operación</h2>
+                <div class="my-4">
+                    <form class="flex flex-col">
+                        <label for="descripcion-nueva-operacion" class="font-bold">Descripción</label>
+                        <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                        <label for="monto-nueva-operacion" class="font-bold">Monto</label>
+                        <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                        <label for="tipo-nueva-operacion" class="font-bold">Tipo</label>
+                        <select id="tipo-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                            <option value="gasto">Gasto</option>
+                            <option value="ganancia">Ganancia</option>
+                        </select>
+                        <label for="categoria-nueva-operacion" class="font-bold">Categoría</label>
+                        <select id="categoria-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                            <option value="comida">Comida</option>
+                            <option value="transporte">Transporte</option>
+                        </select>
+                        <label for="date-nueva-operacion" class="font-bold">Fecha</label>
+                        <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                    </form>
+                </div>
+                <div class="flex justify-end">
+                    <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                    <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
+                </div>
             </div>
         </div>
         <!-- CATEGORÍAS -->
@@ -132,7 +134,7 @@
                     <form>
                         <label for="nombre-categoria" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
-                            <input type="text" id="nombre-categoria" class="w-10/12">
+                            <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200">
                             <button class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button>
                         </div>
                     </form>
@@ -156,21 +158,23 @@
             </div>
         </div>
         <!-- EDITAR CATEGORÍA -->
-        <div class="editar-categoria-view hidden">
-            <h2>Editar Categoría</h2>
-            <div>
-                <form>
-                    <label for="editar-titulo-categoria">Nombre</label>
-                    <input type="text" id="editar-titulo-categoria">
-                </form>
-            </div>
-            <div>
-                <button id="cancelar">Cancelar</button>
-                <button>Editar</button>
+        <div class="editar-categoria-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-4 grid-flow-col grid-cols-5 gap-1">
+            <div class="editCategory-box container flex flex-col col-start-2 row-span-2 col-span-3 bg-slate-300 rounded-md p-4 m-2 ">
+                <h2 class="text-2xl font-bold">Editar Categoría</h2>
+                <div class="flex py-4 w-full">
+                    <form class="w-full">
+                        <label for="editar-titulo-categoria" class="font-bold text-lg">Nombre</label>
+                        <input type="text" id="editar-titulo-categoria" class="w-full rounded-md p-2 bg-slate-200">
+                    </form>
+                </div>
+                <div class="flex justify-end">
+                    <button id="cancelar" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                    <button id="guardar" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Editar</button>
+                </div>
             </div>
         </div>
         <!-- REPORTES -->
-        <div class="reportes-view hidden hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
+        <div class="reportes-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
             <div class="reports-box container flex flex-col col-start-2 row-span-2 col-span-3 bg-slate-300 rounded-md p-4 m-2 justify-between">
                 <h2 class="text-2xl font-bold">Reportes</h2>
                 <!-- SIN REPORTES -->

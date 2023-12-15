@@ -22,15 +22,15 @@
                 <ul class="items-center flex space-x-4">
                     <li class="flex items-center space-x-1">
                         <i class="fa-solid fa-chart-line"></i>
-                        <p>Balance</p>
+                        <button id="pestaña-balance">Balance</button>
                     </li>
                     <li class="flex items-center space-x-1">
                         <i class="fa-solid fa-tag"></i>
-                        <p>Categorías</p>
+                        <button id="pestaña-categorias">Categorías</button>
                     </li>
                     <li class="flex items-center space-x-1">
                         <i class="fa-solid fa-chart-pie"></i>
-                        <p>Reportes</p>
+                        <button id="pestaña-reportes">Reportes</button>
                     </li>
                 </ul>
             </div>
@@ -38,22 +38,22 @@
     </header>
     <main class="bg-slate-200 p-0.5 w-full">
         <!-- BALANCE -->
-        <div class="balance-view justify-items-center px-20 py-10 grid grid-rows-3 grid-flow-col grid-cols-3 gap-4">
-            <div class="balance-box container flex flex-col bg-slate-300 rounded-md p-4 m-2">
+        <div class="balance-view justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-7 gap-1">
+            <div class="balance-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Balance</h2>
-                <div class="grid grid-rows-3 grid-flow-col gap-2 mt-3">
+                <div class="grid grid-rows-3 grid-flow-col gap-2 mt-3 justify-between pt-10">
                     <p>Ganancia</p>           
                     <p>Gastos</p>          
-                    <p>Total</p>
-                    <div class="ganancia-valor ">+$0</div>
-                    <div class="gastos-valor">-$0</div>
-                    <div class="total-valor">$0</div>
+                    <p class="text-lg">Total</p>
+                    <div class="ganancia-valor ">+$0 </div>
+                    <div class="gastos-valor">-$0 </div>
+                    <div class="total-valor justify-self-end"> $0</div>
                 </div>
             </div>
-            <div class="filtros-box container flex flex-col bg-slate-300 rounded-md p-4 m-2 row-span-2">
-                <div class="flex justify-between">
+            <div class="filtros-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2 row-span-2">
+                <div class="flex  justify-between">
                     <h2 class="text-2xl font-bold">Filtros</h2>
-                    <a href="#">Ocultar filtros</a>
+                    <a href="#" class=" justify-between">Ocultar filtros</a>
                     <a href="#" class="hidden">Mostrar filtros</a>
                 </div>
                 <form class="flex flex-col space-y-4 mt-3">
@@ -82,10 +82,10 @@
                     </select>
                 </form>
             </div>
-            <div class="operaciones-box container flex flex-col bg-slate-300 rounded-md p-4 my-2 ml-4 row-span-2 col-span-2 justify-between">
+            <div class="operaciones-box container flex flex-col bg-slate-300 rounded-md p-4 my-2 ml-4 row-span-2 col-span-3 justify-between">
                 <div class="flex justify-between">
                     <h2 class="text-2xl font-bold">Operaciones</h2>
-                    <button class="bg-slate-400 rounded-md 
+                    <button id="nuevaOperacionButton" class="bg-slate-400 rounded-md 
                     px-2 text-neutral-50">+ Nueva operación</button>
                 </div>
                 <!-- SIN OPERACIONES -->
@@ -138,15 +138,15 @@
                     <div>
                         <div class="titulo-categoria">Comida</div>
                         <div>
-                            <button>Editar</button>
-                            <button>Eliminar</button>
+                            <button id="editar">Editar</button>
+                            <button id="eliminar">Eliminar</button>
                         </div>
                     </div>
                     <div>
                         <div class="titulo-categoria">Transporte</div>
                         <div>
-                            <button>Editar</button>
-                            <button>Eliminar</button>
+                            <button id="editar">Editar</button>
+                            <button id="eliminar">Eliminar</button>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                 </form>
             </div>
             <div>
-                <button>Cancelar</button>
+                <button id="cancelar">Cancelar</button>
                 <button>Editar</button>
             </div>
         </div>

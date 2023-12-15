@@ -67,3 +67,4 @@ const initializeProject = () => {
     $("#cancelar").addEventListener ("click", tabChangeCancelarEdicionDeCategoria)
 
 }
+window.addEventListener("load", initializeProject)

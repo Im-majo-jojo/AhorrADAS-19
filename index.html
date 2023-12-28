@@ -41,14 +41,28 @@
         <div class="balance-view justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-7 gap-1">
             <div class="balance-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Balance</h2>
-                <div class="grid grid-rows-3 grid-flow-col gap-2 mt-3 justify-between pt-10">
+                <table class="mt-10">
+                    <tr>
+                        <td>Ganancias</td>
+                        <td>+$0</td>
+                    </tr>
+                    <tr>
+                        <td>Gastos</td>
+                        <td>-$0</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>$0</td>
+                    </tr>
+                </table>
+                <!-- <div class="grid grid-rows-3 grid-flow-col gap-2 mt-3 justify-between pt-10">
                     <p>Ganancia</p>           
                     <p>Gastos</p>          
                     <p class="text-lg">Total</p>
                     <div class="ganancia-valor ">+$0 </div>
                     <div class="gastos-valor">-$0 </div>
                     <div class="total-valor justify-self-end"> $0</div>
-                </div>
+                </div> -->
             </div>
             <div class="filtros-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2 row-span-2">
                 <div class="flex  justify-between">
@@ -82,14 +96,40 @@
                     </select>
                 </form>
             </div>
-            <div class="operaciones-box container flex flex-col bg-slate-300 rounded-md p-4 my-2 ml-4 row-span-2 col-span-3 justify-between">
+            <div class="operaciones-box container flex flex-col bg-slate-300 rounded-md p-4 my-2 ml-4 row-span-2 col-span-3">
                 <div class="flex justify-between">
                     <h2 class="text-2xl font-bold">Operaciones</h2>
                     <button id="nuevaOperacionButton" class="bg-slate-400 rounded-md 
                     px-2 text-neutral-50">+ Nueva operación</button>
                 </div>
+                <!--CON OPERACIONES-->
+                <table class="mt-6 hidden">
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Fecha</th>
+                            <th>Monto</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>nombre?</td>
+                            <td>categoria?</td>
+                            <td>fecha?</td>
+                            <td>monto?</td>
+                            <div>
+                                <td class="flex flex-col">
+                                    <button>Editar</button>
+                                    <button>Eliminar</button>
+                                </td>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
                 <!-- SIN OPERACIONES -->
-                <div class="sin-operaciones text-center pb-16">
+                <div class="sin-operaciones text-center pb-16 ">
                     <img src="#" alt="">
                     <p class="font-bold text-lg p-4">Sin resultados</p>
                     <p>Cambia los filtros o agrega operaciones</p>
@@ -98,30 +138,30 @@
         </div>
         <!-- NUEVA OPERACION -->
         <div class="nueva-operacion-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
-            <div class="newOperation-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2">
+            <div class="newOperation-box container flex flex-col col-start-2 row-span-3 h-4/5 col-span-3 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Nueva operación</h2>
-                <div class="my-4">
+                <div class="my-2">
                     <form class="flex flex-col">
                         <label for="descripcion-nueva-operacion" class="font-bold">Descripción</label>
-                        <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                        <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
                         <label for="monto-nueva-operacion" class="font-bold">Monto</label>
-                        <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                        <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
                         <label for="tipo-nueva-operacion" class="font-bold">Tipo</label>
-                        <select id="tipo-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                        <select id="tipo-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
                             <option value="gasto">Gasto</option>
                             <option value="ganancia">Ganancia</option>
                         </select>
                         <label for="categoria-nueva-operacion" class="font-bold">Categoría</label>
-                        <select id="categoria-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                        <select id="categoria-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
                             <option value="comida">Comida</option>
                             <option value="transporte">Transporte</option>
                         </select>
                         <label for="date-nueva-operacion" class="font-bold">Fecha</label>
-                        <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-3">
+                        <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
                     </form>
                 </div>
                 <div class="flex justify-end">
-                    <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                    <button id="nuevaOperacionCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
                     <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
                 </div>
             </div>
@@ -139,7 +179,26 @@
                         </div>
                     </form>
                 </div>
-                <div class="flex flex-col justify-between">
+                <div>
+                    <table class="w-full">
+                        <tr >
+                            <td>Comida</td>
+                            <td class="flex flex-row-reverse">                  
+                                <button class="px-2" id="eliminar">Eliminar</button>       
+                                <button class="px-2" id="editar">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Transporte</td>
+                            <td class="flex flex-row-reverse">  
+                                <button class="px-2" id="eliminar">Eliminar</button>                       
+                                <button class="px-2" id="editar">Editar</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <!-- <div class="flex flex-col justify-between">
                     <div class="flex justify-between pb-2">
                         <div class="titulo-categoria bg-slate-500 text-neutral-50 rounded-md px-1">Comida</div>
                         <div>
@@ -154,7 +213,7 @@
                             <button class="px-2" id="eliminar">Eliminar</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- EDITAR CATEGORÍA -->
@@ -175,8 +234,93 @@
         </div>
         <!-- REPORTES -->
         <div class="reportes-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
-            <div class="reports-box container flex flex-col col-start-2 row-span-2 col-span-3 bg-slate-300 rounded-md p-4 m-2 justify-between">
+            <div class="reports-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2 justify-between">
                 <h2 class="text-2xl font-bold">Reportes</h2>
+                <!-- CON REPORTES -->
+                <div class="hidden">
+                    <div>
+                        <h2 class="text-xl font-bold mt-6">Resumen</h2>
+                        <table class="w-full mt-6">
+                            <tr>
+                                <td>Categoría con mayor ganancia</td>
+                                <div>
+                                    <td>categoria?</td>
+                                    <td>monto?</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <td>Categoría con mayor gasto</td>
+                                <div>
+                                    <td>categoria?</td>
+                                    <td>monto?</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <td>Categoría con mayor balance </td>
+                                <div>
+                                    <td>categoria?</td>
+                                    <td>monto?</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <td>Mes con mayor ganancia </td>
+                                <div>
+                                    <td>fecha?</td>
+                                    <td>monto?</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <td>Mes con mayor gasto</td>
+                                <div>
+                                    <td>fecha?</td>
+                                    <td>monto?</td>
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold mt-6">Totales por categorías</h2>
+                        <table class="w-full mt-6">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Ganancias</th>
+                                    <th>Gastos</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="w-full justify-between">
+                                    <td>categoria?</td>
+                                    <td>monto?</td>
+                                    <td>monto?</td>
+                                    <td>monto?</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pb-30">
+                        <h2 class="text-xl font-bold mt-6">Totales por mes</h2>
+                        <table class="w-full mt-6">
+                            <thead>
+                                <tr>
+                                    <th>Mes</th>
+                                    <th>Ganancias</th>
+                                    <th>Gastos</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="w-full justify-between">
+                                    <td>fecha?</td>
+                                    <td>monto?</td>
+                                    <td>monto?</td>
+                                    <td>monto?</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <!-- SIN REPORTES -->
                 <div class="sin-operaciones text-center pb-8">
                     <img src="#" alt="">

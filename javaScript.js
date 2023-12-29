@@ -1,8 +1,21 @@
 
 // UTILIDADES
-const $ =  (selector) => document.querySelector(selector);
+    const $ =  (selector) => document.querySelector(selector);
+    const $$ = (selector) => document.querySelectorAll(selector);
 
-//FUNCIONES
+    // DEFINICION DE ID
+    const idAleatorio = () => self.crypto.randomUUID()
+
+    //LOCAL STORAGE
+    const getData = (key) => JSON.parse(localStorage.getItem(key))
+    const setData = (key, data) => localStorage.setItem(key, JSON.stringify(data))
+
+    // INFORMCION DE CATEGORIAS
+    const allCategories = getData("categories") || []
+
+    // INFORMACION DE OPERACIONES
+
+//FUNCIONES NECESARIAS
 
     // CAMBIO DE PESTAÑA
         const tabChangeCategories = () =>{
@@ -78,26 +91,51 @@ const $ =  (selector) => document.querySelector(selector);
             $(".filtros-box").classList.remove("row-span-1")
         }
 
-    // Ingresar Categorias
-    // manejo de informacion
-    // validacion
+    //RENDER CATEGORIAS
+    const renderCategories = (categories) => {
+        for (const category of categories) {
+            $("#categoryTable").innerHTML += `
+            <tr>
+                <td>${category.nombre}</td>
+                <td class="flex flex-row-reverse">  
+                    <button class="px-2" id="eliminar">Eliminar</button>                       
+                    <button class="px-2" id="editar">Editar</button>
+                </td>
+            </tr>`
+        }
+    }
 
-
+    const saveNewCategory = () => {
+        return{
+            id: idAleatorio(),
+            nombre: $("#nombre-categoria").value
+        }
+    }
 // EVENTOS
-const initializeProject = () => {
-    // CAMBIO DE PESTAÑA
-    $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
-    $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
-    $("#editar").addEventListener ("click", tabChangeEditarCategorias)
-    $("#pestaña-balance").addEventListener ("click", tabChangeEditarBalance)
-    $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
-    $("#cancelar").addEventListener ("click", tabChangeCancelarEdicionDeCategoria)
-    $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)    
+const initializeApp = () => {
+        setData("categories", allCategories)
+        renderCategories(allCategories)
+        // CAMBIO DE PESTAÑA
+        $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
+        $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
+        $("#editar").addEventListener ("click", tabChangeEditarCategorias)
+        $("#pestaña-balance").addEventListener ("click", tabChangeEditarBalance)
+        $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
+        $("#cancelar").addEventListener ("click", tabChangeCancelarEdicionDeCategoria)
+        $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)    
 
     //MOSTRAR/OCULTAR FILTROS
-    $(".ocultar-filtros-button").addEventListener ("click", ocultarFiltros)
-    $(".mostrar-filtros-button").addEventListener ("click", mostrarFiltros)
- 
-
+        $(".ocultar-filtros-button").addEventListener ("click", ocultarFiltros)
+        $(".mostrar-filtros-button").addEventListener ("click", mostrarFiltros)
+    
+    //agregar categoria
+        $("#nombre-categoria-button").addEventListener ("click", (e) => {
+            e.preventDefault()
+            const currentData = getData("categories")
+            currentData.push(saveNewCategory())
+            setData("categories", currentData)
+            location.reload();
+            tabChangeCategories()
+        })
 }
-window.addEventListener("load", initializeProject)
+window.addEventListener("load", initializeApp)

@@ -175,13 +175,15 @@
                         <label for="nombre-categoria" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
                             <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200">
-                            <button class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button>
+                            <!-- <button class="nombre-categoria-button bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button> -->
+                            
                         </div>
                     </form>
+                            <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button>
                 </div>
                 <div>
-                    <table class="w-full">
-                        <tr >
+                    <table id="categoryTable" class="w-full">
+                        <tr>
                             <td>Comida</td>
                             <td class="flex flex-row-reverse">                  
                                 <button class="px-2" id="eliminar">Eliminar</button>       
@@ -331,6 +333,7 @@
         </div>
     </main>
 <!-- //JAVASCRIPT -->
+    <!-- <script src="javaScript.js"></script> -->
     <script src="javaScript.js"></script>
 </body>
 </html>

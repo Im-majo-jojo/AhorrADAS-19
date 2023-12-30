@@ -18,67 +18,55 @@
 //FUNCIONES NECESARIAS
 
     // CAMBIO DE PESTAÑA
-        const tabChangeCategories = () =>{
-            $(".balance-view").classList.add("hidden")
-            $(".editar-categoria-view").classList.add("hidden")
-            $(".reportes-view").classList.add("hidden")
-            $(".nueva-operacion-view").classList.add("hidden")
-            $(".categorias-view").classList.remove("hidden")
+        const hideTab = (selectors) => {
+            for (const selector of selectors){
+                $(selector).classList.add("hidden")
+            }
         }
+        const showTab = (selectors) => {
+            for (const selector of selectors){
+                $(selector).classList.remove("hidden")
+            }
+        } 
+        const tabChangeCategories = () =>{
+            hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
+            showTab([".categorias-view"])
+        }
+
         const tabChangeReports = () =>{
-            $(".categorias-view").classList.add("hidden")
-            $(".nueva-operacion-view").classList.add("hidden")
-            $(".balance-view").classList.add("hidden")
-            $(".editar-categoria-view").classList.add("hidden")
-            $(".reportes-view").classList.remove("hidden")
+            hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
+            showTab([".reportes-view"])
         }
         const tabChangeEditarCategorias = () =>{
-            $(".categorias-view").classList.add("hidden")
-            $(".nueva-operacion-view").classList.add("hidden")
-            $(".balance-view").classList.add("hidden")
-            $(".reportes-view").classList.add("hidden")
-            $(".editar-categoria-view").classList.remove("hidden")
+            hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
+            showTab([".editar-categoria-view"])
         }
         const tabChangeNuevaOperacion = () =>{
-            $(".categorias-view").classList.add("hidden")
-            $(".editar-categoria-view").classList.add("hidden")
-            $(".balance-view").classList.add("hidden")
-            $(".reportes-view").classList.add("hidden")
-            $(".nueva-operacion-view").classList.remove("hidden")
+            hideTab([".categorias-view",".editar-categoria-view",".balance-view",".reportes-view"])
+            showTab([".nueva-operacion-view"])
         }
         const tabChangeNuevaOperacionCancel = () =>{
-            $(".categorias-view").classList.add("hidden")
-            $(".nueva-operacion-view").classList.add("hidden")
-            $(".editar-categoria-view").classList.add("hidden")
-            $(".reportes-view").classList.add("hidden")
-            $(".balance-view").classList.remove("hidden")
+            hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
+            showTab([".balance-view"])
         }
         const tabChangeEditarBalance = () =>{
-            $(".categorias-view").classList.add("hidden")
-            $(".nueva-operacion-view").classList.add("hidden")
-            $(".editar-categoria-view").classList.add("hidden")
-            $(".reportes-view").classList.add("hidden")
-            $(".balance-view").classList.remove("hidden")
+            hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
+            showTab([".balance-view"])
         }
         const tabChangeCancelarEdicionDeCategoria = () =>{
-            $(".balance-view").classList.add("hidden")
-            $(".editar-categoria-view").classList.add("hidden")
-            $(".reportes-view").classList.add("hidden")
-            $(".nueva-operacion-view").classList.add("hidden")
-            $(".categorias-view").classList.remove("hidden")
+            hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
+            showTab([".categorias-view"])
         }
 
         //MOSTRAR/OCULTAR FILTROS
         const ocultarFiltros = () => {
-            $(".formulary-visibility").classList.add("hidden")
+            hideTab([".formulary-visibility",".ocultar-filtros-button",".mostrar-filtros-button"])
+            showTab([".mostrar-filtros-button"])
             $(".formulary-visibility").classList.remove("block")
-            $(".ocultar-filtros-button").classList.add("hidden")
             $(".ocultar-filtros-button").classList.remove("block")
             $(".mostrar-filtros-button").classList.add("block")
-            $(".mostrar-filtros-button").classList.remove("hidden")
             $(".filtros-box").classList.remove("row-span-2")
             $(".filtros-box").classList.add("row-span-1")
-
         }
         const mostrarFiltros = () => {
             $(".formulary-visibility").classList.add("block")
@@ -115,6 +103,8 @@
 const initializeApp = () => {
         setData("categories", allCategories)
         renderCategories(allCategories)
+        
+        
         // CAMBIO DE PESTAÑA
         $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
         $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
@@ -134,8 +124,7 @@ const initializeApp = () => {
             const currentData = getData("categories")
             currentData.push(saveNewCategory())
             setData("categories", currentData)
-            location.reload();
-            tabChangeCategories()
+            renderCategories(allCategories)
         })
 }
 window.addEventListener("load", initializeApp)

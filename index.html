@@ -103,7 +103,7 @@
                     px-2 text-neutral-50">+ Nueva operación</button>
                 </div>
                 <!--CON OPERACIONES-->
-                <table class="mt-6 hidden">
+                <table  class="tableOperation mt-6">
                     <thead>
                         <tr>
                             <th>Descripción</th>
@@ -113,8 +113,8 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="operationTable">
+                        <!-- <tr>
                             <td>nombre?</td>
                             <td>categoria?</td>
                             <td>fecha?</td>
@@ -125,11 +125,11 @@
                                     <button>Eliminar</button>
                                 </td>
                             </div>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
                 <!-- SIN OPERACIONES -->
-                <div class="sin-operaciones text-center pb-16 ">
+                <div class="sin-operaciones text-center pb-16 hidden">
                     <img src="#" alt="">
                     <p class="font-bold text-lg p-4">Sin resultados</p>
                     <p>Cambia los filtros o agrega operaciones</p>
@@ -158,12 +158,16 @@
                         </select>
                         <label for="date-nueva-operacion" class="font-bold">Fecha</label>
                         <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
+                        <div class="flex justify-end">
+                            <button id="nuevaOperacionCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                            <button id="nuevaOperationButton" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
+                        </div>
                     </form>
                 </div>
-                <div class="flex justify-end">
+                <!-- <div class="flex justify-end">
                     <button id="nuevaOperacionCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
-                    <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
-                </div>
+                    <button id="nuevaOperationButton" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
+                </div> -->
             </div>
         </div>
         <!-- CATEGORÍAS -->
@@ -175,11 +179,12 @@
                         <label for="nombre-categoria" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
                             <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200">
+                            <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button>
                             <!-- <button class="nombre-categoria-button bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button> -->
                             
                         </div>
                     </form>
-                            <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button>
+                            <!-- <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button> -->
                 </div>
                 <div>
                     <table id="categoryTable" class="w-full">

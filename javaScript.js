@@ -14,6 +14,7 @@
     const allCategories = getData("categories") || []
 
     // INFORMACION DE OPERACIONES
+    const allOperations = getData("operations") || []
 
 //FUNCIONES NECESARIAS
 
@@ -80,27 +81,69 @@
         }
 
     //RENDER CATEGORIAS
-    const renderCategories = (categories) => {
-        for (const category of categories) {
-            $("#categoryTable").innerHTML += `
-            <tr>
-                <td>${category.nombre}</td>
-                <td class="flex flex-row-reverse">  
-                    <button class="px-2" id="eliminar">Eliminar</button>                       
-                    <button class="px-2" id="editar">Editar</button>
-                </td>
-            </tr>`
+        const saveNewCategory = () => {
+            return{
+                id: idAleatorio(),
+                nombre: $("#nombre-categoria").value
+            }
         }
-    }
+        const renderCategories = (categories) => {
+            for (const category of categories) {
+                $("#categoryTable").innerHTML += `
+                <tr>
+                    <td>${category.nombre}</td>
+                    <td class="flex flex-row-reverse">  
+                        <button class="px-2" id="eliminar">Eliminar</button>                       
+                        <button class="px-2" id="editar">Editar</button>
+                    </td>
+                </tr>`
+            }
+        }
 
-    const saveNewCategory = () => {
-        return{
-            id: idAleatorio(),
-            nombre: $("#nombre-categoria").value
+
+    //RENDER OPERACIONES
+        const saveNewOperation = () => {
+            return{
+                id: idAleatorio(),
+                descripcion: $("#descripcion-nueva-operacion").value,
+                categoria: $("#categoria-nueva-operacion").value,
+                fecha: $("#date-nueva-operacion").value,
+                monto: $("#monto-nueva-operacion").value
+
+            }
+        }   
+        const emptyOperations = (operations) => {
+            const categoryTable = $("#categoryTable")
+            categoryTable.innerHTML = ''
+
         }
-    }
+        const renderOperations = (operations) => {
+
+
+            for (const operation of operations){
+                $("#operationTable").innerHTML += 
+                `
+                <tr>
+                    <td>${operation.descripcion}</td>
+                    <td>${operation.categoria}</td>
+                    <td>${operation.fecha}</td>
+                    <td>${operation.monto}</td>
+                    <div>
+                        <td class="flex flex-col">
+                            <button>Editar</button>
+                            <button>Eliminar</button>
+                        </td>
+                    </div>
+                </tr>
+                `
+            }
+
+        }
+
 // EVENTOS
 const initializeApp = () => {
+        setData("operations", allOperations)
+        renderOperations(allOperations)
         setData("categories", allCategories)
         renderCategories(allCategories)
         
@@ -121,10 +164,32 @@ const initializeApp = () => {
     //agregar categoria
         $("#nombre-categoria-button").addEventListener ("click", (e) => {
             e.preventDefault()
-            const currentData = getData("categories")
-            currentData.push(saveNewCategory())
-            setData("categories", currentData)
-            renderCategories(allCategories)
+            const currentDataCategories = getData("categories")
+            currentDataCategories.push(saveNewCategory())
+            setData("categories", currentDataCategories)
+             const lastCategory = currentDataCategories
+             [currentDataCategories.length-1]
+             console.log(currentDataCategories[currentDataCategories.length-1])
+             console.log(lastCategory)
+             renderCategories(lastCategory)
+        })
+
+    //agregar operacion
+        $("#nuevaOperationButton").addEventListener ("click", (e) => {
+            // hideTab([".sin-operaciones"])
+            // showTab([".tableOperation"])
+            // e.preventDefault()
+            
+            const currentDataOperations = getData("operations")
+            currentDataOperations.push(saveNewOperation())
+            setData("operations", currentDataOperations)
+
+            
+            // const lastOperation = currentDataOperations
+            // [currentDataOperations.length-1]
+            // console.log(currentDataOperations[currentDataOperations.length-1])
+            // console.log(lastOperation)
+            // renderLastOperations(lastOperation)
         })
 }
 window.addEventListener("load", initializeApp)

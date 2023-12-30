@@ -18,6 +18,71 @@ const renderCategories = (categories) => {
     }
 }
 renderCategories(categoriesPlaceHolder)
+
+//------------------------
+
+
+
+const operationsplaceholder = [
+    {
+        id: "majo",
+        descripcion: "majo",
+        categoria: "majo",
+        fecha: "majo",
+        monto: "majo"
+
+        
+        
+    },
+    {
+        id: "eze",
+        descripcion: "eze",
+        categoria: "eze",
+        fecha: "eze",
+        monto: "eze"
+
+
+
+    }
+]
+
+
+const renderOperations = (operations) => {
+
+    for (const operation of operations){
+        $("#operationTable").innerHTML += 
+        `
+        <tr>
+            <td>${operation.descripcion}</td>
+            <td>${operation.categoria}</td>
+            <td>${operation.fecha}</td>
+            <td>${operation.monto}</td>
+            <div>
+                <td class="flex flex-col">
+                    <button>Editar</button>
+                    <button>Eliminar</button>
+                </td>
+            </div>
+        </tr>
+        `
+    }
+
+}
+renderOperations(operationsplaceholder)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const tabChangeCategories = () =>{
     $(".balance-view").classList.add("hidden")
     $(".editar-categoria-view").classList.add("hidden")

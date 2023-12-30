@@ -38,10 +38,17 @@
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
             showTab([".editar-categoria-view"])
         }
-        const tabChangeEditarOperacion = () =>{
+        const tabChangeEditarOperacion = (operationsId) =>{
             hideTab([".categorias-view",".editar-categoria-view",".reportes-view",".balance-view",
             ".tituloNuevaOperacion",".nuevaOperationButton"])
             showTab([".nueva-operacion-view",".editarOperationButton",".tituloEditarOperacion"])
+            const operationSelect = getData("operations").find(operations => operations.id === operationsId)
+            console.log(operationsId)
+            $("#descripcion-nueva-operacion").value = operationSelect.descripcion
+            $("#categoria-nueva-operacion").value = operationSelect.categoria
+            $("#date-nueva-operacion").value = operationSelect.fecha
+            $("#monto-nueva-operacion").value = operationSelect.monto
+
         }
         const tabChangeNuevaOperacion = () =>{
             hideTab([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
@@ -127,7 +134,7 @@
                     <td>${operation.monto}</td>
                     <div>
                         <td class="flex flex-col">
-                            <button onclick="tabChangeEditarOperacion()">Editar</button>
+                            <button onclick="tabChangeEditarOperacion('${operation.id}')">Editar</button>
                             <button>Eliminar</button>
                         </td>
                     </div>

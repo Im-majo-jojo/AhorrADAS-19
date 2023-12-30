@@ -139,7 +139,8 @@
         <!-- NUEVA OPERACION -->
         <div class="nueva-operacion-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
             <div class="newOperation-box container flex flex-col col-start-2 row-span-3 h-4/5 col-span-3 bg-slate-300 rounded-md p-4 m-2">
-                <h2 class="text-2xl font-bold">Nueva operación</h2>
+                <h2 class="tituloNuevaOperacion text-2xl font-bold">Nueva operación</h2>
+                <h2 class="tituloEditarOperacion text-2xl font-bold hidden">Editar operación</h2>
                 <div class="my-2">
                     <form class="flex flex-col">
                         <label for="descripcion-nueva-operacion" class="font-bold">Descripción</label>
@@ -160,7 +161,8 @@
                         <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
                         <div class="flex justify-end">
                             <button id="nuevaOperacionCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
-                            <button id="nuevaOperationButton" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
+                            <button id="nuevaOperationButton" class="nuevaOperationButton bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
+                            <button class="editarOperationButton bg-slate-400 rounded-md px-2 text-neutral-50 mx-1 hidden">Editar</button>
                         </div>
                     </form>
                 </div>
@@ -179,12 +181,12 @@
                         <label for="nombre-categoria" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
                             <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200">
-                            <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button>
-                            <!-- <button class="nombre-categoria-button bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button> -->
+                            <!-- <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button> -->
+
                             
                         </div>
                     </form>
-                            <!-- <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button> -->
+                            <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button>
                 </div>
                 <div>
                     <table id="categoryTable" class="w-full">
@@ -224,7 +226,7 @@
             </div>
         </div>
         <!-- EDITAR CATEGORÍA -->
-        <div class="editar-categoria-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-4 grid-flow-col grid-cols-5 gap-1">
+         <div class="editar-categoria-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-4 grid-flow-col grid-cols-5 gap-1">
             <div class="editCategory-box container flex flex-col col-start-2 row-span-2 col-span-3 bg-slate-300 rounded-md p-4 m-2 ">
                 <h2 class="text-2xl font-bold">Editar Categoría</h2>
                 <div class="flex py-4 w-full">

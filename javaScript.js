@@ -10,10 +10,7 @@
     const getData = (key) => JSON.parse(localStorage.getItem(key))
     const setData = (key, data) => localStorage.setItem(key, JSON.stringify(data))
 
-    // INFORMCION DE CATEGORIAS
     const allCategories = getData("categories") || []
-
-    // INFORMACION DE OPERACIONES
     const allOperations = getData("operations") || []
 
 //FUNCIONES NECESARIAS
@@ -33,7 +30,6 @@
             hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
             showTab([".categorias-view"])
         }
-
         const tabChangeReports = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
             showTab([".reportes-view"])
@@ -42,15 +38,21 @@
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
             showTab([".editar-categoria-view"])
         }
+        const tabChangeEditarOperacion = () =>{
+            hideTab([".categorias-view",".editar-categoria-view",".reportes-view",".balance-view",
+            ".tituloNuevaOperacion",".nuevaOperationButton"])
+            showTab([".nueva-operacion-view",".editarOperationButton",".tituloEditarOperacion"])
+        }
         const tabChangeNuevaOperacion = () =>{
-            hideTab([".categorias-view",".editar-categoria-view",".balance-view",".reportes-view"])
-            showTab([".nueva-operacion-view"])
+            hideTab([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
+            ".editarOperationButton",".tituloEditarOperacion"])
+            showTab([".nueva-operacion-view",".tituloNuevaOperacion",".nuevaOperationButton"])
         }
         const tabChangeNuevaOperacionCancel = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
             showTab([".balance-view"])
         }
-        const tabChangeEditarBalance = () =>{
+        const tabChangeBalance = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
             showTab([".balance-view"])
         }
@@ -59,7 +61,7 @@
             showTab([".categorias-view"])
         }
 
-        //MOSTRAR/OCULTAR FILTROS
+    //MOSTRAR/OCULTAR FILTROS
         const ocultarFiltros = () => {
             hideTab([".formulary-visibility",".ocultar-filtros-button",".mostrar-filtros-button"])
             showTab([".mostrar-filtros-button"])
@@ -94,12 +96,11 @@
                     <td>${category.nombre}</td>
                     <td class="flex flex-row-reverse">  
                         <button class="px-2" id="eliminar">Eliminar</button>                       
-                        <button class="px-2" id="editar">Editar</button>
+                        <button class="px-2" id="editar" onclick="tabChangeEditarCategorias()">Editar</button>
                     </td>
                 </tr>`
             }
         }
-
 
     //RENDER OPERACIONES
         const saveNewOperation = () => {
@@ -112,14 +113,8 @@
 
             }
         }   
-        const emptyOperations = (operations) => {
-            const categoryTable = $("#categoryTable")
-            categoryTable.innerHTML = ''
 
-        }
         const renderOperations = (operations) => {
-
-
             for (const operation of operations){
                 $("#operationTable").innerHTML += 
                 `
@@ -130,66 +125,60 @@
                     <td>${operation.monto}</td>
                     <div>
                         <td class="flex flex-col">
-                            <button>Editar</button>
+                            <button onclick="tabChangeEditarOperacion()">Editar</button>
                             <button>Eliminar</button>
                         </td>
                     </div>
                 </tr>
                 `
             }
-
         }
 
 // EVENTOS
-const initializeApp = () => {
-        setData("operations", allOperations)
-        renderOperations(allOperations)
-        setData("categories", allCategories)
-        renderCategories(allCategories)
-        
-        
+    const initializeApp = () => {
+            setData("operations", allOperations)
+            renderOperations(allOperations)
+            setData("categories", allCategories)
+            renderCategories(allCategories)
+                     
         // CAMBIO DE PESTAÑA
-        $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
-        $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
-        $("#editar").addEventListener ("click", tabChangeEditarCategorias)
-        $("#pestaña-balance").addEventListener ("click", tabChangeEditarBalance)
-        $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
-        $("#cancelar").addEventListener ("click", tabChangeCancelarEdicionDeCategoria)
-        $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)    
+            $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
+            $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
+            $("#pestaña-balance").addEventListener ("click", tabChangeBalance)
+            $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
+            $("#cancelar").addEventListener ("click", tabChangeCancelarEdicionDeCategoria)
+            $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)    
 
-    //MOSTRAR/OCULTAR FILTROS
-        $(".ocultar-filtros-button").addEventListener ("click", ocultarFiltros)
-        $(".mostrar-filtros-button").addEventListener ("click", mostrarFiltros)
-    
-    //agregar categoria
-        $("#nombre-categoria-button").addEventListener ("click", (e) => {
-            e.preventDefault()
-            const currentDataCategories = getData("categories")
-            currentDataCategories.push(saveNewCategory())
-            setData("categories", currentDataCategories)
-             const lastCategory = currentDataCategories
-             [currentDataCategories.length-1]
-             console.log(currentDataCategories[currentDataCategories.length-1])
-             console.log(lastCategory)
-             renderCategories(lastCategory)
-        })
+        //MOSTRAR/OCULTAR FILTROS
+            $(".ocultar-filtros-button").addEventListener ("click", ocultarFiltros)
+            $(".mostrar-filtros-button").addEventListener ("click", mostrarFiltros)
+        
+        //AGREGAR CATEGORIA
+            $("#nombre-categoria-button").addEventListener ("click", (e) => {
+                // e.preventDefault()
+                const currentDataCategories = getData("categories")
+                currentDataCategories.push(saveNewCategory())
+                setData("categories", currentDataCategories)
+                renderCategories(currentDataCategories)
+                // renderCategories(currentDataCategories)
+            })
 
-    //agregar operacion
-        $("#nuevaOperationButton").addEventListener ("click", (e) => {
-            // hideTab([".sin-operaciones"])
-            // showTab([".tableOperation"])
-            // e.preventDefault()
-            
-            const currentDataOperations = getData("operations")
-            currentDataOperations.push(saveNewOperation())
-            setData("operations", currentDataOperations)
+        //AGREGAR OPERACION
+            $("#nuevaOperationButton").addEventListener ("click", (e) => {
+                // hideTab([".sin-operaciones"])
+                // showTab([".tableOperation"])
+                // e.preventDefault()
+                
+                const currentDataOperations = getData("operations")
+                currentDataOperations.push(saveNewOperation())
+                setData("operations", currentDataOperations)
 
-            
-            // const lastOperation = currentDataOperations
-            // [currentDataOperations.length-1]
-            // console.log(currentDataOperations[currentDataOperations.length-1])
-            // console.log(lastOperation)
-            // renderLastOperations(lastOperation)
-        })
-}
-window.addEventListener("load", initializeApp)
+                
+                // const lastOperation = currentDataOperations
+                // [currentDataOperations.length-1]
+                // console.log(currentDataOperations[currentDataOperations.length-1])
+                // console.log(lastOperation)
+                // renderLastOperations(lastOperation)
+            })
+    }
+    window.addEventListener("load", initializeApp)

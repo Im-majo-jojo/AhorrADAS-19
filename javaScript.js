@@ -42,8 +42,8 @@
             hideTab([".categorias-view",".editar-categoria-view",".reportes-view",".balance-view",
             ".tituloNuevaOperacion",".nuevaOperationButton"])
             showTab([".nueva-operacion-view",".editarOperationButton",".tituloEditarOperacion"])
+            $("#editarOperationButton").setAttribute("data-id", operationsId)
             const operationSelect = getData("operations").find(operations => operations.id === operationsId)
-            console.log(operationsId)
             $("#descripcion-nueva-operacion").value = operationSelect.descripcion
             $("#categoria-nueva-operacion").value = operationSelect.categoria
             $("#date-nueva-operacion").value = operationSelect.fecha
@@ -96,6 +96,7 @@
                 nombre: $("#nombre-categoria").value
             }
         }
+
         const renderCategories = (categories) => {
             const clearCategoryTable = $("#categoryTable");
             clearCategoryTable.innerHTML = '';
@@ -174,20 +175,23 @@
 
         //AGREGAR OPERACION
             $("#nuevaOperationButton").addEventListener ("click", (e) => {
-                // hideTab([".sin-operaciones"])
-                // showTab([".tableOperation"])
-                // e.preventDefault()
-                
                 const currentDataOperations = getData("operations")
                 currentDataOperations.push(saveNewOperation())
                 setData("operations", currentDataOperations)
-
-                
-                // const lastOperation = currentDataOperations
-                // [currentDataOperations.length-1]
-                // console.log(currentDataOperations[currentDataOperations.length-1])
-                // console.log(lastOperation)
-                // renderLastOperations(lastOperation)
             })
+
+        //EDITAR OPERACION
+            $("#editarOperationButton").addEventListener ("click", (e) => {
+                e.preventDefault()
+                const operationsId = $("#editarOperationButton").getAttribute("data-id")
+                const currentDataOperations = getData("operations").map(operations => {
+                    if ( operations.id === operationsId){
+                        return saveNewOperation()
+                    }
+                    return operations
+                })
+                setData("operations", currentDataOperations)
+            })
+            
     }
     window.addEventListener("load", initializeApp)

@@ -90,6 +90,8 @@
             }
         }
         const renderCategories = (categories) => {
+            const clearCategoryTable = $("#categoryTable");
+            clearCategoryTable.innerHTML = '';
             for (const category of categories) {
                 $("#categoryTable").innerHTML += `
                 <tr>

@@ -114,18 +114,6 @@
                         </tr>
                     </thead>
                     <tbody id="operationTable">
-                        <!-- <tr>
-                            <td>nombre?</td>
-                            <td>categoria?</td>
-                            <td>fecha?</td>
-                            <td>monto?</td>
-                            <div>
-                                <td class="flex flex-col">
-                                    <button>Editar</button>
-                                    <button>Eliminar</button>
-                                </td>
-                            </div>
-                        </tr> -->
                     </tbody>
                 </table>
                 <!-- SIN OPERACIONES -->
@@ -166,10 +154,6 @@
                         </div>
                     </form>
                 </div>
-                <!-- <div class="flex justify-end">
-                    <button id="nuevaOperacionCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
-                    <button id="nuevaOperationButton" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
-                </div> -->
             </div>
         </div>
         <!-- CATEGORÍAS -->
@@ -232,9 +216,8 @@
             <p class="py-4">Estás segura de que quieres cerrar la eliminar la categoria ???  ?</p>
             <div class="modal-action">
               <form method="dialog">
-                <!-- if there is a button in form, it will close the modal -->
-                <button class="btn bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
-                <button class="btn bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Eliminar</button>
+                <button class="modal-cancelar btn bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                <button class="modal-eliminar btn bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Eliminar</button>
               </form>
             </div>
           </div>

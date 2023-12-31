@@ -95,7 +95,7 @@
                 `<tr>
                     <td>${category.nombre}</td>
                     <td class="flex flex-row-reverse">  
-                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="eliminar" onclick="my_modal_5.showModal()">Eliminar</button>                       
+                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="modal-eliminar" onclick="my_modal_5.showModal(),modalEliminar('${category.id}')">Eliminar</button>                       
                         <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" id="editarCategoryTab" onclick="tabChangeEditarCategorias('${category.id}')">Editar</button>
                     </td>
                 </tr>`
@@ -110,6 +110,20 @@
             const categorySelect = getData("categories").find(categories => categories.id === categoryId)
             $("#editar-titulo-categoria").value = categorySelect.nombre
         }
+
+    //MODAL/ELIMINAR CATEGORIA
+        const botonCategoriaEliminar = (categoryId) => {
+            $(".modal-eliminar").setAttribute("data-id-modal", categoryId)
+            $(".modal-eliminar").addEventListener("click", () => {
+                const categoriesId = $(".modal-eliminar").getAttribute("data-id-modal")
+                modalEliminar()
+            })
+        }
+         const modalEliminar = (categoryId) => {
+            const currentDataModal = getData("categories").filter(category => category.id != categoryId)
+            setData("categories", currentDataModal)
+            renderCategories(currentDataModal)
+         }
 
     //RENDER OPERACIONES
         const saveNewOperation = () => {

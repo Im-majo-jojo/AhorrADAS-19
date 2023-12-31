@@ -38,7 +38,7 @@
     </header>
     <main class="bg-slate-200 p-0.5 w-full">
         <!-- BALANCE -->
-        <div class="balance-view justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-7 gap-1">
+        <div class="balance-view justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-7 gap-1 h-screen">
             <div class="balance-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Balance</h2>
                 <table class="mt-10">
@@ -180,13 +180,11 @@
                     <form>
                         <label for="nombre-categoria" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
-                            <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200">
-                            <!-- <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button> -->
-
-                            
+                            <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200">                        
                         </div>
                     </form>
-                            <button id="nombre-categoria-button" class="bg-slate-400 rounded-md px-2 text-neutral-50">Agregar</button>
+                    <button id="nombre-categoria-button" class="bg-slate-400 rounded-md 
+                    px-4 mt-6 text-neutral-50">Agregar</button>
                 </div>
                 <div>
                     <table id="categoryTable" class="w-full">
@@ -227,6 +225,20 @@
                 </div>
             </div>
         </div>
+        <!-- MODAL -->            
+        <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle text-center bg-slate-100 rounded-md p-4">
+          <div class="modal-box ">
+            <h2 class="text-2xl font-bold ">Editar Categoría</h2>
+            <p class="py-4">Estás segura de que quieres cerrar la eliminar la categoria ???  ?</p>
+            <div class="modal-action">
+              <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                <button class="btn bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Eliminar</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
         <!-- REPORTES -->
         <div class="reportes-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
             <div class="reports-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2 justify-between">

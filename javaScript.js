@@ -95,8 +95,8 @@
                 `<tr>
                     <td>${category.nombre}</td>
                     <td class="flex flex-row-reverse">  
-                        <button class="px-2" id="eliminar">Eliminar</button>                       
-                        <button class="px-2" id="editarCategoryTab" onclick="tabChangeEditarCategorias('${category.id}')">Editar</button>
+                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="eliminar" onclick="my_modal_5.showModal()">Eliminar</button>                       
+                        <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" id="editarCategoryTab" onclick="tabChangeEditarCategorias('${category.id}')">Editar</button>
                     </td>
                 </tr>`
             }

@@ -50,7 +50,6 @@
         const tabChangeCancelarEdicionDeCategoria = () =>{
             hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
             showTab([".categorias-view"])
-            
         }
 
     //MOSTRAR/OCULTAR FILTROS
@@ -92,8 +91,8 @@
             const clearCategoryTable = $("#categoryTable");
             clearCategoryTable.innerHTML = '';
             for (const category of categories) {
-                $("#categoryTable").innerHTML += `
-                <tr>
+                $("#categoryTable").innerHTML += 
+                `<tr>
                     <td>${category.nombre}</td>
                     <td class="flex flex-row-reverse">  
                         <button class="px-2" id="eliminar">Eliminar</button>                       
@@ -107,12 +106,9 @@
         const tabChangeEditarCategorias = (categoryId) =>{
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
             showTab([".editar-categoria-view"])
-
             $("#categoryEdition").setAttribute("data-id-categories", categoryId)
             const categorySelect = getData("categories").find(categories => categories.id === categoryId)
             $("#editar-titulo-categoria").value = categorySelect.nombre
-            
-
         }
 
     //RENDER OPERACIONES
@@ -123,15 +119,13 @@
                 categoria: $("#categoria-nueva-operacion").value,
                 fecha: $("#date-nueva-operacion").value,
                 monto: $("#monto-nueva-operacion").value
-
             }
         }   
 
         const renderOperations = (operations) => {
             for (const operation of operations){
                 $("#operationTable").innerHTML += 
-                `
-                <tr>
+                `<tr>
                     <td>${operation.descripcion}</td>
                     <td>${operation.categoria}</td>
                     <td>${operation.fecha}</td>
@@ -142,8 +136,7 @@
                             <button>Eliminar</button>
                         </td>
                     </div>
-                </tr>
-                `
+                </tr>`
             }
         }
 
@@ -152,7 +145,6 @@
             hideTab([".categorias-view",".editar-categoria-view",".reportes-view",".balance-view",
             ".tituloNuevaOperacion",".nuevaOperationButton"])
             showTab([".nueva-operacion-view",".editarOperationButton",".tituloEditarOperacion"])
-
             $("#editarOperationButton").setAttribute("data-id-operations", operationsId)
             const operationSelect = getData("operations").find(operations => operations.id === operationsId)
             $("#descripcion-nueva-operacion").value = operationSelect.descripcion
@@ -227,7 +219,6 @@
                     return operations
                 })
                 setData("operations", currentDataOperations)
-            })
-            
+            })     
     }
     window.addEventListener("load", initializeApp)

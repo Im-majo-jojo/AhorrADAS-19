@@ -48,6 +48,7 @@
         const tabChangeBalance = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
             showTab([".balance-view"])
+            location.reload()
         }
         const tabChangeCancelarEdicionDeCategoria = () =>{
             hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
@@ -127,6 +128,16 @@
             addCategory(currentDataModal)
          }
 
+    //RENDER OPCIONES DE CATEGORIA
+        const renderOperationsCategories = (categories) => {
+            for (const category of categories) {
+                $("#categoria-nueva-operacion").innerHTML += 
+                `<option value="${category.id}">${category.nombre}</option>`
+                $("#categoria-select").innerHTML += 
+                `<option value="${category.id}">${category.nombre}</option>`
+            }
+        }
+
     //RENDER OPERACIONES
         const saveNewOperation = (userId) => {
             return{
@@ -143,10 +154,12 @@
                 hideTab([".sinOperaciones"])
                 showTab([".tableOperation"])
                 for (const operation of operations){
+                    const categorySelected = getData("categories").find(category => category.id === operation.categoria)
+                    console.log(categorySelected) 
                     $("#operationTable").innerHTML += 
                     `<tr>
                         <td>${operation.descripcion}</td>
-                        <td>${operation.categoria}</td>
+                        <td>${categorySelected.nombre}</td>
                         <td>${operation.fecha}</td>
                         <td>${operation.monto}</td>
                         <div>
@@ -175,13 +188,15 @@
             $("#date-nueva-operacion").value = operationSelect.fecha
             $("#monto-nueva-operacion").value = operationSelect.monto
         }
+
+
     //MODAL/ELIMINAR OPERACION
         const botonOperacionEliminar = (operationId) => {
             $(".modal-eliminar").setAttribute("data-id-modal", operationId)
             $(".modal-eliminar").addEventListener("click", () => {
                 const operacionesId = $(".modal-eliminar").getAttribute("data-id-modal")
                 modalEliminarOperacion(operacionesId)
-                location.reload();
+                location.reload()
             })
         }
         const modalEliminarOperacion = (operationId) => {
@@ -189,10 +204,10 @@
             setData("operations", currentData)
         }
 
-const addCategory = (category) => {
-    setData("categories", category)
-    renderCategories(category)
-}
+        const addCategory = (category) => {
+            setData("categories", category)
+            renderCategories(category)
+        }
 
 
 // EVENTOS
@@ -200,6 +215,7 @@ const addCategory = (category) => {
             setData("operations", allOperations)
             renderOperations(allOperations)
             addCategory(allCategories)
+            renderOperationsCategories(allCategories)
                      
         // CAMBIO DE PESTAÑA
             $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
@@ -257,5 +273,8 @@ const addCategory = (category) => {
                 setData("operations", currentData)
                 
             })     
+
+
+
     }
     window.addEventListener("load", initializeApp)

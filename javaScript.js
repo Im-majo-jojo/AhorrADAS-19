@@ -29,6 +29,7 @@
         const tabChangeCategories = () =>{
             hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
             showTab([".categorias-view"])
+            $(".nuevaCategoriaForm").reset()
         }
         const tabChangeReports = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
@@ -120,16 +121,16 @@
                 modalEliminarCategoria(categoriesId)  
             })
         }
+        
          const modalEliminarCategoria = (categoryId) => {
             const currentDataModal = getData("categories").filter(category => category.id != categoryId)
-            setData("categories", currentDataModal)
-            renderCategories(currentDataModal)
+            addCategory(currentDataModal)
          }
 
     //RENDER OPERACIONES
-        const saveNewOperation = () => {
+        const saveNewOperation = (userId) => {
             return{
-                id: idAleatorio(),
+                id: userId ? userId : idAleatorio(),
                 descripcion: $("#descripcion-nueva-operacion").value,
                 categoria: $("#categoria-nueva-operacion").value,
                 fecha: $("#date-nueva-operacion").value,
@@ -138,20 +139,27 @@
         }   
 
         const renderOperations = (operations) => {
-            for (const operation of operations){
-                $("#operationTable").innerHTML += 
-                `<tr>
-                    <td>${operation.descripcion}</td>
-                    <td>${operation.categoria}</td>
-                    <td>${operation.fecha}</td>
-                    <td>${operation.monto}</td>
-                    <div>
-                        <td class="flex flex-col">
-                            <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" onclick="tabChangeEditarOperacion('${operation.id}')">Editar</button>
-                            <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" onclick="my_modal_5.showModal(),botonOperacionEliminar('${operation.id}')">Eliminar</button>
-                        </td>
-                    </div>
-                </tr>`
+            if(operations.length){
+                hideTab([".sinOperaciones"])
+                showTab([".tableOperation"])
+                for (const operation of operations){
+                    $("#operationTable").innerHTML += 
+                    `<tr>
+                        <td>${operation.descripcion}</td>
+                        <td>${operation.categoria}</td>
+                        <td>${operation.fecha}</td>
+                        <td>${operation.monto}</td>
+                        <div>
+                            <td class="flex flex-col">
+                                <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" onclick="tabChangeEditarOperacion('${operation.id}')">Editar</button>
+                                <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" onclick="my_modal_5.showModal(),botonOperacionEliminar('${operation.id}')">Eliminar</button>
+                            </td>
+                        </div>
+                    </tr>`
+                }
+            } else{
+                hideTab([".tableOperation"])
+                showTab([".sinOperaciones"])
             }
         }
 
@@ -177,23 +185,29 @@
             })
         }
         const modalEliminarOperacion = (operationId) => {
-            const currentDataModal = getData("operations").filter(operation => operation.id != operationId)
-            setData("operations", currentDataModal)
+            const currentData = getData("operations").filter(operation => operation.id != operationId)
+            setData("operations", currentData)
         }
+
+const addCategory = (category) => {
+    setData("categories", category)
+    renderCategories(category)
+}
+
 
 // EVENTOS
     const initializeApp = () => {
             setData("operations", allOperations)
             renderOperations(allOperations)
-            setData("categories", allCategories)
-            renderCategories(allCategories)
+            addCategory(allCategories)
                      
         // CAMBIO DE PESTAÑA
             $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
             $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
             $("#pestaña-balance").addEventListener ("click", tabChangeBalance)
             $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
-            $("#categoryCancelar").addEventListener ("click", (e) => {tabChangeCancelarEdicionDeCategoria()
+            $("#categoryCancelar").addEventListener ("click", (e) => {
+                tabChangeCancelarEdicionDeCategoria()
                 e.preventDefault()})
             $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)    
 
@@ -203,10 +217,9 @@
         
         //AGREGAR CATEGORIA
             $("#nombre-categoria-button").addEventListener ("click", (e) => {
-                const currentDataCategories = getData("categories")
-                currentDataCategories.push(saveNewCategory())
-                setData("categories", currentDataCategories)
-                renderCategories(currentDataCategories)
+                const currentData = getData("categories")
+                currentData.push(saveNewCategory())
+                addCategory(currentData)
                 $(".nuevaCategoriaForm").reset()
             })
 
@@ -215,36 +228,33 @@
                 e.preventDefault()
                 const categoriesId = $("#categoryEdition").getAttribute("data-id-categories")
                 console.log(categoriesId)
-                const currentDataCategory = getData("categories").map(category => {
+                const currentData = getData("categories").map(category => {
                     if (category.id === categoriesId){
-
-                    return saveEditedCategory()
+                    return saveEditedCategory(userId)
                     }
                     return category
                 })
-                console.log(currentDataCategory)
-                setData("categories", currentDataCategory)
-                renderCategories(currentDataCategory)
+                addCategory(currentData)
                 tabChangeCancelarEdicionDeCategoria()
             }) 
 
         //AGREGAR OPERACION
             $("#nuevaOperationButton").addEventListener ("click", (e) => {
-                const currentDataOperations = getData("operations")
-                currentDataOperations.push(saveNewOperation())
-                setData("operations", currentDataOperations)
+                const currentData = getData("operations")
+                currentData.push(saveNewOperation())
+                setData("operations", currentData)
             })
 
         //EDITAR OPERACION
             $("#editarOperationButton").addEventListener ("click", (e) => {
                 const operationsId = $("#editarOperationButton").getAttribute("data-id-operations")
-                const currentDataOperations = getData("operations").map(operations => {
+                const currentData = getData("operations").map(operations => {
                     if ( operations.id === operationsId){
                         return saveNewOperation()
                     }
                     return operations
                 })
-                setData("operations", currentDataOperations)
+                setData("operations", currentData)
                 
             })     
     }

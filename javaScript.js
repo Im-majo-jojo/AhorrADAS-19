@@ -95,7 +95,7 @@
                 `<tr>
                     <td>${category.nombre}</td>
                     <td class="flex flex-row-reverse">  
-                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="modal-eliminar" onclick="my_modal_5.showModal(),modalEliminar('${category.id}')">Eliminar</button>                       
+                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="category-modal-eliminar" onclick="my_modal_5.showModal(),botonCategoriaEliminar('${category.id}')">Eliminar</button>                       
                         <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" id="editarCategoryTab" onclick="tabChangeEditarCategorias('${category.id}')">Editar</button>
                     </td>
                 </tr>`
@@ -114,12 +114,12 @@
     //MODAL/ELIMINAR CATEGORIA
         const botonCategoriaEliminar = (categoryId) => {
             $(".modal-eliminar").setAttribute("data-id-modal", categoryId)
-            $(".modal-eliminar").addEventListener("click", () => {
+            $(".modal-eliminar").addEventListener("click", (e) => {
                 const categoriesId = $(".modal-eliminar").getAttribute("data-id-modal")
-                modalEliminar()
+                modalEliminarCategoria(categoriesId)  
             })
         }
-         const modalEliminar = (categoryId) => {
+         const modalEliminarCategoria = (categoryId) => {
             const currentDataModal = getData("categories").filter(category => category.id != categoryId)
             setData("categories", currentDataModal)
             renderCategories(currentDataModal)
@@ -146,8 +146,8 @@
                     <td>${operation.monto}</td>
                     <div>
                         <td class="flex flex-col">
-                            <button onclick="tabChangeEditarOperacion('${operation.id}')">Editar</button>
-                            <button>Eliminar</button>
+                            <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" onclick="tabChangeEditarOperacion('${operation.id}')">Editar</button>
+                            <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" onclick="my_modal_5.showModal(),botonOperacionEliminar('${operation.id}')">Eliminar</button>
                         </td>
                     </div>
                 </tr>`
@@ -165,6 +165,19 @@
             $("#categoria-nueva-operacion").value = operationSelect.categoria
             $("#date-nueva-operacion").value = operationSelect.fecha
             $("#monto-nueva-operacion").value = operationSelect.monto
+        }
+    //MODAL/ELIMINAR OPERACION
+        const botonOperacionEliminar = (operationId) => {
+            $(".modal-eliminar").setAttribute("data-id-modal", operationId)
+            $(".modal-eliminar").addEventListener("click", () => {
+                const operacionesId = $(".modal-eliminar").getAttribute("data-id-modal")
+                modalEliminarOperacion(operacionesId)
+                window.location.reload();
+            })
+        }
+        const modalEliminarOperacion = (operationId) => {
+            const currentDataModal = getData("operations").filter(operation => operation.id != operationId)
+            setData("operations", currentDataModal)
         }
 
 // EVENTOS

@@ -190,20 +190,6 @@
                 </div>
                 <div>
                     <table id="categoryTable" class="w-full">
-                        <tr>
-                            <td>Comida</td>
-                            <td class="flex flex-row-reverse">                  
-                                <button class="px-2" id="eliminar">Eliminar</button>       
-                                <button class="px-2" id="editar">Editar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Transporte</td>
-                            <td class="flex flex-row-reverse">  
-                                <button class="px-2" id="eliminar">Eliminar</button>                       
-                                <button class="px-2" id="editar">Editar</button>
-                            </td>
-                        </tr>
                     </table>
                 </div>
                 
@@ -233,11 +219,11 @@
                     <form class="w-full">
                         <label for="editar-titulo-categoria" class="font-bold text-lg">Nombre</label>
                         <input type="text" id="editar-titulo-categoria" class="w-full rounded-md p-2 bg-slate-200">
+                        <div class="flex justify-end">
+                            <button id="categoryCancelar" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                            <button id="categoryEdition" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Editar</button>
+                        </div>
                     </form>
-                </div>
-                <div class="flex justify-end">
-                    <button id="cancelar" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
-                    <button id="guardar" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Editar</button>
                 </div>
             </div>
         </div>

@@ -34,22 +34,6 @@
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
             showTab([".reportes-view"])
         }
-        const tabChangeEditarCategorias = () =>{
-            hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
-            showTab([".editar-categoria-view"])
-        }
-        const tabChangeEditarOperacion = (operationsId) =>{
-            hideTab([".categorias-view",".editar-categoria-view",".reportes-view",".balance-view",
-            ".tituloNuevaOperacion",".nuevaOperationButton"])
-            showTab([".nueva-operacion-view",".editarOperationButton",".tituloEditarOperacion"])
-            $("#editarOperationButton").setAttribute("data-id", operationsId)
-            const operationSelect = getData("operations").find(operations => operations.id === operationsId)
-            $("#descripcion-nueva-operacion").value = operationSelect.descripcion
-            $("#categoria-nueva-operacion").value = operationSelect.categoria
-            $("#date-nueva-operacion").value = operationSelect.fecha
-            $("#monto-nueva-operacion").value = operationSelect.monto
-
-        }
         const tabChangeNuevaOperacion = () =>{
             hideTab([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
             ".editarOperationButton",".tituloEditarOperacion"])
@@ -66,6 +50,7 @@
         const tabChangeCancelarEdicionDeCategoria = () =>{
             hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
             showTab([".categorias-view"])
+            
         }
 
     //MOSTRAR/OCULTAR FILTROS
@@ -96,6 +81,12 @@
                 nombre: $("#nombre-categoria").value
             }
         }
+        const saveEditedCategory = () => {
+            return{
+                id: idAleatorio(),
+                nombre: $("#editar-titulo-categoria").value
+            }
+        }
 
         const renderCategories = (categories) => {
             const clearCategoryTable = $("#categoryTable");
@@ -106,10 +97,22 @@
                     <td>${category.nombre}</td>
                     <td class="flex flex-row-reverse">  
                         <button class="px-2" id="eliminar">Eliminar</button>                       
-                        <button class="px-2" id="editar" onclick="tabChangeEditarCategorias()">Editar</button>
+                        <button class="px-2" id="editarCategoryTab" onclick="tabChangeEditarCategorias('${category.id}')">Editar</button>
                     </td>
                 </tr>`
             }
+        }
+
+    //EDITAR CATEGORIA
+        const tabChangeEditarCategorias = (categoryId) =>{
+            hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
+            showTab([".editar-categoria-view"])
+
+            $("#categoryEdition").setAttribute("data-id-categories", categoryId)
+            const categorySelect = getData("categories").find(categories => categories.id === categoryId)
+            $("#editar-titulo-categoria").value = categorySelect.nombre
+            
+
         }
 
     //RENDER OPERACIONES
@@ -144,6 +147,20 @@
             }
         }
 
+    //EDITAR OPERACION
+        const tabChangeEditarOperacion = (operationsId) =>{
+            hideTab([".categorias-view",".editar-categoria-view",".reportes-view",".balance-view",
+            ".tituloNuevaOperacion",".nuevaOperationButton"])
+            showTab([".nueva-operacion-view",".editarOperationButton",".tituloEditarOperacion"])
+
+            $("#editarOperationButton").setAttribute("data-id-operations", operationsId)
+            const operationSelect = getData("operations").find(operations => operations.id === operationsId)
+            $("#descripcion-nueva-operacion").value = operationSelect.descripcion
+            $("#categoria-nueva-operacion").value = operationSelect.categoria
+            $("#date-nueva-operacion").value = operationSelect.fecha
+            $("#monto-nueva-operacion").value = operationSelect.monto
+        }
+
 // EVENTOS
     const initializeApp = () => {
             setData("operations", allOperations)
@@ -156,7 +173,8 @@
             $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
             $("#pestaña-balance").addEventListener ("click", tabChangeBalance)
             $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
-            $("#cancelar").addEventListener ("click", tabChangeCancelarEdicionDeCategoria)
+            $("#categoryCancelar").addEventListener ("click", (e) => {tabChangeCancelarEdicionDeCategoria()
+                e.preventDefault()})
             $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)    
 
         //MOSTRAR/OCULTAR FILTROS
@@ -173,6 +191,24 @@
                 // renderCategories(currentDataCategories)
             })
 
+        //EDITAR CATEGORIA
+            $("#categoryEdition").addEventListener ("click", (e) => {
+                e.preventDefault()
+                const categoriesId = $("#categoryEdition").getAttribute("data-id-categories")
+                console.log(categoriesId)
+                const currentDataCategory = getData("categories").map(category => {
+                    if (category.id === categoriesId){
+
+                    return saveEditedCategory()
+                    }
+                    return category
+                })
+                console.log(currentDataCategory)
+                setData("categories", currentDataCategory)
+                renderCategories(currentDataCategory)
+                tabChangeCancelarEdicionDeCategoria()
+            }) 
+
         //AGREGAR OPERACION
             $("#nuevaOperationButton").addEventListener ("click", (e) => {
                 const currentDataOperations = getData("operations")
@@ -183,7 +219,7 @@
         //EDITAR OPERACION
             $("#editarOperationButton").addEventListener ("click", (e) => {
                 e.preventDefault()
-                const operationsId = $("#editarOperationButton").getAttribute("data-id")
+                const operationsId = $("#editarOperationButton").getAttribute("data-id-operations")
                 const currentDataOperations = getData("operations").map(operations => {
                     if ( operations.id === operationsId){
                         return saveNewOperation()

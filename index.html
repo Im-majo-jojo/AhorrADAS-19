@@ -130,9 +130,9 @@
                 <h2 class="tituloNuevaOperacion text-2xl font-bold">Nueva operación</h2>
                 <h2 class="tituloEditarOperacion text-2xl font-bold hidden">Editar operación</h2>
                 <div class="my-2">
-                    <form class="flex flex-col">
+                    <form class="flex flex-col nuevaOperacionForm">
                         <label for="descripcion-nueva-operacion" class="font-bold">Descripción</label>
-                        <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
+                        <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" placeholder="nombre de la operacion" required>
                         <label for="monto-nueva-operacion" class="font-bold">Monto</label>
                         <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                         <label for="tipo-nueva-operacion" class="font-bold">Tipo</label>
@@ -161,10 +161,10 @@
             <div class="categories-box container flex flex-col col-start-2 row-span-2 col-span-3 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Categorías</h2>
                 <div class="py-10  justify-center">
-                    <form>
+                    <form class="nuevaCategoriaForm">
                         <label for="nombre-categoria" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
-                            <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200" required>                        
+                            <input type="text" id="nombre-categoria" placeholder="nombre de la categoria" class="w-10/12 rounded-md p-2 bg-slate-200" required>                        
                         </div>
                     </form>
                     <button id="nombre-categoria-button" class="bg-slate-400 rounded-md 
@@ -199,7 +199,7 @@
                 <div class="flex py-4 w-full">
                     <form class="w-full">
                         <label for="editar-titulo-categoria" class="font-bold text-lg">Nombre</label>
-                        <input type="text" id="editar-titulo-categoria" class="w-full rounded-md p-2 bg-slate-200" required>
+                        <input type="text" id="editar-titulo-categoria" class="w-full rounded-md p-2 bg-slate-200" placeholder="nombre de la categoria" required>
                         <div class="flex justify-end">
                             <button id="categoryCancelar" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
                             <button id="categoryEdition" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Editar</button>

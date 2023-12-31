@@ -35,6 +35,7 @@
             showTab([".reportes-view"])
         }
         const tabChangeNuevaOperacion = () =>{
+            $(".nuevaOperacionForm").reset()
             hideTab([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
             ".editarOperationButton",".tituloEditarOperacion"])
             showTab([".nueva-operacion-view",".tituloNuevaOperacion",".nuevaOperationButton"])
@@ -202,12 +203,11 @@
         
         //AGREGAR CATEGORIA
             $("#nombre-categoria-button").addEventListener ("click", (e) => {
-                // e.preventDefault()
                 const currentDataCategories = getData("categories")
                 currentDataCategories.push(saveNewCategory())
                 setData("categories", currentDataCategories)
                 renderCategories(currentDataCategories)
-                // renderCategories(currentDataCategories)
+                $(".nuevaCategoriaForm").reset()
             })
 
         //EDITAR CATEGORIA
@@ -237,7 +237,6 @@
 
         //EDITAR OPERACION
             $("#editarOperationButton").addEventListener ("click", (e) => {
-                e.preventDefault()
                 const operationsId = $("#editarOperationButton").getAttribute("data-id-operations")
                 const currentDataOperations = getData("operations").map(operations => {
                     if ( operations.id === operationsId){
@@ -246,6 +245,7 @@
                     return operations
                 })
                 setData("operations", currentDataOperations)
+                
             })     
     }
     window.addEventListener("load", initializeApp)

@@ -10,7 +10,30 @@
     const getData = (key) => JSON.parse(localStorage.getItem(key))
     const setData = (key, data) => localStorage.setItem(key, JSON.stringify(data))
 
-    const allCategories = getData("categories") || []
+    const defaultCategories = [
+        {
+            id: idAleatorio(),
+            nombre: "comida",
+        },
+        {
+            id: idAleatorio(),
+            nombre: "servicios"
+        },
+        {
+            id: idAleatorio(),
+            nombre: "salidas"
+        },
+        {
+            id: idAleatorio(),
+            nombre: "educacion"
+        },
+        {
+            id: idAleatorio(),
+            nombre: "transporte"
+        }
+    ]
+
+    const allCategories = getData("categories") || defaultCategories
     const allOperations = getData("operations") || []
 
 //FUNCIONES NECESARIAS
@@ -155,7 +178,7 @@
                 showTab([".tableOperation"])
                 for (const operation of operations){
                     const categorySelected = getData("categories").find(category => category.id === operation.categoria)
-                    console.log(categorySelected) 
+                    console.log(categorySelected.nombre)
                     $("#operationTable").innerHTML += 
                     `<tr>
                         <td>${operation.descripcion}</td>
@@ -175,7 +198,6 @@
                 showTab([".sinOperaciones"])
             }
         }
-
     //EDITAR OPERACION
         const tabChangeEditarOperacion = (operationsId) =>{
             hideTab([".categorias-view",".editar-categoria-view",".reportes-view",".balance-view",
@@ -188,8 +210,6 @@
             $("#date-nueva-operacion").value = operationSelect.fecha
             $("#monto-nueva-operacion").value = operationSelect.monto
         }
-
-
     //MODAL/ELIMINAR OPERACION
         const botonOperacionEliminar = (operationId) => {
             $(".modal-eliminar").setAttribute("data-id-modal", operationId)
@@ -204,10 +224,10 @@
             setData("operations", currentData)
         }
 
-        const addCategory = (category) => {
-            setData("categories", category)
-            renderCategories(category)
-        }
+const addCategory = (category) => {
+    setData("categories", category)
+    renderCategories(category)
+}
 
 
 // EVENTOS

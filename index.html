@@ -72,21 +72,21 @@
                 </div>
                 <form class="formulary-visibility flex flex-col space-y-4 mt-3">
                     <label for="tipo-select">Tipo</label>
-                    <select name="" id="tipo-select" class="rounded-md p-2 bg-slate-200">
+                    <select name="" id="tipo-select" class="rounded-md p-2 bg-slate-200" required>
                         <option value="">Todos</option>
                         <option value="">Gasto</option>
                         <option value="">Ganancia</option>
                     </select>
                     <label for="categoria-select">Categorías</label>
-                    <select id="categoria-select" class="rounded-md p-2 bg-slate-200">
+                    <select id="categoria-select" class="rounded-md p-2 bg-slate-200" required>
                         <option value="">Todas</option>
                         <option value="">Comida</option>
                         <option value="">Transporte</option>
                     </select>
                     <label for="desde-select">Desde</label>
-                    <input type="date" id="desde-select" class="rounded-md p-2 bg-slate-200">
+                    <input type="date" id="desde-select" class="rounded-md p-2 bg-slate-200" required>
                     <label for="ordenar-por-select">Ordenar por</label>
-                    <select name="" id="ordenar-por-select" class="rounded-md p-2 bg-slate-200">
+                    <select name="" id="ordenar-por-select" class="rounded-md p-2 bg-slate-200" required>
                         <option value="Más reciente">Más reciente</option>
                         <option value="Menos reciente">Menos reciente</option>
                         <option value="Mayor monto">Mayor monto</option>
@@ -132,21 +132,21 @@
                 <div class="my-2">
                     <form class="flex flex-col">
                         <label for="descripcion-nueva-operacion" class="font-bold">Descripción</label>
-                        <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
+                        <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                         <label for="monto-nueva-operacion" class="font-bold">Monto</label>
-                        <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
+                        <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                         <label for="tipo-nueva-operacion" class="font-bold">Tipo</label>
-                        <select id="tipo-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
+                        <select id="tipo-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                             <option value="gasto">Gasto</option>
                             <option value="ganancia">Ganancia</option>
                         </select>
                         <label for="categoria-nueva-operacion" class="font-bold">Categoría</label>
-                        <select id="categoria-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
+                        <select id="categoria-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                             <option value="comida">Comida</option>
                             <option value="transporte">Transporte</option>
                         </select>
                         <label for="date-nueva-operacion" class="font-bold">Fecha</label>
-                        <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2">
+                        <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                         <div class="flex justify-end">
                             <button id="nuevaOperacionCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
                             <button id="nuevaOperationButton" class="nuevaOperationButton bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
@@ -164,7 +164,7 @@
                     <form>
                         <label for="nombre-categoria" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
-                            <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200">                        
+                            <input type="text" id="nombre-categoria" class="w-10/12 rounded-md p-2 bg-slate-200" required>                        
                         </div>
                     </form>
                     <button id="nombre-categoria-button" class="bg-slate-400 rounded-md 
@@ -199,7 +199,7 @@
                 <div class="flex py-4 w-full">
                     <form class="w-full">
                         <label for="editar-titulo-categoria" class="font-bold text-lg">Nombre</label>
-                        <input type="text" id="editar-titulo-categoria" class="w-full rounded-md p-2 bg-slate-200">
+                        <input type="text" id="editar-titulo-categoria" class="w-full rounded-md p-2 bg-slate-200" required>
                         <div class="flex justify-end">
                             <button id="categoryCancelar" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
                             <button id="categoryEdition" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Editar</button>

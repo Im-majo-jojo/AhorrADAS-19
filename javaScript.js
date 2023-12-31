@@ -172,7 +172,7 @@
             $(".modal-eliminar").addEventListener("click", () => {
                 const operacionesId = $(".modal-eliminar").getAttribute("data-id-modal")
                 modalEliminarOperacion(operacionesId)
-                window.location.reload();
+                location.reload();
             })
         }
         const modalEliminarOperacion = (operationId) => {

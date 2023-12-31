@@ -3,6 +3,8 @@
     const $ =  (selector) => document.querySelector(selector);
     const $$ = (selector) => document.querySelectorAll(selector);
 
+    const cleanData = (selector) => $(selector).innerHTML = '';
+
     // DEFINICION DE ID
     const idAleatorio = () => self.crypto.randomUUID()
 
@@ -114,8 +116,7 @@
         }
 
         const renderCategories = (categories) => {
-            const clearCategoryTable = $("#categoryTable");
-            clearCategoryTable.innerHTML = '';
+            cleanData("#categoryTable")
             for (const category of categories) {
                 $("#categoryTable").innerHTML += 
                 `<tr>
@@ -173,12 +174,13 @@
         }   
 
         const renderOperations = (operations) => {
+            cleanData("#tableOperation")
             if(operations.length){
                 hideTab([".sinOperaciones"])
                 showTab([".tableOperation"])
                 for (const operation of operations){
                     const categorySelected = getData("categories").find(category => category.id === operation.categoria)
-                    console.log(categorySelected.nombre)
+                    
                     $("#operationTable").innerHTML += 
                     `<tr>
                         <td>${operation.descripcion}</td>
@@ -279,6 +281,7 @@ const addCategory = (category) => {
                 const currentData = getData("operations")
                 currentData.push(saveNewOperation())
                 setData("operations", currentData)
+                renderOperations(currentData)
             })
 
         //EDITAR OPERACION
@@ -292,7 +295,16 @@ const addCategory = (category) => {
                 })
                 setData("operations", currentData)
                 
-            })     
+            })  
+            
+        //FILTROS
+            $("#categoria-select").addEventListener("input", (e) => {
+                const FilterSelected = e.target.value
+                const currentData = getData("operations")
+                const filterOperation = currentData.filter(operation => operation.categoria === FilterSelected)
+                console.log(filterOperation)
+                // renderOperations(filterOperation)
+            })
 
 
 

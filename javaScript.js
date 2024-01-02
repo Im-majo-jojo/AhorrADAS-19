@@ -41,7 +41,7 @@ const defaultCategories = [
 
 const allCategories = getData("categories") || defaultCategories
 const allOperations = getData("operations") || []
-const allBalanceAmounts = getData("balanceAmount") || []
+
 
 
 //FUNCIONES NECESARIAS
@@ -172,42 +172,51 @@ const allBalanceAmounts = getData("balanceAmount") || []
         }
     
 
+
+
+
     // RENDER OPERATIONS MATH
+        // const saveBalance = () => {
+        //     return{
+        //         id: idAleatorio(),
+        //         ganancias:0,
+        //         gastos:0,
+        //         total:0
+        //     }
+        // }
+
     const renderBalance = (operations) => {
-        let totalGanancias = 0
-        let totalGastos = 0
-    
-        // Calcular el total de ganancias y gastos
+        let balanceGanancias = 0
+        let balanceGastos = 0
+
+
         for (const operation of operations) {
             if (operation.tipo === 'ganancia') {
-                totalGanancias += operation.monto;
+                balanceGanancias += operation.monto;
+                console.log("holi")
             } else {
-                totalGastos += operation.monto;
+                balanceGastos.gastos += operation.monto;
             }
         }
-        const balanceTotal = totalGanancias - totalGastos;
+
+        const balanceTotal = balanceGanancias - balanceGastos
         $("#balanceTable").innerHTML = `
             <tr >
                 <td>Ganancias</td>
-                <td id="amountGanancia" class="text-green-600">+$${totalGanancias}</td>
+                <td id="amountGanancia" class="text-green-600">+$${balanceGanancias}</td>
             </tr>
             <tr>
                 <td>Gastos</td>
-                <td id="amountGasto" class="text-red-600">-$${totalGastos}</td>
+                <td id="amountGasto" class="text-red-600">-$${balanceGastos}</td>
             </tr>
             <tr>
                 <td>Total</td>
                 <td id="amountTotal" class="">$${balanceTotal}</td>
             </tr>`
     }
-        //AGREGAR CATEGORIA
-        $("#nameCategoryButton").addEventListener ("click", (e) => {
-            const currentData = getData("categories")
-            currentData.push(saveNewCategory())
-            addCategory(currentData)
-            $(".nuevaCategoriaForm").reset()
-            
-        })
+
+
+
 
 
 
@@ -342,26 +351,26 @@ const allBalanceAmounts = getData("balanceAmount") || []
 
     }
 
-    const validateFormCategory = () => {
-        const nameCategory = $("#nameCategory").value
-        const validationPassed = nameCategory!== ""
+    // const validateFormCategory = () => {
+    //     const nameCategory = $("#nameCategory").value
+    //     const validationPassed = nameCategory!== ""
 
-        if (nameCategory === ""){
-            console.log("holi")
-            $("#descripcion-nueva-operacion").classList.add("border-red-500", "border", "border-2")
-          } else {
-            console.log("holi2")
-            $("#descripcion-nueva-operacion").classList.remove("border-red-500", "border", "border-2")
-          }
+    //     if (nameCategory === ""){
+    //         console.log("holi")
+    //         $("#descripcion-nueva-operacion").classList.add("border-red-500", "border", "border-2")
+    //       } else {
+    //         console.log("holi2")
+    //         $("#descripcion-nueva-operacion").classList.remove("border-red-500", "border", "border-2")
+    //       }
 
-        if(validationPassed){
-            $("#nameCategoryButton").removeAttribute("disabled")
-        } else {
-            $("#nameCategoryButton").setAttribute("disabled", true) 
-        }
+    //     if(validationPassed){
+    //         $("#nameCategoryButton").removeAttribute("disabled")
+    //     } else {
+    //         $("#nameCategoryButton").setAttribute("disabled", true) 
+    //     }
 
 
-    }
+    // }
 
     const updateDate = () => {
         const date = new Date()
@@ -374,8 +383,9 @@ const initializeApp = () => {
         renderOperations(allOperations)
         addCategory(allCategories)
         renderOperationsCategories(allCategories)
-        setData("balanceAmount", allBalanceAmounts)
-        validateFormCategory()
+        renderBalance(allOperations)
+
+        // validateFormCategory()
 
 
         
@@ -424,6 +434,7 @@ const initializeApp = () => {
             const currentData = getData("operations")
             currentData.push(saveNewOperation())
             setData("operations", currentData)
+            renderBalance(currentData)
         })
 
     //EDITAR OPERACION

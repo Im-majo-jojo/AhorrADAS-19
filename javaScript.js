@@ -14,7 +14,7 @@ const idAleatorio = () => self.crypto.randomUUID()
 const getData = (key) => JSON.parse(localStorage.getItem(key))
 const setData = (key, data) => localStorage.setItem(key, JSON.stringify(data))
 
-const clearCategoryTable = (selector) => $(selector).innerHTML = '';
+const clearTable = (selector) => $(selector).innerHTML = '';
 
 const defaultCategories = [
     {
@@ -125,7 +125,7 @@ const allOperations = getData("operations") || []
         }
 
         const renderCategories = (categories) => {
-            clearCategoryTable("#categoryTable")
+            clearTable("#categoryTable")
             for (const category of categories) {
                 $("#categoryTable").innerHTML += 
                 `<tr>
@@ -170,55 +170,37 @@ const allOperations = getData("operations") || []
                 `<option value="${category.nombre}">${category.nombre}</option>`
             }
         }
-    
 
+    //RENDER BALANCE 
 
-
-
-    // RENDER OPERATIONS MATH
-        // const saveBalance = () => {
-        //     return{
-        //         id: idAleatorio(),
-        //         ganancias:0,
-        //         gastos:0,
-        //         total:0
-        //     }
-        // }
-
-    const renderBalance = (operations) => {
-        let balanceGanancias = 0
-        let balanceGastos = 0
-
-
-        for (const operation of operations) {
-            if (operation.tipo === 'ganancia') {
-                balanceGanancias += operation.monto;
-                console.log("holi")
-            } else {
-                balanceGastos.gastos += operation.monto;
+        const renderBalance = (operations) => {
+            let balanceGanancias = 0
+            let balanceGastos = 0
+            clearTable("#balanceTable")
+            for (const operation of operations) {
+                if (operation.tipo === 'ganancia') {
+                    balanceGanancias += operation.monto;
+                    console.log("holi")
+                } else {
+                    balanceGastos += operation.monto;
+                }
             }
+
+            const balanceTotal = balanceGanancias - balanceGastos
+            $("#balanceTable").innerHTML = `
+                <tr >
+                    <td>Ganancias</td>
+                    <td id="amountGanancia" class="text-green-600">+$${balanceGanancias}</td>
+                </tr>
+                <tr>
+                    <td>Gastos</td>
+                    <td id="amountGasto" class="text-red-600">-$${balanceGastos}</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td id="amountTotal" class="">$${balanceTotal}</td>
+                </tr>`
         }
-
-        const balanceTotal = balanceGanancias - balanceGastos
-        $("#balanceTable").innerHTML = `
-            <tr >
-                <td>Ganancias</td>
-                <td id="amountGanancia" class="text-green-600">+$${balanceGanancias}</td>
-            </tr>
-            <tr>
-                <td>Gastos</td>
-                <td id="amountGasto" class="text-red-600">-$${balanceGastos}</td>
-            </tr>
-            <tr>
-                <td>Total</td>
-                <td id="amountTotal" class="">$${balanceTotal}</td>
-            </tr>`
-    }
-
-
-
-
-
 
     //RENDER OPERACIONES
         const saveNewOperation = (userId) => {
@@ -233,7 +215,7 @@ const allOperations = getData("operations") || []
         }   
 
         const renderOperations = (operations) => {
-            clearCategoryTable("#operationTable")
+            clearTable("#operationTable")
             if(operations.length){
                 hideTab([".sinOperaciones"])
                 showTab([".tableOperation"])

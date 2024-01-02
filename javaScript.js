@@ -486,18 +486,50 @@ const defaultCategories = [
                     categoryBalance=categoryEarnings-categoryExpenses
 
                     console.log(name,categoryBalance)
-                    
 
-                    // $(".reportesTable").innerHTML += 
-                    // `
-                    // <tr class="w-full justify-between">
-                    //     <td>${category.name}</td>
-                    //     <td>${categoryEarnings}</td>
-                    //     <td>${categoryExpenses}</td>
-                    //     <td>${categoryBalance}?</td>
-                    // </tr>
-                    //`
+                    $(".byCategoryTable").innerHTML += 
+                    `
+                    <tr class="w-full justify-between">
+                        <td>${category.name}</td>
+                        <td>${categoryEarnings}</td>
+                        <td>${categoryExpenses}</td>
+                        <td>${categoryBalance}?</td>
+                    </tr>
+                    `
                 }
+                for (const operation of operations){
+                    let operationEarnings = 0
+                    let operationExpenses = 0
+                    let operationBalance = 0
+                    // console.log(category.name)
+                    const date = operation.date.substring(0, 7)
+                    console.log(date)
+                    const variabledefiltro = Object.values(operations).includes(date)
+                    console.log(variabledefiltro)
+                    if (operation.category.includes(operation.date.substring(0, 7))){
+                        console.log("entre al if")
+                        let expresion = new RegExp(`${date}.*`, "i");
+                        let filteredOperation = operations.filter(oper => expresion.test(operation.date))
+                        
+                        console.log(filteredOperation)
+                        for(const filter of filteredOperation){
+                            if(filter.type==="ganancia"){
+                                operationEarnings+=filter.amount
+                            }else{
+                                operationExpenses+=filter.amount
+                            }
+                        }
+                        break
+                    }
+                    operationBalance=operationEarnings-operationExpenses
+
+                    console.log(date,operationBalance)
+                }
+
+
+
+
+
                     
 
 
@@ -545,21 +577,9 @@ const defaultCategories = [
                         </table>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold mt-6">Totales por categorías</h2>
-                        <table class="w-full mt-6">
-                            <thead>
-                                <tr>
-                                    <th>Categoria</th>
-                                    <th>Ganancias</th>
-                                    <th>Gastos</th>
-                                    <th>Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody class="byCategoryTable">
+                       
 
-                            </tbody>
-                        </table>
-                    </div>`
+                          `
             //         <div class="pb-30">
             //             <h2 class="text-xl font-bold mt-6">Totales por mes</h2>
             //             <table class="w-full mt-6">

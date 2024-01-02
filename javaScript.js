@@ -357,6 +357,7 @@ const allOperations = getData("operations") || []
     const updateDate = () => {
         const date = new Date()
         $("#date-nueva-operacion").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+        $("#desde-select").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
     }
 
 // EVENTOS
@@ -366,6 +367,7 @@ const initializeApp = () => {
         addCategory(allCategories)
         renderOperationsCategories(allCategories)
         renderBalance(allOperations)
+        updateDate()
 
         // validateFormCategory()
 

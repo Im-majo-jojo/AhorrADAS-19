@@ -66,7 +66,8 @@ const defaultCategories = [
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
             showTab([".reportes-view"])
             const currentData = getData("operations")
-            categoryHighestEarnings(currentData)
+            const currentDataCategories = getData("categories")
+            categoryHighestEarnings(currentData, currentDataCategories)
         }
 
         const tabChangeNuevaOperacion = () =>{
@@ -159,7 +160,6 @@ const defaultCategories = [
             $(".modal-eliminar").addEventListener("click", (e) => {
                 const categoriesId = $(".modal-eliminar").getAttribute("data-id-modal")
                 modalDeleteCategory(categoriesId)  
-
             })
         }
         
@@ -226,14 +226,18 @@ const defaultCategories = [
             if(operations.length){
                 hideTab([".sinOperaciones"])
                 showTab([".tableOperation"])
-                for (const operation of operations){
-                    
+                for (const operation of operations){                  
                     $("#operationTable").innerHTML += 
                     `<tr>
                         <td>${operation.description}</td>
                         <td>${operation.category}</td>
                         <td>${operation.date}</td>
-                        <td>${operation.amount}</td>
+                        <td class="${operation.type==="ganancia"
+                            ? "text-green-600"
+                            : "text-red-600"}"
+                            >${operation.type==="ganancia"
+                            ? "+$"+operation.amount
+                            : "-$"+operation.amount}</td>
                         <div>
                             <td class="flex flex-col"> 
                                 <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" onclick="tabChangeEditarOperacion('${operation.id}')">Editar</button>
@@ -344,18 +348,22 @@ const defaultCategories = [
         }
 
     // RENDER REPORTS FUNCTION
-            const categoryHighestEarnings = (operations) => {
+            const categoryHighestEarnings = (operations, categories) => {
                 
                 //categoria con mayor ganancia 
                 const earningsCategory = {}
-                 const expensesCategory = {}
+                const expensesCategory = {}
+                const balancedCategory = {}
+                const monthEarningCategory = {}
+                const monthExpensesCategory = {}
 
                 // Calcular ganancias por categoría
                 for (const operation of operations) {
                     if (operation.type === 'ganancia') {
                         if (earningsCategory[operation.category]) {
                             earningsCategory[operation.category] += operation.amount
-                        } else {
+                        } 
+                        else {
                             earningsCategory[operation.category] = operation.amount
                         }
                     }
@@ -369,6 +377,92 @@ const defaultCategories = [
                         }
                     }
                 }
+                for (const operation of operations) {
+                    if (balancedCategory[operation.category]) {
+                        if (operation.type === 'ganancia') {
+                            balancedCategory[operation.category] += operation.amount;
+                        } else {
+                            balancedCategory[operation.category] -= operation.amount;
+                        }
+                    } else {
+                        balancedCategory[operation.category] = (operation.type === 'ganancia') ? operation.amount : -operation.amount;
+                    }
+                }
+                // for (const operation of operations) {
+                //     if (operation.type === 'gasto') {
+                //         if (monthEarningCategory[operation.category]) {
+                //             monthEarningCategory[operation.category] += operation.amount
+                //         } else {
+                //             monthEarningCategory[operation.category] = operation.amount
+                //         }
+                //     }
+                // }
+
+                const earningsByMonth  = {};
+
+                // Calcular ganancias por mes
+                for (const operation of operations) {
+                    const monthYear = operation.date.substring(0, 7); // Obtener el formato YYYY-MM (mes y año)
+                    if (operation.type === 'ganancia') {
+                        if (earningsByMonth[monthYear]) {
+                            earningsByMonth[monthYear] += operation.amount;
+                        } else {
+                            earningsByMonth[monthYear] = operation.amount;
+                        }
+                    }
+                }
+                let highestEarningMonth = null;
+                let highestEarning2 = 0;
+            
+                for (const month in earningsByMonth) {
+                    if (earningsByMonth[month] > highestEarning2) {
+                        highestEarning2 += earningsByMonth[month];
+                        highestEarningMonth = month;
+                    }
+                }
+
+
+
+
+
+                const expensesByMonth  = {};
+
+                // Calcular ganancias por mes
+                for (const operation of operations) {
+                    const monthYear = operation.date.substring(0, 7); // Obtener el formato YYYY-MM (mes y año)
+                    if (operation.type === 'gasto') {
+                        if (expensesByMonth[monthYear]) {
+                            expensesByMonth[monthYear] += operation.amount;
+                        } else {
+                            expensesByMonth[monthYear] = operation.amount;
+                        }
+                    }
+                }
+                let highestExpensesMonth = null;
+                let highestExpenses2 = 0;
+            
+                for (const month in expensesByMonth) {
+                    if (expensesByMonth[month] > highestExpenses2) {
+                        highestExpenses2 += expensesByMonth[month];
+                        highestExpensesMonth = month;
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 let highestEarnings = 0
                 let highestEarningCategory=null
@@ -386,6 +480,117 @@ const defaultCategories = [
                         highestExpensesCategory = category
                     }
                 }
+                let highestBalance = 0
+                let highestBalancedCategory = null
+                for (const category in balancedCategory) {
+                    if (balancedCategory[category] > highestBalance) {
+                        highestBalance = balancedCategory[category];
+                        highestBalancedCategory = category
+                    }
+                }
+
+
+
+
+
+             
+                // let categoriaGanancia={}
+                // let categoriaGasto={}
+
+                // for (const operation of operations){  
+                //     if (operation.type === 'ganancia') {
+                //         if (categoriaGanancia[operation.category]) {
+                //             categoriaGanancia[operation.category].earnings += operation
+                //         } 
+                //         else {
+                //             categoriaGasto[operation.category].expenses += operation.amount
+                //         }else {
+                //             earningsAndExpensesByCategory[operation.category] = {
+                //                 earnings: (operation.type === 'ganancia') ? operation.amount : 0,
+                //                 expenses: (operation.type !== 'ganancia') ? operation.amount : 0
+                //             }
+                //     }
+
+
+                // // }
+
+
+
+                // const getEarningsAndExpensesByCategory = (operations) => {
+                //     const earningsAndExpensesByCategory = {};
+                
+                //     // Calcular ganancias y gastos por categoría
+                //     for (const operation of operations) {
+                //         if (earningsAndExpensesByCategory[operation.category]) {
+                //             if (operation.type === 'ganancia') {
+                //                 earningsAndExpensesByCategory[operation.category].earnings += operation.amount;
+                //             } else {
+                //                 earningsAndExpensesByCategory[operation.category].expenses += operation.amount;
+                //             }
+                //         } else {
+                //             earningsAndExpensesByCategory[operation.category] = {
+                //                 earnings: (operation.type === 'ganancia') ? operation.amount : 0,
+                //                 expenses: (operation.type !== 'ganancia') ? operation.amount : 0
+                //             };
+                //         }
+
+
+
+                    
+
+                    
+                    for (const category of categories){
+                        let categoryEarnings = 0
+                        let categoryExpenses = 0
+                        let categoryBalance = 0
+                        // console.log(category.name)
+                        const name = category.name;
+                        console.log(name)
+                        const variabledefiltro = Object.values(operations).includes(name)
+                        console.log(variabledefiltro)
+                        for(const operation of operations){
+                            if (operation.category.includes(name)){
+                                console.log("entre al if")
+                                const filterOperation = operations.filter(operation => operation.category === name)
+                                console.log(filterOperation)
+                                
+                                for(const filter of filterOperation){
+                                    if(filter.type==="ganancia"){
+                                        categoryEarnings+=filter.amount
+                                    }else{
+                                        categoryExpenses+=filter.amount
+                                    }
+                                }
+                                break
+                            }
+                        }
+                        categoryBalance=categoryEarnings-categoryExpenses
+
+                        console.log(name,categoryBalance)
+                        
+
+                        // $(".reportesTable").innerHTML += 
+                        // `
+                        // <tr class="w-full justify-between">
+                        //     <td>${category.name}</td>
+                        //     <td>${categoryEarnings}</td>
+                        //     <td>${categoryExpenses}</td>
+                        //     <td>${categoryBalance}?</td>
+                        // </tr>
+                        //`
+                    }
+                    
+
+
+
+
+
+
+
+
+
+
+
                 
                 clearTable("#reportesTable")
                 $("#reportesTable").innerHTML = `
@@ -396,60 +601,55 @@ const defaultCategories = [
                                 <td>Categoría con mayor ganancia</td>
                                 <div>
                                     <td>${highestEarningCategory}</td>
-                                    <td>${highestEarnings}</td>
+                                    <td class="text-green-600">+$${highestEarnings}</td>
                                 </div>
-                             </tr> 
-                             <tr>
+                            </tr> 
+                            <tr>
                                  <td>Categoría con mayor gasto</td>
                                  <div>
                                      <td>${highestExpensesCategory}</td>
-                                     <td>${highestExpenses}</td>
+                                     <td class="text-red-600">-$${highestExpenses}</td>
                                  </div>
-                             </tr>`
-            //                 <tr>
-            //                     <td>Categoría con mayor balance </td>
-            //                     <div>
-            //                         <td>categoria?</td>
-            //                         <td>monto?</td>
-            //                     </div>
-            //                 </tr>
-            //                 <tr>
-            //                     <td>Mes con mayor ganancia </td>
-            //                     <div>
-            //                         <td>fecha?</td>
-            //                         <td>monto?</td>
-            //                     </div>
-            //                 </tr>
-            //                 <tr>
-            //                     <td>Mes con mayor gasto</td>
-            //                     <div>
-            //                         <td>fecha?</td>
-            //                         <td>monto?</td>
-            //                     </div>
-            //                 </tr>
-            //             </table>
-            //         </div>
-            //         <div>
-            //             <h2 class="text-xl font-bold mt-6">Totales por categorías</h2>
-            //             <table class="w-full mt-6">
-            //                 <thead>
-            //                     <tr>
-            //                         <th>Categoria</th>
-            //                         <th>Ganancias</th>
-            //                         <th>Gastos</th>
-            //                         <th>Balance</th>
-            //                     </tr>
-            //                 </thead>
-            //                 <tbody>
-            //                     <tr class="w-full justify-between">
-            //                         <td>categoria?</td>
-            //                         <td>monto?</td>
-            //                         <td>monto?</td>
-            //                         <td>monto?</td>
-            //                     </tr>
-            //                 </tbody>
-            //             </table>
-            //         </div>
+                            </tr>
+                            <tr>
+                                <td>Categoría con mayor balance </td>
+                                <div>
+                                    <td>${highestBalancedCategory}</td>
+                                    <td>$${highestBalance}</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <td>Mes con mayor ganancia </td>
+                                <div>
+                                    <td>${highestEarningMonth}</td>
+                                    <td class="text-green-600">$${highestEarnings}</td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <td>Mes con mayor gasto</td>
+                                <div>
+                                    <td>${highestExpensesMonth}</td>
+                                    <td class="text-red-600">$${highestExpenses2}</td>
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold mt-6">Totales por categorías</h2>
+                        <table class="w-full mt-6">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Ganancias</th>
+                                    <th>Gastos</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody class="byCategoryTable">
+
+                            </tbody>
+                        </table>
+                    </div>`
             //         <div class="pb-30">
             //             <h2 class="text-xl font-bold mt-6">Totales por mes</h2>
             //             <table class="w-full mt-6">

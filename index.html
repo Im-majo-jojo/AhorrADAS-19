@@ -41,28 +41,8 @@
         <div class="balance-view justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-7 gap-1 h-screen">
             <div class="balance-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Balance</h2>
-                <table class="mt-10">
-                    <tr>
-                        <td>Ganancias</td>
-                        <td>+$0</td>
-                    </tr>
-                    <tr>
-                        <td>Gastos</td>
-                        <td>-$0</td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>$0</td>
-                    </tr>
+                <table id="balanceTable" class="mt-10">
                 </table>
-                <!-- <div class="grid grid-rows-3 grid-flow-col gap-2 mt-3 justify-between pt-10">
-                    <p>Ganancia</p>           
-                    <p>Gastos</p>          
-                    <p class="text-lg">Total</p>
-                    <div class="ganancia-valor ">+$0 </div>
-                    <div class="gastos-valor">-$0 </div>
-                    <div class="total-valor justify-self-end"> $0</div>
-                </div> -->
             </div>
             <div class="filtros-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2 row-span-2">
                 <div class="flex  justify-between">
@@ -131,10 +111,10 @@
                     <form class="flex flex-col nuevaOperacionForm">
                         <label for="descripcion-nueva-operacion" class="font-bold">Descripción</label>
                         <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" placeholder="nombre de la operacion" required>
-                        <p class="errorBannerName mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>
+                        <p class="bannerName-error mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>
                         <label for="monto-nueva-operacion" class="font-bold">Monto</label>
                         <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
-                        <p class="errorBannerAmount mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>
+                        <p class="bannerAmount-error mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>
                         <label for="tipo-nueva-operacion" class="font-bold">Tipo</label>
                         <select id="tipo-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                             <option value="gasto">Gasto</option>
@@ -161,34 +141,20 @@
                 <h2 class="text-2xl font-bold">Categorías</h2>
                 <div class="py-10  justify-center">
                     <form class="nuevaCategoriaForm">
-                        <label for="nombre-categoria" class="font-bold text-lg">Nombre</label>
+                        <label for="nameCategory" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
-                            <input type="text" id="nombre-categoria" placeholder="nombre de la categoria" class="w-10/12 rounded-md p-2 bg-slate-200" required>                        
+                            <input type="text" id="nameCategory" placeholder="nombre de la categoria" class="w-10/12 rounded-md p-2 bg-slate-200" required> 
+                            <p class="bannerNameCategory-error mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>                       
                         </div>
+                        <button id="nameCategoryButton" class="bg-slate-400 rounded-md 
+                        px-4 mt-6 text-neutral-50" >Agregar</button>
                     </form>
-                    <button id="nombre-categoria-button" class="bg-slate-400 rounded-md 
-                    px-4 mt-6 text-neutral-50">Agregar</button>
+
                 </div>
                 <div>
                     <table id="categoryTable" class="w-full">
                     </table>
                 </div>           
-                <!-- <div class="flex flex-col justify-between">
-                    <div class="flex justify-between pb-2">
-                        <div class="titulo-categoria bg-slate-500 text-neutral-50 rounded-md px-1">Comida</div>
-                        <div>
-                            <button class="px-2" id="editar">Editar</button>
-                            <button class="px-2" id="eliminar">Eliminar</button>
-                        </div>
-                    </div>
-                    <div class="flex justify-between pb-2">
-                        <div class="titulo-categoria bg-slate-500 text-neutral-50 rounded-md px-1">Transporte</div>
-                        <div>
-                            <button class="px-2" id="editar">Editar</button>
-                            <button class="px-2" id="eliminar">Eliminar</button>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
         <!-- EDITAR CATEGORÍA -->
@@ -197,8 +163,8 @@
                 <h2 class="text-2xl font-bold">Editar Categoría</h2>
                 <div class="flex py-4 w-full">
                     <form class="w-full">
-                        <label for="editar-titulo-categoria" class="font-bold text-lg">Nombre</label>
-                        <input type="text" id="editar-titulo-categoria" class="w-full rounded-md p-2 bg-slate-200" placeholder="nombre de la categoria" required>
+                        <label for="editCategoryTittle" class="font-bold text-lg">Nombre</label>
+                        <input type="text" id="editCategoryTittle" class="w-full rounded-md p-2 bg-slate-200" placeholder="nombre de la categoria" required>
                         <div class="flex justify-end">
                             <button id="categoryCancelar" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
                             <button id="categoryEdition" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Editar</button>

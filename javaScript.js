@@ -41,19 +41,8 @@ const defaultCategories = [
 
 const allCategories = getData("categories") || defaultCategories
 const allOperations = getData("operations") || []
+const allBalanceAmounts = getData("balanceAmount") || []
 
-// const currentDateValue = () => {
-//     const currentDate = $("#date-nueva-operacion").valueAsDate = new Date()
-//     $("#date-nueva-operacion").setAttribute("value", currentDate)
-// }
-
-// var dateInput = $("#date-nueva-operacion");
-
-// // Obtener la fecha actual en formato YYYY-MM-DD
-// var currentDate = new Date().toISOString().slice(0, 10);
-
-// // Establecer la fecha actual como valor predeterminado
-// dateInput.value = currentDate;
 
 //FUNCIONES NECESARIAS
 
@@ -72,6 +61,7 @@ const allOperations = getData("operations") || []
             hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
             showTab([".categorias-view"])
             $(".nuevaCategoriaForm").reset()
+
         }
         const tabChangeReports = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
@@ -82,6 +72,7 @@ const allOperations = getData("operations") || []
             hideTab([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
             ".editarOperationButton",".tituloEditarOperacion"])
             showTab([".nueva-operacion-view",".tituloNuevaOperacion",".nuevaOperationButton"])
+            updateDate()
         }
         const tabChangeNuevaOperacionCancel = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
@@ -123,13 +114,13 @@ const allOperations = getData("operations") || []
         const saveNewCategory = () => {
             return{
                 id: idAleatorio(),
-                nombre: $("#nombre-categoria").value
+                nombre: $("#nameCategory").value
             }
         }
         const saveEditedCategory = () => {
             return{
                 id: idAleatorio(),
-                nombre: $("#editar-titulo-categoria").value
+                nombre: $("#editCategoryTittle").value
             }
         }
 
@@ -153,7 +144,7 @@ const allOperations = getData("operations") || []
             showTab([".editar-categoria-view"])
             $("#categoryEdition").setAttribute("data-id-categories", categoryId)
             const categorySelect = getData("categories").find(categories => categories.id === categoryId)
-            $("#editar-titulo-categoria").value = categorySelect.nombre
+            $("#editCategoryTittle").value = categorySelect.nombre
         }
 
     //MODAL/ELIMINAR CATEGORIA
@@ -179,7 +170,46 @@ const allOperations = getData("operations") || []
                 `<option value="${category.nombre}">${category.nombre}</option>`
             }
         }
-        
+    
+
+    // RENDER OPERATIONS MATH
+    const renderBalance = (operations) => {
+        let totalGanancias = 0
+        let totalGastos = 0
+    
+        // Calcular el total de ganancias y gastos
+        for (const operation of operations) {
+            if (operation.tipo === 'ganancia') {
+                totalGanancias += operation.monto;
+            } else {
+                totalGastos += operation.monto;
+            }
+        }
+        const balanceTotal = totalGanancias - totalGastos;
+        $("#balanceTable").innerHTML = `
+            <tr >
+                <td>Ganancias</td>
+                <td id="amountGanancia" class="text-green-600">+$${totalGanancias}</td>
+            </tr>
+            <tr>
+                <td>Gastos</td>
+                <td id="amountGasto" class="text-red-600">-$${totalGastos}</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td id="amountTotal" class="">$${balanceTotal}</td>
+            </tr>`
+    }
+        //AGREGAR CATEGORIA
+        $("#nameCategoryButton").addEventListener ("click", (e) => {
+            const currentData = getData("categories")
+            currentData.push(saveNewCategory())
+            addCategory(currentData)
+            $(".nuevaCategoriaForm").reset()
+            
+        })
+
+
 
     //RENDER OPERACIONES
         const saveNewOperation = (userId) => {
@@ -189,7 +219,7 @@ const allOperations = getData("operations") || []
                 tipo: $("#tipo-nueva-operacion").value,
                 categoria: $("#categoria-nueva-operacion").value,
                 fecha: $("#date-nueva-operacion").value,
-                monto: $("#monto-nueva-operacion").value
+                monto: $("#monto-nueva-operacion").valueAsNumber
             }
         }   
 
@@ -274,40 +304,69 @@ const allOperations = getData("operations") || []
             return operations.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
         }
 
-//VALIDAION
-    const nameCategory = $("#nombre-categoria").value.trim()
 
-
-    const validateForm = (field) => {
         
+
+
+//VALIDAION
+    const validateFormOperation = (field) => {
         const nameOperation = $("#descripcion-nueva-operacion").value.trim()
         const amountOperation = $("#monto-nueva-operacion").valueAsNumber
-        const dateOperation = $("#date-nueva-operacion")
-     
-
+        const validationPassed = nameOperation!== "" && amountOperation 
         switch (field){
             case "nameOperation":
                 if (nameOperation=== ""){
-                  showTab([".errorBannerName"])
+                  showTab([".bannerName-error"])
                   $("#descripcion-nueva-operacion").classList.add("border-red-500", "border", "border-2")
                 } else {
-                  hideTab([".errorBannerName"])
+                  hideTab([".bannerName-error"])
                   $("#descripcion-nueva-operacion").classList.remove("border-red-500")
                 }
                 break
             case "amountOperation":
                 if (!amountOperation){
-                  showTab([".errorBannerAmount"])
+                  showTab([".bannerAmount-error"])
                   $("#monto-nueva-operacion").classList.add("border-red-500", "border", "border-2")
                 } else {
-                  hideTab([".errorBannerAmount"])
+                  hideTab([".bannerAmount-error"])
                   $("#monto-nueva-operacion").classList.remove("border-red-500", "border", "border-2")
                 }
                 break 
         }
+
+        if(validationPassed){
+            $("#nuevaOperationButton").removeAttribute("disabled")
+        } else {
+            $("#nuevaOperationButton").setAttribute("disabled", true)
+        }
+
     }
 
+    const validateFormCategory = () => {
+        const nameCategory = $("#nameCategory").value
+        const validationPassed = nameCategory!== ""
 
+        if (nameCategory === ""){
+            console.log("holi")
+            $("#descripcion-nueva-operacion").classList.add("border-red-500", "border", "border-2")
+          } else {
+            console.log("holi2")
+            $("#descripcion-nueva-operacion").classList.remove("border-red-500", "border", "border-2")
+          }
+
+        if(validationPassed){
+            $("#nameCategoryButton").removeAttribute("disabled")
+        } else {
+            $("#nameCategoryButton").setAttribute("disabled", true) 
+        }
+
+
+    }
+
+    const updateDate = () => {
+        const date = new Date()
+        $("#date-nueva-operacion").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+    }
 
 // EVENTOS
 const initializeApp = () => {
@@ -315,6 +374,10 @@ const initializeApp = () => {
         renderOperations(allOperations)
         addCategory(allCategories)
         renderOperationsCategories(allCategories)
+        setData("balanceAmount", allBalanceAmounts)
+        validateFormCategory()
+
+
         
 
     // CAMBIO DE PESTAÑA
@@ -332,11 +395,13 @@ const initializeApp = () => {
         $(".mostrar-filtros-button").addEventListener ("click", mostrarFiltros)
     
     //AGREGAR CATEGORIA
-        $("#nombre-categoria-button").addEventListener ("click", (e) => {
+        $("#nameCategoryButton").addEventListener ("click", (e) => {
+            e.preventDefault()
             const currentData = getData("categories")
             currentData.push(saveNewCategory())
             addCategory(currentData)
             $(".nuevaCategoriaForm").reset()
+            
         })
 
     //EDITAR CATEGORIA
@@ -346,7 +411,7 @@ const initializeApp = () => {
             console.log(categoriesId)
             const currentData = getData("categories").map(category => {
                 if (category.id === categoriesId){
-                return saveEditedCategory(userId)
+                return saveEditedCategory(categoriesId)
                 }
                 return category
             })
@@ -428,10 +493,12 @@ const initializeApp = () => {
             renderOperations(byDate(currentData,FilterSelected))
         })
 
+        $("#descripcion-nueva-operacion").addEventListener("blur", () => validateFormOperation("nameOperation"))
+        $("#monto-nueva-operacion").addEventListener("blur", () => validateFormOperation("amountOperation"))
+        // $("#nameCategory").addEventListener("input", () =>)
+
 
         
-        $("#descripcion-nueva-operacion").addEventListener("blur", () => validateForm("nameOperation"))
-        $("#monto-nueva-operacion").addEventListener("blur", () => validateForm("amountOperation"))
-
+        
 }
 window.addEventListener("load", initializeApp)

@@ -3,6 +3,9 @@ const $ =  (selector) => document.querySelector(selector);
 
 const $$ = (selector) => document.querySelectorAll(selector);
 
+// ID DEFINITION FUNCTION
+const randomID = () => self.crypto.randomUUID()
+
 // LOCAL STORAGE
 const getData = (key) => JSON.parse(localStorage.getItem(key))
 
@@ -33,14 +36,7 @@ const defaultCategories = [
     }
 ]
 
-
-
-
-
 // FUNCTIONS
-
-    // ID DEFINITION FUNCTION
-        const randomID = () => self.crypto.randomUUID()
 
     // ALL ARRAYS FUNCTION
         const allCategories = getData("categories") || defaultCategories
@@ -69,6 +65,8 @@ const defaultCategories = [
         const tabChangeReports = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
             showTab([".reportes-view"])
+            const currentData = getData("operations")
+            categoryHighestEarnings(currentData)
         }
 
         const tabChangeNuevaOperacion = () =>{
@@ -118,7 +116,6 @@ const defaultCategories = [
         }
 
     // RENDER CATEGORIES FUNCTION
-
         const saveNewCategory = () => {
             return{
                 id: randomID(),
@@ -192,7 +189,6 @@ const defaultCategories = [
             for (const operation of operations) {
                 if (operation.type === 'ganancia') {
                     balanceEarnings += operation.amount;
-                    console.log("holi")
                 } else {
                     balanceExpenses += operation.amount;
                 }
@@ -347,6 +343,139 @@ const defaultCategories = [
             $("#desde-select").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
         }
 
+    // RENDER REPORTS FUNCTION
+            const categoryHighestEarnings = (operations) => {
+                
+                //categoria con mayor ganancia 
+                const earningsCategory = {}
+                 const expensesCategory = {}
+
+                // Calcular ganancias por categoría
+                for (const operation of operations) {
+                    if (operation.type === 'ganancia') {
+                        if (earningsCategory[operation.category]) {
+                            earningsCategory[operation.category] += operation.amount
+                        } else {
+                            earningsCategory[operation.category] = operation.amount
+                        }
+                    }
+                }
+                for (const operation of operations) {
+                    if (operation.type === 'gasto') {
+                        if (expensesCategory[operation.category]) {
+                            expensesCategory[operation.category] += operation.amount
+                        } else {
+                            expensesCategory[operation.category] = operation.amount
+                        }
+                    }
+                }
+
+                let highestEarnings = 0
+                let highestEarningCategory=null
+                for (const category in earningsCategory) {
+                    if (earningsCategory[category] > highestEarnings) {
+                        highestEarnings = earningsCategory[category];
+                        highestEarningCategory = category
+                    } 
+                }
+                let highestExpenses = 0
+                let highestExpensesCategory = null
+                for(const category in expensesCategory) {
+                    if (expensesCategory[category] > highestExpenses) {
+                        highestExpenses = expensesCategory[category];
+                        highestExpensesCategory = category
+                    }
+                }
+                
+                clearTable("#reportesTable")
+                $("#reportesTable").innerHTML = `
+
+                        <h2 class="text-xl font-bold mt-2">Resumen</h2>
+                        <table class="w-full mt-2">
+                            <tr>
+                                <td>Categoría con mayor ganancia</td>
+                                <div>
+                                    <td>${highestEarningCategory}</td>
+                                    <td>${highestEarnings}</td>
+                                </div>
+                             </tr> 
+                             <tr>
+                                 <td>Categoría con mayor gasto</td>
+                                 <div>
+                                     <td>${highestExpensesCategory}</td>
+                                     <td>${highestExpenses}</td>
+                                 </div>
+                             </tr>`
+            //                 <tr>
+            //                     <td>Categoría con mayor balance </td>
+            //                     <div>
+            //                         <td>categoria?</td>
+            //                         <td>monto?</td>
+            //                     </div>
+            //                 </tr>
+            //                 <tr>
+            //                     <td>Mes con mayor ganancia </td>
+            //                     <div>
+            //                         <td>fecha?</td>
+            //                         <td>monto?</td>
+            //                     </div>
+            //                 </tr>
+            //                 <tr>
+            //                     <td>Mes con mayor gasto</td>
+            //                     <div>
+            //                         <td>fecha?</td>
+            //                         <td>monto?</td>
+            //                     </div>
+            //                 </tr>
+            //             </table>
+            //         </div>
+            //         <div>
+            //             <h2 class="text-xl font-bold mt-6">Totales por categorías</h2>
+            //             <table class="w-full mt-6">
+            //                 <thead>
+            //                     <tr>
+            //                         <th>Categoria</th>
+            //                         <th>Ganancias</th>
+            //                         <th>Gastos</th>
+            //                         <th>Balance</th>
+            //                     </tr>
+            //                 </thead>
+            //                 <tbody>
+            //                     <tr class="w-full justify-between">
+            //                         <td>categoria?</td>
+            //                         <td>monto?</td>
+            //                         <td>monto?</td>
+            //                         <td>monto?</td>
+            //                     </tr>
+            //                 </tbody>
+            //             </table>
+            //         </div>
+            //         <div class="pb-30">
+            //             <h2 class="text-xl font-bold mt-6">Totales por mes</h2>
+            //             <table class="w-full mt-6">
+            //                 <thead>
+            //                     <tr>
+            //                         <th>Mes</th>
+            //                         <th>Ganancias</th>
+            //                         <th>Gastos</th>
+            //                         <th>Balance</th>
+            //                     </tr>
+            //                 </thead>
+            //                 <tbody>
+            //                     <tr class="w-full justify-between">
+            //                         <td>fecha?</td>
+            //                         <td>monto?</td>
+            //                         <td>monto?</td>
+            //                         <td>monto?</td>
+            //                     </tr>
+            //                 </tbody>
+            //             </table>
+            //         </div>
+            //     </div>  
+            //`
+            }
+    
+
 // EVENTS
 const initializeApp = () => {
         setData("operations", allOperations)
@@ -389,7 +518,6 @@ const initializeApp = () => {
         $("#categoryEdition").addEventListener ("click", (e) => {
             e.preventDefault()
             const categoriesId = $("#categoryEdition").getAttribute("data-id-categories")
-            console.log(categoriesId)
             const currentData = getData("categories").map(category => {
                 if (category.id === categoriesId){
                 return saveEditedCategory(categoriesId)

@@ -349,15 +349,13 @@ const defaultCategories = [
 
     // RENDER REPORTS FUNCTION
             const categoryHighestEarnings = (operations, categories) => {
-                
-                //categoria con mayor ganancia 
                 const earningsCategory = {}
                 const expensesCategory = {}
                 const balancedCategory = {}
                 const monthEarningCategory = {}
                 const monthExpensesCategory = {}
 
-                // Calcular ganancias por categoría
+                //highest earnes 
                 for (const operation of operations) {
                     if (operation.type === 'ganancia') {
                         if (earningsCategory[operation.category]) {
@@ -368,6 +366,16 @@ const defaultCategories = [
                         }
                     }
                 }
+                let highestEarnings = 0
+                let highestEarningCategory=null
+                for (const category in earningsCategory) {
+                    if (earningsCategory[category] > highestEarnings) {
+                        highestEarnings = earningsCategory[category];
+                        highestEarningCategory = category
+                    } 
+                }
+
+                //highest expenses
                 for (const operation of operations) {
                     if (operation.type === 'gasto') {
                         if (expensesCategory[operation.category]) {
@@ -377,101 +385,6 @@ const defaultCategories = [
                         }
                     }
                 }
-                for (const operation of operations) {
-                    if (balancedCategory[operation.category]) {
-                        if (operation.type === 'ganancia') {
-                            balancedCategory[operation.category] += operation.amount;
-                        } else {
-                            balancedCategory[operation.category] -= operation.amount;
-                        }
-                    } else {
-                        balancedCategory[operation.category] = (operation.type === 'ganancia') ? operation.amount : -operation.amount;
-                    }
-                }
-                // for (const operation of operations) {
-                //     if (operation.type === 'gasto') {
-                //         if (monthEarningCategory[operation.category]) {
-                //             monthEarningCategory[operation.category] += operation.amount
-                //         } else {
-                //             monthEarningCategory[operation.category] = operation.amount
-                //         }
-                //     }
-                // }
-
-                const earningsByMonth  = {};
-
-                // Calcular ganancias por mes
-                for (const operation of operations) {
-                    const monthYear = operation.date.substring(0, 7); // Obtener el formato YYYY-MM (mes y año)
-                    if (operation.type === 'ganancia') {
-                        if (earningsByMonth[monthYear]) {
-                            earningsByMonth[monthYear] += operation.amount;
-                        } else {
-                            earningsByMonth[monthYear] = operation.amount;
-                        }
-                    }
-                }
-                let highestEarningMonth = null;
-                let highestEarning2 = 0;
-            
-                for (const month in earningsByMonth) {
-                    if (earningsByMonth[month] > highestEarning2) {
-                        highestEarning2 += earningsByMonth[month];
-                        highestEarningMonth = month;
-                    }
-                }
-
-
-
-
-
-                const expensesByMonth  = {};
-
-                // Calcular ganancias por mes
-                for (const operation of operations) {
-                    const monthYear = operation.date.substring(0, 7); // Obtener el formato YYYY-MM (mes y año)
-                    if (operation.type === 'gasto') {
-                        if (expensesByMonth[monthYear]) {
-                            expensesByMonth[monthYear] += operation.amount;
-                        } else {
-                            expensesByMonth[monthYear] = operation.amount;
-                        }
-                    }
-                }
-                let highestExpensesMonth = null;
-                let highestExpenses2 = 0;
-            
-                for (const month in expensesByMonth) {
-                    if (expensesByMonth[month] > highestExpenses2) {
-                        highestExpenses2 += expensesByMonth[month];
-                        highestExpensesMonth = month;
-                    }
-                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                let highestEarnings = 0
-                let highestEarningCategory=null
-                for (const category in earningsCategory) {
-                    if (earningsCategory[category] > highestEarnings) {
-                        highestEarnings = earningsCategory[category];
-                        highestEarningCategory = category
-                    } 
-                }
                 let highestExpenses = 0
                 let highestExpensesCategory = null
                 for(const category in expensesCategory) {
@@ -480,118 +393,115 @@ const defaultCategories = [
                         highestExpensesCategory = category
                     }
                 }
+
+                //balanced
+                for (const operation of operations) {
+                    if (balancedCategory[operation.category]) {
+                        if (operation.type === 'ganancia') {
+                            balancedCategory[operation.category] += operation.amount
+                        } else {
+                            balancedCategory[operation.category] -= operation.amount
+                        }
+                    } else {
+                        balancedCategory[operation.category] = (operation.type === 'ganancia') ? operation.amount : -operation.amount
+                    }
+                }
                 let highestBalance = 0
                 let highestBalancedCategory = null
                 for (const category in balancedCategory) {
                     if (balancedCategory[category] > highestBalance) {
-                        highestBalance = balancedCategory[category];
+                        highestBalance = balancedCategory[category]
                         highestBalancedCategory = category
                     }
                 }
 
-
-
-
-
-             
-                // let categoriaGanancia={}
-                // let categoriaGasto={}
-
-                // for (const operation of operations){  
-                //     if (operation.type === 'ganancia') {
-                //         if (categoriaGanancia[operation.category]) {
-                //             categoriaGanancia[operation.category].earnings += operation
-                //         } 
-                //         else {
-                //             categoriaGasto[operation.category].expenses += operation.amount
-                //         }else {
-                //             earningsAndExpensesByCategory[operation.category] = {
-                //                 earnings: (operation.type === 'ganancia') ? operation.amount : 0,
-                //                 expenses: (operation.type !== 'ganancia') ? operation.amount : 0
-                //             }
-                //     }
-
-
-                // // }
-
-
-
-                // const getEarningsAndExpensesByCategory = (operations) => {
-                //     const earningsAndExpensesByCategory = {};
-                
-                //     // Calcular ganancias y gastos por categoría
-                //     for (const operation of operations) {
-                //         if (earningsAndExpensesByCategory[operation.category]) {
-                //             if (operation.type === 'ganancia') {
-                //                 earningsAndExpensesByCategory[operation.category].earnings += operation.amount;
-                //             } else {
-                //                 earningsAndExpensesByCategory[operation.category].expenses += operation.amount;
-                //             }
-                //         } else {
-                //             earningsAndExpensesByCategory[operation.category] = {
-                //                 earnings: (operation.type === 'ganancia') ? operation.amount : 0,
-                //                 expenses: (operation.type !== 'ganancia') ? operation.amount : 0
-                //             };
-                //         }
-
-
-
-                    
-
-                    
-                    for (const category of categories){
-                        let categoryEarnings = 0
-                        let categoryExpenses = 0
-                        let categoryBalance = 0
-                        // console.log(category.name)
-                        const name = category.name;
-                        console.log(name)
-                        const variabledefiltro = Object.values(operations).includes(name)
-                        console.log(variabledefiltro)
-                        for(const operation of operations){
-                            if (operation.category.includes(name)){
-                                console.log("entre al if")
-                                const filterOperation = operations.filter(operation => operation.category === name)
-                                console.log(filterOperation)
-                                
-                                for(const filter of filterOperation){
-                                    if(filter.type==="ganancia"){
-                                        categoryEarnings+=filter.amount
-                                    }else{
-                                        categoryExpenses+=filter.amount
-                                    }
-                                }
-                                break
-                            }
+                //month highest earnes 
+                const earningsByMonth  = {};
+                for (const operation of operations) {
+                    const monthYear = operation.date.substring(0, 7)
+                    if (operation.type === 'ganancia') {
+                        if (earningsByMonth[monthYear]) {
+                            earningsByMonth[monthYear] += operation.amount
+                        } else {
+                            earningsByMonth[monthYear] = operation.amount
                         }
-                        categoryBalance=categoryEarnings-categoryExpenses
-
-                        console.log(name,categoryBalance)
-                        
-
-                        // $(".reportesTable").innerHTML += 
-                        // `
-                        // <tr class="w-full justify-between">
-                        //     <td>${category.name}</td>
-                        //     <td>${categoryEarnings}</td>
-                        //     <td>${categoryExpenses}</td>
-                        //     <td>${categoryBalance}?</td>
-                        // </tr>
-                        //`
                     }
+                }
+                let highestEarningMonth = null;
+                let highestEarning2 = 0;
+                for (const month in earningsByMonth) {
+                    if (earningsByMonth[month] > highestEarning2) {
+                        highestEarning2 += earningsByMonth[month]
+                        highestEarningMonth = month
+                    }
+                }
+
+                //month highest expenses 
+                const expensesByMonth  = {};
+                for (const operation of operations) {
+                    const monthYear = operation.date.substring(0, 7)
+                    if (operation.type === 'gasto') {
+                        if (expensesByMonth[monthYear]) {
+                            expensesByMonth[monthYear] += operation.amount
+                        } else {
+                            expensesByMonth[monthYear] = operation.amount
+                        }
+                    }
+                }
+                let highestExpensesMonth = null;
+                let highestExpenses2 = 0;
+                for (const month in expensesByMonth) {
+                    if (expensesByMonth[month] > highestExpenses2) {
+                        highestExpenses2 += expensesByMonth[month]
+                        highestExpensesMonth = month
+                    }
+                }
+
+                //by category 
+                for (const category of categories){
+                    let categoryEarnings = 0
+                    let categoryExpenses = 0
+                    let categoryBalance = 0
+                    // console.log(category.name)
+                    const name = category.name;
+                    console.log(name)
+                    const variabledefiltro = Object.values(operations).includes(name)
+                    console.log(variabledefiltro)
+                    for(const operation of operations){
+                        if (operation.category.includes(name)){
+                            console.log("entre al if")
+                            const filterOperation = operations.filter(operation => operation.category === name)
+                            console.log(filterOperation)
+                            
+                            for(const filter of filterOperation){
+                                if(filter.type==="ganancia"){
+                                    categoryEarnings+=filter.amount
+                                }else{
+                                    categoryExpenses+=filter.amount
+                                }
+                            }
+                            break
+                        }
+                    }
+                    categoryBalance=categoryEarnings-categoryExpenses
+
+                    console.log(name,categoryBalance)
+                    
+
+                    // $(".reportesTable").innerHTML += 
+                    // `
+                    // <tr class="w-full justify-between">
+                    //     <td>${category.name}</td>
+                    //     <td>${categoryEarnings}</td>
+                    //     <td>${categoryExpenses}</td>
+                    //     <td>${categoryBalance}?</td>
+                    // </tr>
+                    //`
+                }
                     
 
 
 
-
-
-
-
-
-
-
-
-                
                 clearTable("#reportesTable")
                 $("#reportesTable").innerHTML = `
 

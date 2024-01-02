@@ -131,8 +131,10 @@
                     <form class="flex flex-col nuevaOperacionForm">
                         <label for="descripcion-nueva-operacion" class="font-bold">Descripción</label>
                         <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" placeholder="nombre de la operacion" required>
+                        <p class="errorBannerName mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>
                         <label for="monto-nueva-operacion" class="font-bold">Monto</label>
                         <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
+                        <p class="errorBannerAmount mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>
                         <label for="tipo-nueva-operacion" class="font-bold">Tipo</label>
                         <select id="tipo-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                             <option value="gasto">Gasto</option>
@@ -142,7 +144,8 @@
                         <select id="categoria-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                         </select>
                         <label for="date-nueva-operacion" class="font-bold">Fecha</label>
-                        <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
+                        <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2"  required>
+                        </script>
                         <div class="flex justify-end">
                             <button id="nuevaOperacionCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
                             <button id="nuevaOperationButton" class="nuevaOperationButton bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>

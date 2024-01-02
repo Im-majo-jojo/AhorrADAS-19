@@ -3,6 +3,10 @@
 const $ =  (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
+//CURRENT DATE
+
+
+
 // DEFINICION DE ID
 const idAleatorio = () => self.crypto.randomUUID()
 
@@ -37,6 +41,19 @@ const defaultCategories = [
 
 const allCategories = getData("categories") || defaultCategories
 const allOperations = getData("operations") || []
+
+// const currentDateValue = () => {
+//     const currentDate = $("#date-nueva-operacion").valueAsDate = new Date()
+//     $("#date-nueva-operacion").setAttribute("value", currentDate)
+// }
+
+// var dateInput = $("#date-nueva-operacion");
+
+// // Obtener la fecha actual en formato YYYY-MM-DD
+// var currentDate = new Date().toISOString().slice(0, 10);
+
+// // Establecer la fecha actual como valor predeterminado
+// dateInput.value = currentDate;
 
 //FUNCIONES NECESARIAS
 
@@ -233,19 +250,6 @@ const allOperations = getData("operations") || []
             renderCategories(category)
         }
 
-    //VALIDAION
-        const numberInputValidation = $("#monto-nueva-operacion").valueAsNumber
-        const tlitleInputValidation = $("#descripcion-nueva-operacion").value.trim()
-        const descriptionInputValidation = $("#nombre-categoria").value.trim()
-
-
-        const lessRecentDate = (operations) => {
-            return operations.sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
-        }
-        const recentDate = (operations) => {
-            return operations.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
-        }
-
     // FILTROS
         const biggestAmount = (operations) => {
             return operations.sort((a, b) => b.monto - a.monto)  
@@ -263,6 +267,47 @@ const allOperations = getData("operations") || []
             // Filtrar las operaciones a partir de la fecha especificada
             return operations.filter((operation) => new Date(operation.fecha) >= new Date(fromDate));
         }
+        const lessRecentDate = (operations) => {
+            return operations.sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
+        }
+        const recentDate = (operations) => {
+            return operations.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+        }
+
+//VALIDAION
+    const nameCategory = $("#nombre-categoria").value.trim()
+
+
+    const validateForm = (field) => {
+        
+        const nameOperation = $("#descripcion-nueva-operacion").value.trim()
+        const amountOperation = $("#monto-nueva-operacion").valueAsNumber
+        const dateOperation = $("#date-nueva-operacion")
+     
+
+        switch (field){
+            case "nameOperation":
+                if (nameOperation=== ""){
+                  showTab([".errorBannerName"])
+                  $("#descripcion-nueva-operacion").classList.add("border-red-500", "border", "border-2")
+                } else {
+                  hideTab([".errorBannerName"])
+                  $("#descripcion-nueva-operacion").classList.remove("border-red-500")
+                }
+                break
+            case "amountOperation":
+                if (!amountOperation){
+                  showTab([".errorBannerAmount"])
+                  $("#monto-nueva-operacion").classList.add("border-red-500", "border", "border-2")
+                } else {
+                  hideTab([".errorBannerAmount"])
+                  $("#monto-nueva-operacion").classList.remove("border-red-500", "border", "border-2")
+                }
+                break 
+        }
+    }
+
+
 
 // EVENTOS
 const initializeApp = () => {
@@ -270,6 +315,7 @@ const initializeApp = () => {
         renderOperations(allOperations)
         addCategory(allCategories)
         renderOperationsCategories(allCategories)
+        
 
     // CAMBIO DE PESTAÑA
         $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
@@ -381,6 +427,11 @@ const initializeApp = () => {
             const currentData = getData("operations")
             renderOperations(byDate(currentData,FilterSelected))
         })
+
+
+        
+        $("#descripcion-nueva-operacion").addEventListener("blur", () => validateForm("nameOperation"))
+        $("#monto-nueva-operacion").addEventListener("blur", () => validateForm("amountOperation"))
 
 }
 window.addEventListener("load", initializeApp)

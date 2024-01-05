@@ -347,15 +347,15 @@ const defaultCategories = [
             $("#desde-select").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
         }
 
-    // RENDER REPORTS FUNCTION
-            const categoryHighestEarnings = (operations, categories) => {
+    // RENDER SUMMARY REPORTS FUNCTION
+            const categoryHighestEarnings = (operations) => {
                 const earningsCategory = {}
                 const expensesCategory = {}
                 const balancedCategory = {}
                 const monthEarningCategory = {}
                 const monthExpensesCategory = {}
 
-                //highest earnes 
+                //HIGHEST EARNINGS 
                 for (const operation of operations) {
                     if (operation.type === 'ganancia') {
                         if (earningsCategory[operation.category]) {
@@ -375,7 +375,7 @@ const defaultCategories = [
                     } 
                 }
 
-                //highest expenses
+                //HIGHEST EXPENSES
                 for (const operation of operations) {
                     if (operation.type === 'gasto') {
                         if (expensesCategory[operation.category]) {
@@ -394,7 +394,7 @@ const defaultCategories = [
                     }
                 }
 
-                //balanced
+                //BALANCED OPERATION
                 for (const operation of operations) {
                     if (balancedCategory[operation.category]) {
                         if (operation.type === 'ganancia') {
@@ -415,195 +415,94 @@ const defaultCategories = [
                     }
                 }
 
-                //month highest earnes 
-                const earningsByMonth  = {};
+                //MONTH HIGHEST EARNINGS 
+                const earningsMonth  = {};
                 for (const operation of operations) {
                     const monthYear = operation.date.substring(0, 7)
                     if (operation.type === 'ganancia') {
-                        if (earningsByMonth[monthYear]) {
-                            earningsByMonth[monthYear] += operation.amount
+                        if (earningsMonth[monthYear]) {
+                            earningsMonth[monthYear] += operation.amount
                         } else {
-                            earningsByMonth[monthYear] = operation.amount
+                            earningsMonth[monthYear] = operation.amount
                         }
                     }
                 }
                 let highestEarningMonth = null;
                 let highestEarning2 = 0;
-                for (const month in earningsByMonth) {
-                    if (earningsByMonth[month] > highestEarning2) {
-                        highestEarning2 += earningsByMonth[month]
+                for (const month in earningsMonth) {
+                    if (earningsMonth[month] > highestEarning2) {
+                        highestEarning2 += earningsMonth[month]
                         highestEarningMonth = month
                     }
                 }
 
-                //month highest expenses 
-                const expensesByMonth  = {};
+                //MONTH HIGHEST EXPENSES 
+                const expensesMonth  = {};
                 for (const operation of operations) {
                     const monthYear = operation.date.substring(0, 7)
                     if (operation.type === 'gasto') {
-                        if (expensesByMonth[monthYear]) {
-                            expensesByMonth[monthYear] += operation.amount
+                        if (expensesMonth[monthYear]) {
+                            expensesMonth[monthYear] += operation.amount
                         } else {
-                            expensesByMonth[monthYear] = operation.amount
+                            expensesMonth[monthYear] = operation.amount
                         }
                     }
                 }
                 let highestExpensesMonth = null;
                 let highestExpenses2 = 0;
-                for (const month in expensesByMonth) {
-                    if (expensesByMonth[month] > highestExpenses2) {
-                        highestExpenses2 += expensesByMonth[month]
+                for (const month in expensesMonth) {
+                    if (expensesMonth[month] > highestExpenses2) {
+                        highestExpenses2 += expensesMonth[month]
                         highestExpensesMonth = month
                     }
                 }
 
-                //by category 
-                for (const category of categories){
-                    let categoryEarnings = 0
-                    let categoryExpenses = 0
-                    let categoryBalance = 0
-                    // console.log(category.name)
-                    const name = category.name;
-                    console.log(name)
-                    const variabledefiltro = Object.values(operations).includes(name)
-                    console.log(variabledefiltro)
-                    for(const operation of operations){
-                        if (operation.category.includes(name)){
-                            console.log("entre al if")
-                            const filterOperation = operations.filter(operation => operation.category === name)
-                            console.log(filterOperation)
-                            
-                            for(const filter of filterOperation){
-                                if(filter.type==="ganancia"){
-                                    categoryEarnings+=filter.amount
-                                }else{
-                                    categoryExpenses+=filter.amount
-                                }
-                            }
-                            break
-                        }
-                    }
-                    categoryBalance=categoryEarnings-categoryExpenses
-
-                    console.log(name,categoryBalance)
-
-                    $(".byCategoryTable").innerHTML += 
-                    `
-                    <tr class="w-full justify-between">
-                        <td>${category.name}</td>
-                        <td>${categoryEarnings}</td>
-                        <td>${categoryExpenses}</td>
-                        <td>${categoryBalance}?</td>
-                    </tr>
-                    `
-                }
-                for (const operation of operations){
-                    let operationEarnings = 0
-                    let operationExpenses = 0
-                    let operationBalance = 0
-                    // console.log(category.name)
-                    const date = operation.date.substring(0, 7)
-                    console.log(date)
-                    const variabledefiltro = Object.values(operations).includes(date)
-                    console.log(variabledefiltro)
-                    if (operation.category.includes(operation.date.substring(0, 7))){
-                        console.log("entre al if")
-                        let expresion = new RegExp(`${date}.*`, "i");
-                        let filteredOperation = operations.filter(oper => expresion.test(operation.date))
-                        
-                        console.log(filteredOperation)
-                        for(const filter of filteredOperation){
-                            if(filter.type==="ganancia"){
-                                operationEarnings+=filter.amount
-                            }else{
-                                operationExpenses+=filter.amount
-                            }
-                        }
-                        break
-                    }
-                    operationBalance=operationEarnings-operationExpenses
-
-                    console.log(date,operationBalance)
-                }
-
-
-
-
-
-                    
-
-
-
-                clearTable("#reportesTable")
-                $("#reportesTable").innerHTML = `
-
-                        <h2 class="text-xl font-bold mt-2">Resumen</h2>
-                        <table class="w-full mt-2">
-                            <tr>
-                                <td>Categoría con mayor ganancia</td>
+                //RENDER SUMMARY
+                clearTable("#summary")
+                $("#summary").innerHTML = 
+                    `<h2 class="text-xl font-bold mt-2">Resumen</h2>
+                    <table class="w-full mt-2">
+                        <tr>
+                            <td>Categoría con mayor ganancia</td>
+                            <div>
+                                <td>${highestEarningCategory}</td>
+                                <td class="text-green-600">+$${highestEarnings}</td>
+                            </div>
+                        </tr> 
+                        <tr>
+                                <td>Categoría con mayor gasto</td>
                                 <div>
-                                    <td>${highestEarningCategory}</td>
-                                    <td class="text-green-600">+$${highestEarnings}</td>
+                                    <td>${highestExpensesCategory}</td>
+                                    <td class="text-red-600">-$${highestExpenses}</td>
                                 </div>
-                            </tr> 
-                            <tr>
-                                 <td>Categoría con mayor gasto</td>
-                                 <div>
-                                     <td>${highestExpensesCategory}</td>
-                                     <td class="text-red-600">-$${highestExpenses}</td>
-                                 </div>
-                            </tr>
-                            <tr>
-                                <td>Categoría con mayor balance </td>
-                                <div>
-                                    <td>${highestBalancedCategory}</td>
-                                    <td>$${highestBalance}</td>
-                                </div>
-                            </tr>
-                            <tr>
-                                <td>Mes con mayor ganancia </td>
-                                <div>
-                                    <td>${highestEarningMonth}</td>
-                                    <td class="text-green-600">$${highestEarnings}</td>
-                                </div>
-                            </tr>
-                            <tr>
-                                <td>Mes con mayor gasto</td>
-                                <div>
-                                    <td>${highestExpensesMonth}</td>
-                                    <td class="text-red-600">$${highestExpenses2}</td>
-                                </div>
-                            </tr>
-                        </table>
-                    </div>
-                    <div>
-                       
-
-                          `
-            //         <div class="pb-30">
-            //             <h2 class="text-xl font-bold mt-6">Totales por mes</h2>
-            //             <table class="w-full mt-6">
-            //                 <thead>
-            //                     <tr>
-            //                         <th>Mes</th>
-            //                         <th>Ganancias</th>
-            //                         <th>Gastos</th>
-            //                         <th>Balance</th>
-            //                     </tr>
-            //                 </thead>
-            //                 <tbody>
-            //                     <tr class="w-full justify-between">
-            //                         <td>fecha?</td>
-            //                         <td>monto?</td>
-            //                         <td>monto?</td>
-            //                         <td>monto?</td>
-            //                     </tr>
-            //                 </tbody>
-            //             </table>
-            //         </div>
-            //     </div>  
-            //`
+                        </tr>
+                        <tr>
+                            <td>Categoría con mayor balance </td>
+                            <div>
+                                <td>${highestBalancedCategory}</td>
+                                <td>$${highestBalance}</td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td>Mes con mayor ganancia </td>
+                            <div>
+                                <td>${highestEarningMonth}</td>
+                                <td class="text-green-600">$${highestEarnings}</td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td>Mes con mayor gasto</td>
+                            <div>
+                                <td>${highestExpensesMonth}</td>
+                                <td class="text-red-600">$${highestExpenses2}</td>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
+                <div>`
             }
+
+    
     
 
 // EVENTS

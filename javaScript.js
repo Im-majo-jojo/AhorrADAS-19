@@ -67,6 +67,7 @@ const defaultCategories = [
             showTab([".reportes-view"])
             categoryHighestEarnings()
             renderByCategory()
+            renderByMonth()
         }
 
         const tabChangeNuevaOperacion = () =>{
@@ -417,7 +418,7 @@ const defaultCategories = [
             }
 
             // MONTH HIGHEST EARNINGS 
-            const earningsMonth  = {};
+            const earningsMonth  = {}
             for (const operation of operations) {
                 const monthYear = operation.date.substring(0, 7)
                 if (operation.type === 'ganancia') {
@@ -429,10 +430,10 @@ const defaultCategories = [
                 }
             }
             let highestEarningMonth = null;
-            let highestEarning2 = 0;
+            let highestEarning = 0;
             for (const month in earningsMonth) {
-                if (earningsMonth[month] > highestEarning2) {
-                    highestEarning2 += earningsMonth[month]
+                if (earningsMonth[month] > highestEarning) {
+                    highestEarning += earningsMonth[month]
                     highestEarningMonth = month
                 }
             }
@@ -502,34 +503,31 @@ const defaultCategories = [
             <div>`
         }
     // RENDER BY CATEGORY
-            const byCategorySummary = (category) => {
-            const currentDataOperations = getData("operations")
-            const valuesLocation = {
-                earnings: 0,
-                expenses: 0
-            }  
-            const filterOperation = currentDataOperations.filter(operation => operation.category === category)
+        const byCategorySummary = (category) => {
+        const currentDataOperations = getData("operations")
+        const valuesLocation = {
+            earnings: 0,
+            expenses: 0
+        } 
+        
+        const filterOperation = currentDataOperations.filter(operation => operation.category === category)
 
-            for (const operation of filterOperation) {
-                if (operation.type === "ganancia") {
-                    valuesLocation.earnings += operation.amount
-                } else {
-                    valuesLocation.expenses -= operation.amount 
-                } 
+        for (const operation of filterOperation) {
+            if (operation.type === "ganancia") {
+                valuesLocation.earnings += operation.amount
+            } else {
+                valuesLocation.expenses -= operation.amount 
+            } 
 
-            }
-            return valuesLocation
+        }
+        return valuesLocation
         }
         const renderByCategory = () => {
+            
             const currentDataCategories = getData("categories")
-            console.log("holi", currentDataCategories)
             for (const category of currentDataCategories) {
                 const summary = byCategorySummary(category.name)
-                console.log(category.name)
-                console.log(summary)
-                console.log("balance:", summary.earnings - summary.expenses)
                 const balance= summary.earnings - summary.expenses   
-                // Aca se haria el innerHTML para mostrar estos datos por cada categoria
              if(balance!="0"){
                 $("#totalsByCategory").innerHTML += 
                 ` 
@@ -546,47 +544,70 @@ const defaultCategories = [
 
 
     // RENDER BY MONTH
-    // const byCategoryMonth = (category) => {
-    //     const currentDataOperations = getData("operations")
-    //     const valuesLocation = {
-    //         earnings: 0,
-    //         expenses: 0
-    //     }  
-    //     const filterOperation = currentDataOperations.filter(operation => operation.category === category)
+    const byCategoryMonth = (operations) => {
+        
+        // const parseDate = new Date(date)
+        // const month = parseDate.getMonth()
+        // console.log(month+1)
+        // const year = parseDate.getFullYear()
+        const currentDataOperations = getData("operations")
+        const valuesLocation = {
+            earnings: 0,
+            expenses: 0,
+        }  
 
-    //     for (const operation of filterOperation) {
-    //         if (operation.type === "ganancia") {
-    //             valuesLocation.earnings += operation.amount
-    //         } else {
-    //             valuesLocation.expenses -= operation.amount 
-    //         } 
+        // const filterOperation = currentDataOperations.filter(currentDataOperations => new Date(currentDataOperations.date).getMonth() === month && new Date(currentDataOperations.date).getFullYear() === year)
 
-    //     }
-    //     return valuesLocation
-    // }
-    // const renderByMonth = () => {
-    //     const currentDataCategories = getData("categories")
-    //     console.log("holi", currentDataCategories)
-    //     for (const category of currentDataCategories) {
-    //         const byMonth = categoryByMonth(category.name)
-    //         console.log(category.name)
-    //         console.log(byMonth)
-    //         console.log("balance:", byMonth.earnings - byMonth.expenses)
-    //         const balance= byMonth.earnings - byMonth.expenses   
-    //         // Aca se haria el innerHTML para mostrar estos datos por cada categoria
-    //          if(balance!="0"){
-    //             $("#totalsByCategory").innerHTML += 
-    //             ` 
-    //             <tr class="">              
-    //             <td class="justify-center">${category.name}</th>
-    //             <td class="justify-center text-green-600">+$${byMonth.earnings}</th>
-    //             <td class="justify-center text-red-600">${byMonth.expenses}</th>
-    //             <td class="justify-center ">${balance}</th>
-    //             </tr>
-    //             `
-    //          }
-    //     }
-    // }
+        console.log("holimonth", operations)
+    for (const operation of operations){
+        
+            if (operation.type==="ganancia") {
+                valuesLocation.earnings += operation.amount
+                
+            } else {
+                valuesLocation.expenses += operation.amount
+            }        
+
+        
+    }
+        console.log(valuesLocation)
+        return valuesLocation
+    }
+    
+
+
+    const renderByMonth = () => {
+        const currentData = getData("operations")
+        const months = {}
+
+        for (const operation of currentData) {
+            const monthYear = operation.date.substring(0, 7);
+            if (!months[monthYear]) {
+                months[monthYear] = [];
+            }
+            months[monthYear].push(operation);
+        }
+        console.log("holi",months)
+
+        for (const [month, operations] of Object.entries(months)) {
+            // const monthYear = operation.date.substring(0, 7)
+            console.log("operations",operations)
+            const byMonth = byCategoryMonth(operations);
+            const balance= byMonth.earnings - byMonth.expenses   
+            // Aca se haria el innerHTML para mostrar estos datos por cada categoria
+             if(balance!="0"){
+                $("#totalsByMonth").innerHTML += 
+                ` 
+                <tr class="">              
+                <td class="justify-center">${month}</th>
+                <td class="justify-center text-green-600">+$${byMonth.earnings}</th>
+                <td class="justify-center text-red-600">${byMonth.expenses}</th>
+                <td class="justify-center ">${balance}</th>
+                </tr>
+                `
+             }
+        }
+    }
     
     
 

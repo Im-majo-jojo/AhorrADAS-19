@@ -542,74 +542,52 @@ const defaultCategories = [
             }
         }
 
-
     // RENDER BY MONTH
-    const byCategoryMonth = (operations) => {
-        
-        // const parseDate = new Date(date)
-        // const month = parseDate.getMonth()
-        // console.log(month+1)
-        // const year = parseDate.getFullYear()
-        const currentDataOperations = getData("operations")
-        const valuesLocation = {
-            earnings: 0,
-            expenses: 0,
-        }  
+        const byCategoryMonth = (operations) => {
+            const currentDataOperations = getData("operations")
+            const valuesLocation = {
+                earnings: 0,
+                expenses: 0
+            }  
 
-        // const filterOperation = currentDataOperations.filter(currentDataOperations => new Date(currentDataOperations.date).getMonth() === month && new Date(currentDataOperations.date).getFullYear() === year)
-
-        console.log("holimonth", operations)
-    for (const operation of operations){
-        
-            if (operation.type==="ganancia") {
-                valuesLocation.earnings += operation.amount
+            for (const operation of operations){
                 
-            } else {
-                valuesLocation.expenses += operation.amount
-            }        
-
-        
-    }
-        console.log(valuesLocation)
-        return valuesLocation
-    }
-    
-
-
-    const renderByMonth = () => {
-        const currentData = getData("operations")
-        const months = {}
-
-        for (const operation of currentData) {
-            const monthYear = operation.date.substring(0, 7);
-            if (!months[monthYear]) {
-                months[monthYear] = [];
+                if (operation.type==="ganancia") {
+                    valuesLocation.earnings += operation.amount  
+                } else {
+                    valuesLocation.expenses += operation.amount
+                }         
             }
-            months[monthYear].push(operation);
+        return valuesLocation
         }
-        console.log("holi",months)
 
-        for (const [month, operations] of Object.entries(months)) {
-            // const monthYear = operation.date.substring(0, 7)
-            console.log("operations",operations)
-            const byMonth = byCategoryMonth(operations);
-            const balance= byMonth.earnings - byMonth.expenses   
-            // Aca se haria el innerHTML para mostrar estos datos por cada categoria
-             if(balance!="0"){
-                $("#totalsByMonth").innerHTML += 
-                ` 
-                <tr class="">              
-                <td class="justify-center">${month}</th>
-                <td class="justify-center text-green-600">+$${byMonth.earnings}</th>
-                <td class="justify-center text-red-600">${byMonth.expenses}</th>
-                <td class="justify-center ">${balance}</th>
-                </tr>
-                `
-             }
+        const renderByMonth = () => {
+            const currentData = getData("operations")
+            const months = {}
+            
+            for (const operation of currentData) {
+                const monthYear = operation.date.substring(0, 7);
+                if (!months[monthYear]) {
+                    months[monthYear] = [];
+                }
+                months[monthYear].push(operation);
+            }
+            for (const [month, operations] of Object.entries(months)) {
+                const byMonth = byCategoryMonth(operations);
+                const balance= byMonth.earnings - byMonth.expenses   
+                if(balance!="0"){
+                    $("#totalsByMonth").innerHTML += 
+                    ` 
+                    <tr class="">              
+                    <td class="justify-center">${month}</th>
+                    <td class="justify-center text-green-600">+$${byMonth.earnings}</th>
+                    <td class="justify-center text-red-600">${byMonth.expenses}</th>
+                    <td class="justify-center ">${balance}</th>
+                    </tr>
+                    `
+                }
+            }
         }
-    }
-    
-    
 
 // EVENTS
 const initializeApp = () => {

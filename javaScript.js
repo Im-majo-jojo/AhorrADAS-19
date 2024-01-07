@@ -461,7 +461,7 @@ const defaultCategories = [
 
             // RENDER SUMMARY
             $("#summary").innerHTML = 
-                `<h2 class="text-xl font-bold mt-2">Resumen</h2>
+                `
                 <table class="w-full mt-2">
                     <tr>
                         <td>Categoría con mayor ganancia</td>
@@ -558,13 +558,13 @@ const defaultCategories = [
                     valuesLocation.expenses += operation.amount
                 }         
             }
-        return valuesLocation
+            return valuesLocation
         }
 
         const renderByMonth = () => {
             const currentData = getData("operations")
             const months = {}
-            
+
             for (const operation of currentData) {
                 const monthYear = operation.date.substring(0, 7);
                 if (!months[monthYear]) {
@@ -588,6 +588,10 @@ const defaultCategories = [
                 }
             }
         }
+    //BURGUER MENU
+        const clickBurguerButton = () => {
+            $("#listContainerBurgerMenu").classList.toggle("hidden")
+        } 
 
 // EVENTS
 const initializeApp = () => {
@@ -602,11 +606,16 @@ const initializeApp = () => {
         $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
         $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
         $("#pestaña-balance").addEventListener ("click", tabChangeBalance)
+        $("#pestaña-categorias-dropDowMenu").addEventListener ("click", tabChangeCategories)
+        $("#pestaña-reportes-dropDowMenu").addEventListener ("click", tabChangeReports)
+        $("#pestaña-balance-dropDowMenu").addEventListener ("click", tabChangeBalance)
         $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
         $("#categoryCancelar").addEventListener ("click", (e) => {
             tabChangeCancelarEdicionDeCategoria()
             e.preventDefault()})
-        $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)    
+        $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)
+
+        $("#dropDowHeaderMenu").addEventListener ("click", clickBurguerButton)    
 
     //SHOW/HIDE FILTERS
         $(".ocultar-filtros-button").addEventListener ("click", hideFilters)

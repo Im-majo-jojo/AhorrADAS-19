@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/d3c573bd54.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
-<body class="font-mono">
+<body class="font-mono bg-slate-200">
     <header>
         <nav class="p-4 flex items-center h-15 text-l bg-gray-800 text-neutral-50  justify-between">
             <div class="flex items-center space-x-1">
@@ -59,7 +59,7 @@
             </ul>
         </div>
         <!-- BALANCE -->
-        <div class="balance-view justify-items-center py-10 lg:grid lg:grid-rows-3 lg:grid-flow-col grid-cols-7 gap-1 h-screen">
+        <div class="balance-view justify-items-center py-10 lg:grid lg:grid-rows-3 lg:grid-flow-col grid-cols-7 gap-1">
             <div class="balance-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Balance</h2>
                 <table id="balanceTable" class="mt-6">
@@ -124,8 +124,8 @@
             </div>
         </div>
         <!-- NUEVA OPERACION -->
-        <div class="nueva-operacion-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
-            <div class="newOperation-box container flex flex-col col-start-2 row-span-3 h-4/5 col-span-3 bg-slate-300 rounded-md p-4 m-2">
+        <div class="nueva-operacion-view hidden w-full justify-items-center py-10 grid grid-rows-5 grid-flow-col grid-cols-5 gap-1">
+            <div class="newOperation-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="tituloNuevaOperacion text-2xl font-bold">Nueva operación</h2>
                 <h2 class="tituloEditarOperacion text-2xl font-bold hidden">Editar operación</h2>
                 <div class="my-2">
@@ -157,10 +157,10 @@
             </div>
         </div>
         <!-- CATEGORÍAS -->
-        <div class="categorias-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
+        <div class="categorias-view hidden w-full justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
             <div class="categories-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Categorías</h2>
-                <div class="py-10  justify-center">
+                <div class="py-5  justify-center">
                     <form class="nuevaCategoriaForm">
                         <label for="nameCategory" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
@@ -170,7 +170,6 @@
                         <button id="nameCategoryButton" class="bg-slate-400 rounded-md 
                         px-4 mt-6 text-neutral-50 "  >Agregar</button>
                     </form>
-
                 </div>
                 <div>
                     <table id="categoryTable" class="w-full">
@@ -179,14 +178,14 @@
             </div>
         </div>
         <!-- EDITAR CATEGORÍA -->
-         <div class="editar-categoria-view hidden w-full h-screen justify-items-center py-10 grid grid-rows-4 grid-flow-col grid-cols-5 gap-1">
+         <div class="editar-categoria-view hidden w-full justify-items-center py-10 grid grid-rows-4 grid-flow-col grid-cols-5 gap-1">
             <div class="editCategory-box container flex flex-col col-start-2 row-span-2 col-span-3 bg-slate-300 rounded-md p-4 m-2 ">
                 <h2 class="text-2xl font-bold">Editar Categoría</h2>
                 <div class="flex py-4 w-full">
                     <form class="w-full">
                         <label for="editCategoryTittle" class="font-bold text-lg">Nombre</label>
                         <input type="text" id="editCategoryTittle" class="w-full rounded-md p-2 bg-slate-200" placeholder="nombre de la categoria" required>
-                        <div class="flex justify-end">
+                        <div class="flex justify-end my-2">
                             <button id="categoryCancelar" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
                             <button id="categoryEdition" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Editar</button>
                         </div>
@@ -209,7 +208,7 @@
         </dialog>
         <!-- REPORTES -->
         <div class="reportes-view hidden w-full justify-items-center py-10 grid grid-rows-5 grid-flow-col grid-cols-5 gap-1">
-            <div class="reports-box container flex flex-col col-start-2 row-span-5  col-span-3 bg-slate-300 rounded-md p-1 m-2 justify-between shrink">
+            <div class="reports-box container flex flex-col col-start-2 row-span-5  col-span-3 bg-slate-300 rounded-md p-4 m-2 justify-between shrink">
                 <h2 class="text-2xl font-bold">Reportes</h2>
                 <!-- CON REPORTES -->
                 <div id="reportesTable">

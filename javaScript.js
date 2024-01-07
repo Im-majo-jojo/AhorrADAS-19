@@ -173,6 +173,8 @@ const defaultCategories = [
         const tabChangeEditarCategorias = (categoryId) =>{
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
             showTab([".editar-categoria-view"])
+            hideTabLg([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
+            showTabLg([".editar-categoria-view"])
             $("#categoryEdition").setAttribute("data-id-categories", categoryId)
             const categorySelect = getData("categories").find(categories => categories.id === categoryId)
             $("#editCategoryTittle").value = categorySelect.name

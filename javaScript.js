@@ -55,16 +55,31 @@ const defaultCategories = [
                 $(selector).classList.remove("hidden")
             }
         } 
+        const hideTabLg = (selectors) => {
+            for (const selector of selectors){
+                $(selector).classList.add("lg:hidden")
+            }
+        }
+
+        const showTabLg = (selectors) => {
+            for (const selector of selectors){
+                $(selector).classList.remove("lg:hidden")
+            }
+        } 
 
         const tabChangeCategories = () =>{
             hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
             showTab([".categorias-view"])
+            hideTabLg([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
+            showTabLg([".categorias-view"])
             $(".nuevaCategoriaForm").reset()
         }
 
         const tabChangeReports = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
             showTab([".reportes-view"])
+            hideTabLg([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
+            showTabLg([".reportes-view"])
             categoryHighestEarnings()
             renderByCategory()
             renderByMonth()
@@ -75,23 +90,32 @@ const defaultCategories = [
             hideTab([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
             ".editarOperationButton",".tituloEditarOperacion"])
             showTab([".nueva-operacion-view",".tituloNuevaOperacion",".nuevaOperationButton"])
+            hideTabLg([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
+            ".editarOperationButton",".tituloEditarOperacion"])
+            showTabLg([".nueva-operacion-view",".tituloNuevaOperacion",".nuevaOperationButton"])
             updateDate()
         }
 
         const tabChangeNuevaOperacionCancel = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
             showTab([".balance-view"])
+            hideTabLg([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
+            showTabLg([".balance-view"])
         }
 
         const tabChangeBalance = () =>{
             hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
             showTab([".balance-view"])
+            hideTabLg([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
+            showTabLg([".balance-view"])
             location.reload()
         }
 
         const tabChangeCancelarEdicionDeCategoria = () =>{
             hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
             showTab([".categorias-view"])
+            hideTabLg([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
+            showTabLg([".categorias-view"])
         }
 
     // SHOW/HIDE FILTERS FUNCTION
@@ -603,12 +627,21 @@ const initializeApp = () => {
         updateDate()
 
     // TAB CHANGE EVENT
-        $("#pestaña-categorias").addEventListener ("click", tabChangeCategories)
-        $("#pestaña-reportes").addEventListener ("click", tabChangeReports)
+        $("#pestaña-categorias").addEventListener ("click", () => {
+            console.log("holi")
+            tabChangeCategories()}
+         )
+        $("#pestaña-reportes").addEventListener ("click",() => {
+            console.log("holi")
+         tabChangeReports()})
         $("#pestaña-balance").addEventListener ("click", tabChangeBalance)
+
         $("#pestaña-categorias-dropDowMenu").addEventListener ("click", tabChangeCategories)
         $("#pestaña-reportes-dropDowMenu").addEventListener ("click", tabChangeReports)
         $("#pestaña-balance-dropDowMenu").addEventListener ("click", tabChangeBalance)
+
+
+
         $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
         $("#categoryCancelar").addEventListener ("click", (e) => {
             tabChangeCancelarEdicionDeCategoria()

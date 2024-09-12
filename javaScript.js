@@ -33,6 +33,10 @@ const defaultCategories = [
     {
         id: randomID(),
         name: "transporte"
+    },
+    {
+        id: randomID(),
+        name: "trabajo"
     }
 ]
 
@@ -68,76 +72,76 @@ const defaultCategories = [
         } 
 
         const tabChangeCategories = () =>{
-            hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
-            showTab([".categorias-view"])
-            hideTabLg([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
-            showTabLg([".categorias-view"])
-            $(".nuevaCategoriaForm").reset()
+            hideTab([".balance-view",".edit-category-view",".reports-view",".new-operation-view"])
+            showTab([".categories-view"])
+            hideTabLg([".balance-view",".edit-category-view",".reports-view",".new-operation-view"])
+            showTabLg([".categories-view"])
+            $(".newCategorieForm").reset()
         }
 
         const tabChangeReports = () =>{
-            hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
-            showTab([".reportes-view"])
-            hideTabLg([".categorias-view",".nueva-operacion-view",".balance-view",".editar-categoria-view"])
-            showTabLg([".reportes-view"])
+            hideTab([".categories-view",".new-operation-view",".balance-view",".edit-category-view"])
+            showTab([".reports-view"])
+            hideTabLg([".categories-view",".new-operation-view",".balance-view",".edit-category-view"])
+            showTabLg([".reports-view"])
             categoryHighestEarnings()
             renderByCategory()
             renderByMonth()
         }
 
-        const tabChangeNuevaOperacion = () =>{
-            $(".nuevaOperacionForm").reset()
-            hideTab([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
-            ".editarOperationButton",".tituloEditarOperacion"])
-            showTab([".nueva-operacion-view",".tituloNuevaOperacion",".nuevaOperationButton"])
-            hideTabLg([".categorias-view",".balance-view",".editar-categoria-view",".reportes-view",
-            ".editarOperationButton",".tituloEditarOperacion"])
-            showTabLg([".nueva-operacion-view",".tituloNuevaOperacion",".nuevaOperationButton"])
+        const tabChangeNewOperation = () =>{
+            $(".newOperationForm").reset()
+            hideTab([".categories-view",".balance-view",".edit-category-view",".reports-view",
+            ".editOperationButton",".titleEditOperation"])
+            showTab([".new-operation-view",".titleNewOperation",".newOperationButton"])
+            hideTabLg([".categories-view",".balance-view",".edit-category-view",".reports-view",
+            ".editOperationButton",".titleEditOperation"])
+            showTabLg([".new-operation-view",".titleNewOperation",".newOperationButton"])
             updateDate()
         }
 
-        const tabChangeNuevaOperacionCancel = () =>{
-            hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
+        const tabChangeNewOperationCancel = () =>{
+            hideTab([".categories-view",".new-operation-view",".edit-category-view",".reports-view"])
             showTab([".balance-view"])
-            hideTabLg([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
+            hideTabLg([".categories-view",".new-operation-view",".edit-category-view",".reports-view"])
             showTabLg([".balance-view"])
         }
 
         const tabChangeBalance = () =>{
-            hideTab([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
+            hideTab([".categories-view",".new-operation-view",".edit-category-view",".reports-view"])
             showTab([".balance-view"])
-            hideTabLg([".categorias-view",".nueva-operacion-view",".editar-categoria-view",".reportes-view"])
+            hideTabLg([".categories-view",".new-operation-view",".edit-category-view",".reports-view"])
             showTabLg([".balance-view"])
             location.reload()
         }
 
-        const tabChangeCancelarEdicionDeCategoria = () =>{
-            hideTab([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
-            showTab([".categorias-view"])
-            hideTabLg([".balance-view",".editar-categoria-view",".reportes-view",".nueva-operacion-view"])
-            showTabLg([".categorias-view"])
+        const tabChangeCancelEditionOfCategory = () =>{
+            hideTab([".balance-view",".edit-category-view",".reports-view",".new-operation-view"])
+            showTab([".categories-view"])
+            hideTabLg([".balance-view",".edit-category-view",".reports-view",".new-operation-view"])
+            showTabLg([".categories-view"])
         }
 
     // SHOW/HIDE FILTERS FUNCTION
         const hideFilters = () => {
-            hideTab([".formulary-visibility",".ocultar-filtros-button",".mostrar-filtros-button"])
-            showTab([".mostrar-filtros-button"])
+            hideTab([".formulary-visibility",".hide-filters-button",".show-filters-button"])
+            showTab([".show-filters-button"])
             $(".formulary-visibility").classList.remove("block")
-            $(".ocultar-filtros-button").classList.remove("block")
-            $(".mostrar-filtros-button").classList.add("block")
-            $(".filtros-box").classList.remove("row-span-2")
-            $(".filtros-box").classList.add("row-span-1")
+            $(".hide-filters-button").classList.remove("block")
+            $(".show-filters-button").classList.add("block")
+            $(".filters-box").classList.remove("row-span-2")
+            $(".filters-box").classList.add("row-span-1")
         }
 
         const showFilters = () => {
             $(".formulary-visibility").classList.add("block")
             $(".formulary-visibility").classList.remove("hidden")
-            $(".ocultar-filtros-button").classList.remove("hidden")
-            $(".ocultar-filtros-button").classList.add("block")
-            $(".mostrar-filtros-button").classList.remove("block")
-            $(".mostrar-filtros-button").classList.add("hidden")
-            $(".filtros-box").classList.add("row-span-2")
-            $(".filtros-box").classList.remove("row-span-1")
+            $(".hide-filters-button").classList.remove("hidden")
+            $(".hide-filters-button").classList.add("block")
+            $(".show-filters-button").classList.remove("block")
+            $(".show-filters-button").classList.add("hidden")
+            $(".filters-box").classList.add("row-span-2")
+            $(".filters-box").classList.remove("row-span-1")
         }
 
     // RENDER CATEGORIES FUNCTION
@@ -162,19 +166,19 @@ const defaultCategories = [
                 `<tr>
                     <td>${category.name}</td>
                     <td class="flex flex-row-reverse">  
-                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="category-modal-eliminar" onclick="my_modal_5.showModal(),buttonDeleteCategory('${category.name}')">Eliminar</button>                       
-                        <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" id="editarCategoryTab" onclick="tabChangeEditarCategorias('${category.id}')">Editar</button>
+                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="category-modal-remove" onclick="my_modal_5.showModal(),buttonDeleteCategory('${category.name}')">Eliminar</button>                       
+                        <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" id="editCategoryTab" onclick="tabChangeEditCategories('${category.id}')">Editar</button>
                     </td>
                 </tr>`
             }
         }
 
     // EDIT CATEGORIES FUNCTION
-        const tabChangeEditarCategorias = (categoryId) =>{
-            hideTab([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
-            showTab([".editar-categoria-view"])
-            hideTabLg([".categorias-view",".nueva-operacion-view",".balance-view",".reportes-view"])
-            showTabLg([".editar-categoria-view"])
+        const tabChangeEditCategories = (categoryId) =>{
+            hideTab([".categories-view",".new-operation-view",".balance-view",".reports-view"])
+            showTab([".edit-category-view"])
+            hideTabLg([".categories-view",".new-operation-view",".balance-view",".reports-view"])
+            showTabLg([".edit-category-view"])
             $("#categoryEdition").setAttribute("data-id-categories", categoryId)
             const categorySelect = getData("categories").find(categories => categories.id === categoryId)
             $("#editCategoryTittle").value = categorySelect.name
@@ -200,7 +204,7 @@ const defaultCategories = [
     // RENDER SELECT OPTIONS FUNCTION
         const renderOperationsCategories = (categories) => {
             for (const category of categories) {
-                $("#categoria-nueva-operacion").innerHTML += 
+                $("#category-new-operation").innerHTML += 
                 `<option value="${category.name}">${category.name}</option>`
                 $("#categoria-select").innerHTML += 
                 `<option value="${category.name}">${category.name}</option>`
@@ -239,18 +243,18 @@ const defaultCategories = [
         const saveNewOperation = (userId) => {
             return{
                 id: userId ? userId : randomID(),
-                description: $("#descripcion-nueva-operacion").value,
-                type: $("#tipo-nueva-operacion").value,
-                category: $("#categoria-nueva-operacion").value,
-                date: $("#date-nueva-operacion").value,
-                amount: $("#monto-nueva-operacion").valueAsNumber
+                description: $("#description-new-operation").value,
+                type: $("#type-new-operation").value,
+                category: $("#category-new-operation").value,
+                date: $("#date-new-operation").value,
+                amount: $("#amount-new-operation").valueAsNumber
             }
         }   
 
         const renderOperations = (operations) => {
             clearTable("#operationTable")
             if(operations.length){
-                hideTab([".sinOperaciones"])
+                hideTab([".noOperations"])
                 showTab([".tableOperation"])
                 for (const operation of operations){                  
                     $("#operationTable").innerHTML += 
@@ -266,35 +270,35 @@ const defaultCategories = [
                             : "-$"+operation.amount}</td>
                         <div>
                             <td class="flex flex-col"> 
-                                <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" onclick="tabChangeEditarOperacion('${operation.id}')">Editar</button>
-                                <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" onclick="my_modal_5.showModal(),botonOperacionEliminar('${operation.id}')">Eliminar</button>
+                                <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" onclick="tabChangeEditOperation('${operation.id}')">Editar</button>
+                                <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" onclick="my_modal_5.showModal(),buttonOperationRemove('${operation.id}')">Eliminar</button>
                             </td>
                         </div>
                     </tr>`
                 }
             } else{
                 hideTab([".tableOperation"])
-                showTab([".sinOperaciones"])
+                showTab([".noOperations"])
             }
         }
     // EDIT OPERATION FUNCTION
-        const tabChangeEditarOperacion = (operationsId) =>{
-            hideTab([".categorias-view",".editar-categoria-view",".reportes-view",".balance-view",
-            ".tituloNuevaOperacion",".nuevaOperationButton"])
-            showTab([".nueva-operacion-view",".editarOperationButton",".tituloEditarOperacion"])
-            $("#editarOperationButton").setAttribute("data-id-operations", operationsId)
+        const tabChangeEditOperation = (operationsId) =>{
+            hideTab([".categories-view",".edit-category-view",".reports-view",".balance-view",
+            ".titleNewOperation",".newOperationButton"])
+            showTab([".new-operation-view",".editOperationButton",".titleEditOperation"])
+            $("#editOperationButton").setAttribute("data-id-operations", operationsId)
             const operationSelect = getData("operations").find(operations => operations.id === operationsId)
-            $("#descripcion-nueva-operacion").value = operationSelect.description
-            $("#categoria-nueva-operacion").value = operationSelect.category
-            $("#date-nueva-operacion").value = operationSelect.date
-            $("#monto-nueva-operacion").value = operationSelect.amount
+            $("#description-new-operation").value = operationSelect.description
+            $("#category-new-operation").value = operationSelect.category
+            $("#date-new-operation").value = operationSelect.date
+            $("#amount-new-operation").value = operationSelect.amount
         }
     // MODAL/DELETE OPERATION FUNCTION
-        const botonOperacionEliminar = (operationId) => {
+        const buttonOperationRemove = (operationId) => {
             $(".modal-eliminar").setAttribute("data-id-modal", operationId)
             $(".modal-eliminar").addEventListener("click", () => {
-                const operacionesId = $(".modal-eliminar").getAttribute("data-id-modal")
-                modalDeleteOperation(operacionesId)
+                const operationsId = $(".modal-eliminar").getAttribute("data-id-modal")
+                modalDeleteOperation(operationsId)
                 location.reload()
             })
         }
@@ -340,36 +344,36 @@ const defaultCategories = [
 
     // VALIDAION FUNCTION
         const validateFormOperation = (field) => {
-            const nameOperation = $("#descripcion-nueva-operacion").value.trim()
-            const amountOperation = $("#monto-nueva-operacion").valueAsNumber
+            const nameOperation = $("#description-new-operation").value.trim()
+            const amountOperation = $("#amount-new-operation").valueAsNumber
             const validationPassed = nameOperation!== "" && amountOperation 
             switch (field){
                 case "nameOperation":
                     if (nameOperation=== ""){
-                    $("#descripcion-nueva-operacion").classList.add("border-red-500", "border", "border-2")
+                    $("#description-new-operation").classList.add("border-red-500", "border", "border-2")
                     } else {
-                    $("#descripcion-nueva-operacion").classList.remove("border-red-500")
+                    $("#description-new-operation").classList.remove("border-red-500")
                     }
                     break
                 case "amountOperation":
                     if (!amountOperation){
-                    $("#monto-nueva-operacion").classList.add("border-red-500", "border", "border-2")
+                    $("#amount-new-operation").classList.add("border-red-500", "border", "border-2")
                     } else {
-                    $("#monto-nueva-operacion").classList.remove("border-red-500", "border", "border-2")
+                    $("#amount-new-operation").classList.remove("border-red-500", "border", "border-2")
                     }
                     break 
             }
 
             if(validationPassed){
-                $("#nuevaOperationButton").removeAttribute("disabled")
+                $("#newOperationButton").removeAttribute("disabled")
             } else {
-                $("#nuevaOperationButton").setAttribute("disabled", true)
+                $("#newOperationButton").setAttribute("disabled", true)
             }
         }
     // UPDATE DATE FUNCTION
         const updateDate = () => {
             const date = new Date()
-            $("#date-nueva-operacion").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+            $("#date-new-operation").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
             $("#desde-select").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
         }
 
@@ -629,32 +633,32 @@ const initializeApp = () => {
         updateDate()
 
     // TAB CHANGE EVENT
-        $("#pestaña-categorias").addEventListener ("click", () => {
+        $("#tab-categories").addEventListener ("click", () => {
             console.log("holi")
             tabChangeCategories()}
          )
-        $("#pestaña-reportes").addEventListener ("click",() => {
+        $("#tab-reports").addEventListener ("click",() => {
             console.log("holi")
          tabChangeReports()})
-        $("#pestaña-balance").addEventListener ("click", tabChangeBalance)
+        $("#tab-balance").addEventListener ("click", tabChangeBalance)
 
-        $("#pestaña-categorias-dropDowMenu").addEventListener ("click", tabChangeCategories)
-        $("#pestaña-reportes-dropDowMenu").addEventListener ("click", tabChangeReports)
-        $("#pestaña-balance-dropDowMenu").addEventListener ("click", tabChangeBalance)
+        $("#tab-categories-dropDowMenu").addEventListener ("click", tabChangeCategories)
+        $("#tab-reports-dropDowMenu").addEventListener ("click", tabChangeReports)
+        $("#tab-balance-dropDowMenu").addEventListener ("click", tabChangeBalance)
 
 
 
-        $("#nuevaOperacionButton").addEventListener ("click", tabChangeNuevaOperacion)
-        $("#categoryCancelar").addEventListener ("click", (e) => {
-            tabChangeCancelarEdicionDeCategoria()
+        $("#newOperationButton").addEventListener ("click", tabChangeNewOperation)
+        $("#categoryCancel").addEventListener ("click", (e) => {
+            tabChangeCancelEditionOfCategory()
             e.preventDefault()})
-        $("#nuevaOperacionCancel").addEventListener ("click", tabChangeNuevaOperacionCancel)
+        $("#newOperationCancel").addEventListener ("click", tabChangeNewOperationCancel)
 
         $("#dropDowHeaderMenu").addEventListener ("click", clickBurguerButton)    
 
     //SHOW/HIDE FILTERS
-        $(".ocultar-filtros-button").addEventListener ("click", hideFilters)
-        $(".mostrar-filtros-button").addEventListener ("click", showFilters)
+        $(".hide-filters-button").addEventListener ("click", hideFilters)
+        $(".show-filters-button").addEventListener ("click", showFilters)
     
     //AGREGAR CATEGORIA EVENT
         $("#nameCategoryButton").addEventListener ("click", (e) => {
@@ -668,7 +672,7 @@ const initializeApp = () => {
                 currentData.push(saveNewCategory())
                 addCategory(currentData)
             }
-            $(".nuevaCategoriaForm").reset()
+            $(".newCategorieForm").reset()
         })
 
     //EDIT CATEGORY EVENT
@@ -682,11 +686,11 @@ const initializeApp = () => {
                 return category
             })
             addCategory(currentData)
-            tabChangeCancelarEdicionDeCategoria()
+            tabChangeCancelEditionOfCategory()
         }) 
 
     //ADD OPERATION EVENT
-        $("#nuevaOperationButton").addEventListener ("click", (e) => {
+        $("#newOperationButton").addEventListener ("click", (e) => {
             const currentData = getData("operations")
             currentData.push(saveNewOperation())
             setData("operations", currentData)
@@ -694,8 +698,8 @@ const initializeApp = () => {
         })
 
     //EDIT OPERATION EVENT
-        $("#editarOperationButton").addEventListener ("click", (e) => {
-            const operationsId = $("#editarOperationButton").getAttribute("data-id-operations")
+        $("#editOperationButton").addEventListener ("click", (e) => {
+            const operationsId = $("#editOperationButton").getAttribute("data-id-operations")
             const currentData = getData("operations").map(operations => {
                 if ( operations.id === operationsId){
                     return saveNewOperation()
@@ -732,7 +736,7 @@ const initializeApp = () => {
             }
         })
 
-        $("#ordenar-por-select").addEventListener("input", (e) => {
+        $("#order-by-select").addEventListener("input", (e) => {
             const filterSelected = e.target.value
             const currentData = getData("operations")
             if(filterSelected==="Menos reciente"){
@@ -759,8 +763,8 @@ const initializeApp = () => {
         })
 
     // VALITADION EVENT    
-        $("#descripcion-nueva-operacion").addEventListener("blur", () => validateFormOperation("nameOperation"))
-        $("#monto-nueva-operacion").addEventListener("blur", () => validateFormOperation("amountOperation"))    
+        $("#description-new-operation").addEventListener("blur", () => validateFormOperation("nameOperation"))
+        $("#amount-new-operation").addEventListener("blur", () => validateFormOperation("amountOperation"))    
 
 }
 window.addEventListener("load", initializeApp)

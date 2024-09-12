@@ -46,15 +46,15 @@
             <ul class="justify-content-center flex space-x-4 lg:hidden grid flex-col justify-items-end pr-4 py-1 bg-slate-300 w-full">
                 <li class="flex items-center space-x-1 py-1">
                     <i class="fa-solid fa-chart-line"></i>
-                    <button id="pestaña-balance-dropDowMenu">Balance</button>
+                    <button id="tab-balance-dropDowMenu">Balance</button>
                 </li>
                 <li class="flex items-center space-x-1 py-1">
                     <i class="fa-solid fa-tag"></i>
-                    <button id="pestaña-categorias-dropDowMenu">Categorías</button>
+                    <button id="tab-categories-dropDowMenu">Categorías</button>
                 </li>
                 <li class="flex items-center space-x-1 py-1">
                     <i class="fa-solid fa-chart-pie"></i>
-                    <button id="pestaña-reportes-dropDowMenu">Reportes</button>
+                    <button id="tab-reports-dropDowMenu">Reportes</button>
                 </li>
             </ul>
         </div>
@@ -65,27 +65,27 @@
                 <table id="balanceTable" class="mt-6">
                 </table>
             </div>
-            <div class="filtros-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2 row-span-2">
+            <div class="filters-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2 row-span-2">
                 <div class="flex  justify-between">
                     <h2 class="text-2xl font-bold">Filtros</h2>
-                    <button class="ocultar-filtros-button justify-between">Ocultar filtros</button>
-                    <button class="mostrar-filtros-button hidden justify-between">Mostrar filtros</button>
+                    <button class="hide-filters-button justify-between">Ocultar filtros</button>
+                    <button class="show-filters-button hidden justify-between">Mostrar filtros</button>
                 </div>
                 <form class="formulary-visibility flex flex-col space-y-4 mt-3">
-                    <label for="tipo-select">Tipo</label>
-                    <select name="" id="tipo-select" class="rounded-md p-2 bg-slate-200" required>
+                    <label for="type-select">Tipo</label>
+                    <select name="" id="type-select" class="rounded-md p-2 bg-slate-200" required>
                         <option value="todos">todos</option>
                         <option value="gasto">gasto</option>
                         <option value="ganancia">ganancia</option>
                     </select>
-                    <label for="categoria-select">Categorías</label>
-                    <select id="categoria-select" class="rounded-md p-2 bg-slate-200" required>
+                    <label for="category-select">Categorías</label>
+                    <select id="category-select" class="rounded-md p-2 bg-slate-200" required>
                         <option value="Todas">Todas</option>
                     </select>
-                    <label for="desde-select">Desde</label>
-                    <input type="date" id="desde-select" class="rounded-md p-2 bg-slate-200" required>
-                    <label for="ordenar-por-select">Ordenar por</label>
-                    <select name="" id="ordenar-por-select" class="rounded-md p-2 bg-slate-200" required>
+                    <label for="from-select">Desde</label>
+                    <input type="date" id="from-select" class="rounded-md p-2 bg-slate-200" required>
+                    <label for="order-by-select">Ordenar por</label>
+                    <select name="" id="order-by-select" class="rounded-md p-2 bg-slate-200" required>
                         <option value="Más reciente">Más reciente</option>
                         <option value="Menos reciente">Menos reciente</option>
                         <option value="Mayor monto">Mayor monto</option>
@@ -95,10 +95,10 @@
                     </select>
                 </form>
             </div>
-            <div class="operaciones-box container flex flex-col bg-slate-300 rounded-md p-4 my-2 ml-4 row-span-2 col-span-3">
+            <div class="operations-box container flex flex-col bg-slate-300 rounded-md p-4 my-2 ml-4 row-span-2 col-span-3">
                 <div class="flex justify-between">
                     <h2 class="text-2xl font-bold">Operaciones</h2>
-                    <button id="nuevaOperacionButton" class="bg-slate-400 rounded-md 
+                    <button id="newOperationButton" class="bg-slate-400 rounded-md 
                     px-2 text-neutral-50">+ Nueva operación</button>
                 </div>
                 <!--CON OPERACIONES-->
@@ -116,7 +116,7 @@
                     </tbody>
                 </table>
                 <!-- SIN OPERACIONES -->
-                <div class="sinOperaciones text-center pb-16 hidden">
+                <div class="noOperations text-center pb-16 hidden">
                     <img src="#" alt="">
                     <p class="font-bold text-lg p-4">Sin resultados</p>
                     <p>Cambia los filtros o agrega operaciones</p>
@@ -124,44 +124,44 @@
             </div>
         </div>
         <!-- NUEVA OPERACION -->
-        <div class="nueva-operacion-view hidden w-full justify-items-center py-10 grid grid-rows-5 grid-flow-col grid-cols-5 gap-1">
+        <div class="new-operation-view hidden w-full justify-items-center py-10 grid grid-rows-5 grid-flow-col grid-cols-5 gap-1">
             <div class="newOperation-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2">
-                <h2 class="tituloNuevaOperacion text-2xl font-bold">Nueva operación</h2>
-                <h2 class="tituloEditarOperacion text-2xl font-bold hidden">Editar operación</h2>
+                <h2 class="titleNewOperation text-2xl font-bold">Nueva operación</h2>
+                <h2 class="titleEditOperation text-2xl font-bold hidden">Editar operación</h2>
                 <div class="my-2">
-                    <form class="flex flex-col nuevaOperacionForm">
-                        <label for="descripcion-nueva-operacion" class="font-bold">Descripción</label>
-                        <input type="text" id="descripcion-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" placeholder="nombre de la operacion" required>
+                    <form class="flex flex-col newOperationForm">
+                        <label for="description-new-operation" class="font-bold">Descripción</label>
+                        <input type="text" id="description-new-operation" class="border-stone-100 rounded-md bg-slate-200 my-2" placeholder="nombre de la operacion" required>
                         <p class="bannerName-error mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>
-                        <label for="monto-nueva-operacion" class="font-bold">Monto</label>
-                        <input type="number" value="0" id="monto-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
+                        <label for="amount-new-operation" class="font-bold">Monto</label>
+                        <input type="number" value="0" id="amount-new-operation" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                         <p class="bannerAmount-error mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>
-                        <label for="tipo-nueva-operacion" class="font-bold">Tipo</label>
-                        <select id="tipo-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
+                        <label for="type-new-operation" class="font-bold">Tipo</label>
+                        <select id="type-new-operation" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                             <option value="gasto">Gasto</option>
                             <option value="ganancia">Ganancia</option>
                         </select>
-                        <label for="categoria-nueva-operacion" class="font-bold">Categoría</label>
-                        <select id="categoria-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
+                        <label for="category-new-operation" class="font-bold">Categoría</label>
+                        <select id="category-new-operation" class="border-stone-100 rounded-md bg-slate-200 my-2" required>
                         </select>
-                        <label for="date-nueva-operacion" class="font-bold">Fecha</label>
-                        <input type="date" id="date-nueva-operacion" class="border-stone-100 rounded-md bg-slate-200 my-2"  required>
+                        <label for="date-new-operation" class="font-bold">Fecha</label>
+                        <input type="date" id="date-new-operation" class="border-stone-100 rounded-md bg-slate-200 my-2"  required>
                         </script>
                         <div class="flex justify-end">
-                            <button id="nuevaOperacionCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
-                            <button id="nuevaOperationButton" class="nuevaOperationButton bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
-                            <button id="editarOperationButton" class="editarOperationButton bg-slate-400 rounded-md px-2 text-neutral-50 mx-1 hidden">Editar</button>
+                            <button id="newOperationCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                            <button id="newOperationButton" class="newOperationButton bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Agregar</button>
+                            <button id="editOperationButton" class="editOperationButton bg-slate-400 rounded-md px-2 text-neutral-50 mx-1 hidden">Editar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <!-- CATEGORÍAS -->
-        <div class="categorias-view hidden w-full justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
+        <div class="categories-view hidden w-full justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
             <div class="categories-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2">
                 <h2 class="text-2xl font-bold">Categorías</h2>
                 <div class="py-5  justify-center">
-                    <form class="nuevaCategoriaForm">
+                    <form class="newCategoryForm">
                         <label for="nameCategory" class="font-bold text-lg">Nombre</label>
                         <div class="w-full">                        
                             <input type="text" id="nameCategory" placeholder="nombre de la categoria" class="w-10/12 rounded-md p-2 bg-slate-200" required> 
@@ -178,7 +178,7 @@
             </div>
         </div>
         <!-- EDITAR CATEGORÍA -->
-         <div class="editar-categoria-view hidden w-full justify-items-center py-10 grid grid-rows-4 grid-flow-col grid-cols-5 gap-1">
+         <div class="edit-category-view hidden w-full justify-items-center py-10 grid grid-rows-4 grid-flow-col grid-cols-5 gap-1">
             <div class="editCategory-box container flex flex-col col-start-2 row-span-2 col-span-3 bg-slate-300 rounded-md p-4 m-2 ">
                 <h2 class="text-2xl font-bold">Editar Categoría</h2>
                 <div class="flex py-4 w-full">
@@ -186,7 +186,7 @@
                         <label for="editCategoryTittle" class="font-bold text-lg">Nombre</label>
                         <input type="text" id="editCategoryTittle" class="w-full rounded-md p-2 bg-slate-200" placeholder="nombre de la categoria" required>
                         <div class="flex justify-end my-2">
-                            <button id="categoryCancelar" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                            <button id="categoryCancel" class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
                             <button id="categoryEdition" class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Editar</button>
                         </div>
                     </form>
@@ -194,24 +194,24 @@
             </div>
         </div>
         <!-- MODAL -->            
-        <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle text-center bg-slate-100 rounded-md p-4">
+        <dialog id="my_modal_5" class="modal modal-buttom sm:modal-middle text-center bg-slate-100 rounded-md p-4">
           <div class="modal-box ">
             <h2 class="text-2xl font-bold ">Eliminar</h2>
             <p class="py-4">Estás segura de que quieres eliminar esto?</p>
             <div class="modal-action">
               <form method="dialog">
-                <button class="modal-cancelar btn bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
-                <button class="modal-eliminar btn bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Eliminar</button>
+                <button class="modal-cancel btn bg-slate-500 text-neutral-50 rounded-md px-2 mx-1">Cancelar</button>
+                <button class="modal-remove btn bg-slate-400 rounded-md px-2 text-neutral-50 mx-1">Eliminar</button>
               </form>
             </div>
           </div>
         </dialog>
         <!-- REPORTES -->
-        <div class="reportes-view hidden w-full justify-items-center py-10 grid grid-rows-5 grid-flow-col grid-cols-5 gap-1">
+        <div class="reports-view hidden w-full justify-items-center py-10 grid grid-rows-5 grid-flow-col grid-cols-5 gap-1">
             <div class="reports-box container flex flex-col col-start-2 row-span-5  col-span-3 bg-slate-300 rounded-md p-4 m-2 justify-between shrink">
                 <h2 class="text-2xl font-bold">Reportes</h2>
                 <!-- CON REPORTES -->
-                <div id="reportesTable">
+                <div id="reportsTable">
                     <div>
                         <div id="summary">
                             <h2 class="text-xl font-bold mt-2">Resumen</h2>

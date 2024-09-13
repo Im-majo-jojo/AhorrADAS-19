@@ -76,7 +76,7 @@ const defaultCategories = [
             showTab([".categories-view"])
             hideTabLg([".balance-view",".edit-category-view",".reports-view",".new-operation-view"])
             showTabLg([".categories-view"])
-            $(".newCategorieForm").reset()
+            $(".newCategoryForm").reset()
         }
 
         const tabChangeReports = () =>{
@@ -206,7 +206,7 @@ const defaultCategories = [
             for (const category of categories) {
                 $("#category-new-operation").innerHTML += 
                 `<option value="${category.name}">${category.name}</option>`
-                $("#categoria-select").innerHTML += 
+                $("#category-select").innerHTML += 
                 `<option value="${category.name}">${category.name}</option>`
             }
         }
@@ -374,7 +374,7 @@ const defaultCategories = [
         const updateDate = () => {
             const date = new Date()
             $("#date-new-operation").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
-            $("#desde-select").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
+            $("#from-select").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
         }
 
     // RENDER SUMMARY REPORTS FUNCTION
@@ -672,7 +672,7 @@ const initializeApp = () => {
                 currentData.push(saveNewCategory())
                 addCategory(currentData)
             }
-            $(".newCategorieForm").reset()
+            $(".newCategoryForm").reset()
         })
 
     //EDIT CATEGORY EVENT
@@ -711,7 +711,7 @@ const initializeApp = () => {
         })   
         
     //FILTERS EVENT
-        $("#categoria-select").addEventListener("input", (e) => {
+        $("#category-select").addEventListener("input", (e) => {
             const filterSelected = e.target.value
             const currentData = getData("operations")
             if(filterSelected==="Todas"){
@@ -723,7 +723,7 @@ const initializeApp = () => {
             }
         })
 
-        $("#tipo-select").addEventListener("input", (e) => {
+        $("#type-select").addEventListener("input", (e) => {
             const filterSelected = e.target.value
             const currentData = getData("operations")
             if(filterSelected==="todos"){
@@ -756,7 +756,7 @@ const initializeApp = () => {
             }
         })
 
-        $("#desde-select").addEventListener("input", (e) => {
+        $("#from-select").addEventListener("input", (e) => {
             const filterSelected = e.target.value
             const currentData = getData("operations")
             renderOperations(byDate(currentData,filterSelected))

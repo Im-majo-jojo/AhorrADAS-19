@@ -41,7 +41,7 @@
             </div>
         </nav>
     </header>
-    <main class="bg-slate-200 p-0.5 w-full">
+    <main class="bg-slate-200 p-0.5 w-full ">
           <div id="listContainerBurgerMenu" class="hidden">
             <ul class="justify-content-center flex space-x-4 lg:hidden grid flex-col justify-items-end pr-4 py-1 bg-slate-300 w-full">
                 <li class="flex items-center space-x-1 py-1">
@@ -207,18 +207,18 @@
           </div>
         </dialog>
         <!-- REPORTES -->
-        <div class="reports-view hidden w-full justify-items-center py-10 grid grid-rows-5 grid-flow-col grid-cols-5 gap-1">
-            <div class="reports-box container flex flex-col col-start-2 row-span-5  col-span-3 bg-slate-300 rounded-md p-4 m-2 justify-between shrink">
+        <div class="reports-view hidden py-10  sm:snap-x ">
+            <div class="reports-box container md:flex flex-col col-start-2 row-span-5  col-span-3 bg-slate-300 rounded-md p-4 m-2 space-between snap-center">
                 <h2 class="text-2xl font-bold">Reportes</h2>
                 <!-- CON REPORTES -->
                 <div id="reportsTable">
                     <div>
                         <div id="summary">
-                            <h2 class="text-xl font-bold mt-2">Resumen</h2>
+                            <h2 class="text-xs font-bold mt-2">Resumen</h2>
                         </div>
                         <div>
                             <h2 class="text-xl font-bold mt-6">Totales por categorías</h2>
-                            <table class="w-full font-light mt-6">
+                            <table class="w-full text-xs font-light mt-6">
                                 <thead>
                                     <tr>
                                         <th>Categoria</th>
@@ -233,7 +233,7 @@
                         </div>
                         <div class="pb-30">
                             <h2 class="text-xl font-bold mt-6">Totales por mes</h2>
-                            <table class="w-full mt-6">
+                            <table class="w-full mt-6 text-xs">
                                 <thead>
                                     <tr>
                                         <th>Mes</th>

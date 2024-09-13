@@ -93,10 +93,10 @@ const defaultCategories = [
             $(".newOperationForm").reset()
             hideTab([".categories-view",".balance-view",".edit-category-view",".reports-view",
             ".editOperationButton",".titleEditOperation"])
-            showTab([".new-operation-view",".titleNewOperation",".newOperationButton"])
+            showTab([".new-operation-view",".titleNewOperation",".addNewOperationButton"])
             hideTabLg([".categories-view",".balance-view",".edit-category-view",".reports-view",
             ".editOperationButton",".titleEditOperation"])
-            showTabLg([".new-operation-view",".titleNewOperation",".newOperationButton"])
+            showTabLg([".new-operation-view",".titleNewOperation",".addNewOperationButton"])
             updateDate()
         }
 
@@ -124,14 +124,8 @@ const defaultCategories = [
 
     // SHOW/HIDE FILTERS FUNCTION
         const hideFilters = () => {
-            const hideTab = (selectors, isLg) => {
-                for (const selector of selectors){
-                    $(selector).classList.add(`${isLg ? `lg:` : ''}hidden`)
-                }
-            }
-            hideTab([".formulary-visibility",".hide-filters-button",".show-filters-button"]) // aca queda la class hidden
-            showTab([".show-filters-button"], true)// aca queda la class lg:hidden
-
+            hideTab([".formulary-visibility",".hide-filters-button",".show-filters-button"])
+            showTab([".show-filters-button"])
             $(".formulary-visibility").classList.remove("block")
             $(".hide-filters-button").classList.remove("block")
             $(".show-filters-button").classList.add("block")
@@ -247,6 +241,7 @@ const defaultCategories = [
 
     // RENDER OPERATIONS FUNCTION
         const saveNewOperation = (userId) => {
+            console.log("holi")
             return{
                 id: userId ? userId : randomID(),
                 description: $("#description-new-operation").value,
@@ -292,6 +287,9 @@ const defaultCategories = [
             hideTab([".categories-view",".edit-category-view",".reports-view",".balance-view",
             ".titleNewOperation",".newOperationButton"])
             showTab([".new-operation-view",".editOperationButton",".titleEditOperation"])
+
+
+            
             $("#editOperationButton").setAttribute("data-id-operations", operationsId)
             const operationSelect = getData("operations").find(operations => operations.id === operationsId)
             $("#description-new-operation").value = operationSelect.description
@@ -371,9 +369,9 @@ const defaultCategories = [
             }
 
             if(validationPassed){
-                $("#newOperationButton").removeAttribute("disabled")
+                $("#addNewOperationButton").removeAttribute("disabled")
             } else {
-                $("#newOperationButton").setAttribute("disabled", true)
+                $("#addNewOperationButton").setAttribute("disabled", true)
             }
         }
     // UPDATE DATE FUNCTION
@@ -664,7 +662,7 @@ const initializeApp = () => {
         $(".hide-filters-button").addEventListener ("click", hideFilters)
         $(".show-filters-button").addEventListener ("click", showFilters)
     
-    //AGREGAR CATEGORIA EVENT
+    //ADD CATEGORY EVENT
         $("#nameCategoryButton").addEventListener ("click", (e) => {
             e.preventDefault()
             const currentData = getData("categories")
@@ -694,10 +692,11 @@ const initializeApp = () => {
         }) 
 
     //ADD OPERATION EVENT
-        $("#newOperationButton").addEventListener ("click", (e) => {
+        $("#addNewOperationButton").addEventListener ("click", (e) => {
             const currentData = getData("operations")
             currentData.push(saveNewOperation())
             setData("operations", currentData)
+            console.log("holi de prueba")
             renderBalance(currentData)
         })
 

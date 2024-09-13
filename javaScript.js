@@ -53,7 +53,6 @@ const defaultCategories = [
                 $(selector).classList.add("hidden")
             }
         }
-
         const showTab = (selectors) => {
             for (const selector of selectors){
                 $(selector).classList.remove("hidden")
@@ -64,13 +63,11 @@ const defaultCategories = [
                 $(selector).classList.add("lg:hidden")
             }
         }
-
         const showTabLg = (selectors) => {
             for (const selector of selectors){
                 $(selector).classList.remove("lg:hidden")
             }
         } 
-
         const tabChangeCategories = () =>{
             hideTab([".balance-view",".edit-category-view",".reports-view",".new-operation-view"])
             showTab([".categories-view"])
@@ -78,7 +75,6 @@ const defaultCategories = [
             showTabLg([".categories-view"])
             $(".newCategoryForm").reset()
         }
-
         const tabChangeReports = () =>{
             hideTab([".categories-view",".new-operation-view",".balance-view",".edit-category-view"])
             showTab([".reports-view"])
@@ -88,7 +84,6 @@ const defaultCategories = [
             renderByCategory()
             renderByMonth()
         }
-
         const tabChangeNewOperation = () =>{
             $(".newOperationForm").reset()
             hideTab([".categories-view",".balance-view",".edit-category-view",".reports-view",
@@ -99,14 +94,12 @@ const defaultCategories = [
             showTabLg([".new-operation-view",".titleNewOperation",".addNewOperationButton"])
             updateDate()
         }
-
         const tabChangeNewOperationCancel = () =>{
             hideTab([".categories-view",".new-operation-view",".edit-category-view",".reports-view"])
             showTab([".balance-view"])
             hideTabLg([".categories-view",".new-operation-view",".edit-category-view",".reports-view"])
             showTabLg([".balance-view"])
         }
-
         const tabChangeBalance = () =>{
             hideTab([".categories-view",".new-operation-view",".edit-category-view",".reports-view"])
             showTab([".balance-view"])
@@ -114,14 +107,12 @@ const defaultCategories = [
             showTabLg([".balance-view"])
             location.reload()
         }
-
         const tabChangeCancelEditionOfCategory = () =>{
             hideTab([".balance-view",".edit-category-view",".reports-view",".new-operation-view"])
             showTab([".categories-view"])
             hideTabLg([".balance-view",".edit-category-view",".reports-view",".new-operation-view"])
             showTabLg([".categories-view"])
         }
-
     // SHOW/HIDE FILTERS FUNCTION
         const hideFilters = () => {
             hideTab([".formulary-visibility",".hide-filters-button",".show-filters-button"])
@@ -158,7 +149,6 @@ const defaultCategories = [
                 name: $("#editCategoryTittle").value
             }
         }
-
         const renderCategories = (categories) => {
             clearTable("#categoryTable")
             for (const category of categories) {
@@ -172,7 +162,6 @@ const defaultCategories = [
                 </tr>`
             }
         }
-
     // EDIT CATEGORIES FUNCTION
         const tabChangeEditCategories = (categoryId) =>{
             hideTab([".categories-view",".new-operation-view",".balance-view",".reports-view"])
@@ -183,7 +172,6 @@ const defaultCategories = [
             const categorySelect = getData("categories").find(categories => categories.id === categoryId)
             $("#editCategoryTittle").value = categorySelect.name
         }
-
     // MODAL/DELETE CATEGORIES FUNCTION
         const buttonDeleteCategory = (categoryId) => {
             $(".modal-remove").setAttribute("data-id-modal", categoryId)
@@ -192,7 +180,6 @@ const defaultCategories = [
                 modalDeleteCategory(categoriesId)  
             })
         }
-        
         const modalDeleteCategory = (categoryId) => {
             const currentDataModalOperations = getData("operations").filter(operation => operation.category !== categoryId)
             setData("operations", currentDataModalOperations)
@@ -200,7 +187,6 @@ const defaultCategories = [
             const currentDataModalCategories = getData("categories").filter(category => category.name !== categoryId)
             addCategory(currentDataModalCategories)
         }
-
     // RENDER SELECT OPTIONS FUNCTION
         const renderOperationsCategories = (categories) => {
             for (const category of categories) {
@@ -210,7 +196,6 @@ const defaultCategories = [
                 `<option value="${category.name}">${category.name}</option>`
             }
         }
-
     // RENDER BALANCE FUNCTION
         const renderBalance = (operations) => {
             let balanceEarnings = 0
@@ -238,10 +223,8 @@ const defaultCategories = [
                     <td class="">$${balanceTotal}</td>
                 </tr>`
         }
-
     // RENDER OPERATIONS FUNCTION
         const saveNewOperation = (userId) => {
-            console.log("holi")
             return{
                 id: userId ? userId : randomID(),
                 description: $("#description-new-operation").value,
@@ -251,7 +234,6 @@ const defaultCategories = [
                 amount: $("#amount-new-operation").valueAsNumber
             }
         }   
-
         const renderOperations = (operations) => {
             clearTable("#operationTable")
             if(operations.length){
@@ -288,8 +270,6 @@ const defaultCategories = [
             ".titleNewOperation",".newOperationButton"])
             showTab([".new-operation-view",".editOperationButton",".titleEditOperation"])
 
-
-            
             $("#editOperationButton").setAttribute("data-id-operations", operationsId)
             const operationSelect = getData("operations").find(operations => operations.id === operationsId)
             $("#description-new-operation").value = operationSelect.description
@@ -306,46 +286,36 @@ const defaultCategories = [
                 location.reload()
             })
         }
-
         const modalDeleteOperation = (operationId) => {
             const currentData = getData("operations").filter(operation => operation.id != operationId)
             setData("operations", currentData)
         }
-
         const addCategory = (category) => {
             setData("categories", category)
             renderCategories(category)
         }
-
     // FILTERS FUNCTION
         const biggestAmount = (operations) => {
             return operations.sort((a, b) => b.amount - a.amount)  
         }
-
         const smallestAmount = (operations) => {
             return operations.sort((a, b) => a.amount - b.amount)
         }
-
         const alphabeticAZ = (operations) => {
             return operations.sort((a, b) => a.description.localeCompare(b.description))
         }
-
         const alphabeticZA = (operations) => {
             return operations.sort((a, b) => b.description.localeCompare(a.description))
         }
-        
         const byDate = (operations, fromDate) => {
             return operations.filter((operation) => new Date(operation.date) >= new Date(fromDate));
         }
-
         const lessRecentDate = (operations) => {
             return operations.sort((a, b) => new Date(a.date) - new Date(b.date))
         }
-
         const recentDate = (operations) => {
             return operations.sort((a, b) => new Date(b.date) - new Date(a.date))
         }
-
     // VALIDAION FUNCTION
         const validateFormOperation = (field) => {
             const nameOperation = $("#description-new-operation").value.trim()
@@ -367,7 +337,6 @@ const defaultCategories = [
                     }
                     break 
             }
-
             if(validationPassed){
                 $("#addNewOperationButton").removeAttribute("disabled")
             } else {
@@ -380,7 +349,6 @@ const defaultCategories = [
             $("#date-new-operation").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
             $("#from-select").value = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString().padStart(2,0)+"-"+date.getDate().toString().padStart(2,0)
         }
-
     // RENDER SUMMARY REPORTS FUNCTION
         const categoryHighestEarnings = () => {
             const operations = getData("operations")
@@ -390,7 +358,6 @@ const defaultCategories = [
             const balancedCategory = {}
             const monthEarningCategory = {}
             const monthExpensesCategory = {}
-
             // HIGHEST EARNINGS 
             for (const operation of operations) {
                 if (operation.type === 'ganancia') {
@@ -410,7 +377,6 @@ const defaultCategories = [
                     highestEarningCategory = category
                 } 
             }
-
             // HIGHEST EXPENSES
             for (const operation of operations) {
                 if (operation.type === 'gasto') {
@@ -429,7 +395,6 @@ const defaultCategories = [
                     highestExpensesCategory = category
                 }
             }
-
             // BALANCED OPERATION
             for (const operation of operations) {
                 if (balancedCategory[operation.category]) {
@@ -450,7 +415,6 @@ const defaultCategories = [
                     highestBalancedCategory = category
                 }
             }
-
             // MONTH HIGHEST EARNINGS 
             const earningsMonth  = {}
             for (const operation of operations) {
@@ -471,7 +435,6 @@ const defaultCategories = [
                     highestEarningMonth = month
                 }
             }
-
             // MONTH HIGHEST EXPENSES 
             const expensesMonth  = {};
             for (const operation of operations) {
@@ -492,7 +455,6 @@ const defaultCategories = [
                     highestExpensesMonth = month
                 }
             }
-
             // RENDER SUMMARY
             $("#summary").innerHTML = 
                 `
@@ -543,25 +505,22 @@ const defaultCategories = [
             earnings: 0,
             expenses: 0
         } 
-        
         const filterOperation = currentDataOperations.filter(operation => operation.category === category)
-
         for (const operation of filterOperation) {
             if (operation.type === "ganancia") {
                 valuesLocation.earnings += operation.amount
             } else {
                 valuesLocation.expenses -= operation.amount 
             } 
-
         }
         return valuesLocation
         }
         const renderByCategory = () => {
-            
+            clearTable("#totalsByCategory")
             const currentDataCategories = getData("categories")
             for (const category of currentDataCategories) {
                 const summary = byCategorySummary(category.name)
-                const balance= summary.earnings - summary.expenses   
+                const balance= summary.earnings - summary.expenses 
              if(balance!="0"){
                 $("#totalsByCategory").innerHTML += 
                 ` 
@@ -575,7 +534,6 @@ const defaultCategories = [
              }
             }
         }
-
     // RENDER BY MONTH
         const byCategoryMonth = (operations) => {
             const currentDataOperations = getData("operations")
@@ -583,7 +541,6 @@ const defaultCategories = [
                 earnings: 0,
                 expenses: 0
             }  
-
             for (const operation of operations){
                 
                 if (operation.type==="ganancia") {
@@ -594,7 +551,6 @@ const defaultCategories = [
             }
             return valuesLocation
         }
-
         const renderByMonth = () => {
             const currentData = getData("operations")
             const months = {}
@@ -608,7 +564,8 @@ const defaultCategories = [
             }
             for (const [month, operations] of Object.entries(months)) {
                 const byMonth = byCategoryMonth(operations);
-                const balance= byMonth.earnings - byMonth.expenses   
+                const balance= byMonth.earnings - byMonth.expenses 
+                clearTable("#totalsByMonth")  
                 if(balance!="0"){
                     $("#totalsByMonth").innerHTML += 
                     ` 
@@ -626,7 +583,6 @@ const defaultCategories = [
         const clickBurguerButton = () => {
             $("#listContainerBurgerMenu").classList.toggle("hidden")
         } 
-
 // EVENTS
 const initializeApp = () => {
         setData("operations", allOperations)
@@ -635,7 +591,6 @@ const initializeApp = () => {
         renderOperationsCategories(allCategories)
         renderBalance(allOperations)
         updateDate()
-
     // TAB CHANGE EVENT
         $("#tab-categories").addEventListener ("click", () => {
             tabChangeCategories()}
@@ -643,25 +598,18 @@ const initializeApp = () => {
         $("#tab-reports").addEventListener ("click",() => {
          tabChangeReports()})
         $("#tab-balance").addEventListener ("click", tabChangeBalance)
-
         $("#tab-categories-dropDowMenu").addEventListener ("click", tabChangeCategories)
         $("#tab-reports-dropDowMenu").addEventListener ("click", tabChangeReports)
         $("#tab-balance-dropDowMenu").addEventListener ("click", tabChangeBalance)
-
-
-
         $("#newOperationButton").addEventListener ("click", tabChangeNewOperation)
         $("#categoryCancel").addEventListener ("click", (e) => {
             tabChangeCancelEditionOfCategory()
             e.preventDefault()})
         $("#newOperationCancel").addEventListener ("click", tabChangeNewOperationCancel)
-
         $("#dropDowHeaderMenu").addEventListener ("click", clickBurguerButton)    
-
     //SHOW/HIDE FILTERS
         $(".hide-filters-button").addEventListener ("click", hideFilters)
         $(".show-filters-button").addEventListener ("click", showFilters)
-    
     //ADD CATEGORY EVENT
         $("#nameCategoryButton").addEventListener ("click", (e) => {
             e.preventDefault()
@@ -676,7 +624,6 @@ const initializeApp = () => {
             }
             $(".newCategoryForm").reset()
         })
-
     //EDIT CATEGORY EVENT
         $("#categoryEdition").addEventListener ("click", (e) => {
             e.preventDefault()
@@ -690,16 +637,13 @@ const initializeApp = () => {
             addCategory(currentData)
             tabChangeCancelEditionOfCategory()
         }) 
-
     //ADD OPERATION EVENT
         $("#addNewOperationButton").addEventListener ("click", (e) => {
             const currentData = getData("operations")
             currentData.push(saveNewOperation())
             setData("operations", currentData)
-            console.log("holi de prueba")
             renderBalance(currentData)
         })
-
     //EDIT OPERATION EVENT
         $("#editOperationButton").addEventListener ("click", (e) => {
             const operationsId = $("#editOperationButton").getAttribute("data-id-operations")
@@ -709,10 +653,8 @@ const initializeApp = () => {
                 }
                 return operations
             })
-            setData("operations", currentData)
-            
+            setData("operations", currentData)  
         })   
-        
     //FILTERS EVENT
         $("#category-select").addEventListener("input", (e) => {
             const filterSelected = e.target.value
@@ -725,7 +667,6 @@ const initializeApp = () => {
                 renderOperations(filterOperation)
             }
         })
-
         $("#type-select").addEventListener("input", (e) => {
             const filterSelected = e.target.value
             const currentData = getData("operations")
@@ -738,7 +679,6 @@ const initializeApp = () => {
                 renderOperations(filterOperation)
             }
         })
-
         $("#order-by-select").addEventListener("input", (e) => {
             const filterSelected = e.target.value
             const currentData = getData("operations")
@@ -758,16 +698,13 @@ const initializeApp = () => {
                 renderOperations(alphabeticZA(currentData))
             }
         })
-
         $("#from-select").addEventListener("input", (e) => {
             const filterSelected = e.target.value
             const currentData = getData("operations")
             renderOperations(byDate(currentData,filterSelected))
         })
-
     // VALITADION EVENT    
         $("#description-new-operation").addEventListener("blur", () => validateFormOperation("nameOperation"))
         $("#amount-new-operation").addEventListener("blur", () => validateFormOperation("amountOperation"))    
-
 }
 window.addEventListener("load", initializeApp)

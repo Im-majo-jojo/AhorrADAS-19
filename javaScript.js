@@ -124,8 +124,14 @@ const defaultCategories = [
 
     // SHOW/HIDE FILTERS FUNCTION
         const hideFilters = () => {
-            hideTab([".formulary-visibility",".hide-filters-button",".show-filters-button"])
-            showTab([".show-filters-button"])
+            const hideTab = (selectors, isLg) => {
+                for (const selector of selectors){
+                    $(selector).classList.add(`${isLg ? `lg:` : ''}hidden`)
+                }
+            }
+            hideTab([".formulary-visibility",".hide-filters-button",".show-filters-button"]) // aca queda la class hidden
+            showTab([".show-filters-button"], true)// aca queda la class lg:hidden
+
             $(".formulary-visibility").classList.remove("block")
             $(".hide-filters-button").classList.remove("block")
             $(".show-filters-button").classList.add("block")
@@ -166,7 +172,7 @@ const defaultCategories = [
                 `<tr>
                     <td>${category.name}</td>
                     <td class="flex flex-row-reverse">  
-                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="category-modal-remove" onclick="my_modal_5.showModal(),buttonDeleteCategory('${category.name}')">Eliminar</button>                       
+                        <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="category-modal-remove" onclick="my_modal_5.showModal(),buttonDeleteCategory('${category.name}')">remove</button>                       
                         <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" id="editCategoryTab" onclick="tabChangeEditCategories('${category.id}')">Editar</button>
                     </td>
                 </tr>`
@@ -186,9 +192,9 @@ const defaultCategories = [
 
     // MODAL/DELETE CATEGORIES FUNCTION
         const buttonDeleteCategory = (categoryId) => {
-            $(".modal-eliminar").setAttribute("data-id-modal", categoryId)
-            $(".modal-eliminar").addEventListener("click", (e) => {
-                const categoriesId = $(".modal-eliminar").getAttribute("data-id-modal")
+            $(".modal-remove").setAttribute("data-id-modal", categoryId)
+            $(".modal-remove").addEventListener("click", (e) => {
+                const categoriesId = $(".modal-remove").getAttribute("data-id-modal")
                 modalDeleteCategory(categoriesId)  
             })
         }
@@ -271,7 +277,7 @@ const defaultCategories = [
                         <div>
                             <td class="flex flex-col"> 
                                 <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" onclick="tabChangeEditOperation('${operation.id}')">Editar</button>
-                                <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" onclick="my_modal_5.showModal(),buttonOperationRemove('${operation.id}')">Eliminar</button>
+                                <button class="bg-slate-400 rounded-md px-2 text-neutral-50 mx-1" onclick="my_modal_5.showModal(),buttonOperationRemove('${operation.id}')">remove</button>
                             </td>
                         </div>
                     </tr>`
@@ -295,9 +301,9 @@ const defaultCategories = [
         }
     // MODAL/DELETE OPERATION FUNCTION
         const buttonOperationRemove = (operationId) => {
-            $(".modal-eliminar").setAttribute("data-id-modal", operationId)
-            $(".modal-eliminar").addEventListener("click", () => {
-                const operationsId = $(".modal-eliminar").getAttribute("data-id-modal")
+            $(".modal-remove").setAttribute("data-id-modal", operationId)
+            $(".modal-remove").addEventListener("click", () => {
+                const operationsId = $(".modal-remove").getAttribute("data-id-modal")
                 modalDeleteOperation(operationsId)
                 location.reload()
             })
@@ -634,11 +640,9 @@ const initializeApp = () => {
 
     // TAB CHANGE EVENT
         $("#tab-categories").addEventListener ("click", () => {
-            console.log("holi")
             tabChangeCategories()}
          )
         $("#tab-reports").addEventListener ("click",() => {
-            console.log("holi")
          tabChangeReports()})
         $("#tab-balance").addEventListener ("click", tabChangeBalance)
 

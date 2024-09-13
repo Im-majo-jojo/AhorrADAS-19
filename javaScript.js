@@ -225,7 +225,7 @@ const defaultCategories = [
             }
             const balanceTotal = balanceEarnings - balanceExpenses
             $("#balanceTable").innerHTML = `
-                <tr >
+                <tr class="text-green-600">
                     <td>Ganancias</td>
                     <td class="text-green-600">+$${balanceEarnings}</td>
                 </tr>
@@ -259,7 +259,7 @@ const defaultCategories = [
                 showTab([".tableOperation"])
                 for (const operation of operations){                  
                     $("#operationTable").innerHTML += 
-                    `<tr>
+                    `<tr class="text-xs">
                         <td>${operation.description}</td>
                         <td>${operation.category}</td>
                         <td>${operation.date}</td>
@@ -496,7 +496,7 @@ const defaultCategories = [
             // RENDER SUMMARY
             $("#summary").innerHTML = 
                 `
-                <table class="w-full mt-2">
+                <table class="w-full mt-2 text-xs">
                     <tr>
                         <td>Categoría con mayor ganancia</td>
                         <div>
@@ -519,7 +519,7 @@ const defaultCategories = [
                         </div>
                     </tr>
                     <tr>
-                        <td>Mes con mayor ganancia </td>
+                        <td class="flex space-x-4 ">Mes con mayor ganancia</td>
                         <div>
                             <td>${highestEarningMonth}</td>
                             <td class="text-green-600">$${highestEarnings}</td>

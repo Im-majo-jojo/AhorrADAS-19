@@ -267,13 +267,14 @@ const defaultCategories = [
     // EDIT OPERATION FUNCTION
         const tabChangeEditOperation = (operationsId) =>{
             hideTab([".categories-view",".edit-category-view",".reports-view",".balance-view",
-            ".titleNewOperation",".newOperationButton"])
+            ".titleNewOperation",".addNewOperationButton"])
             showTab([".new-operation-view",".editOperationButton",".titleEditOperation"])
 
             $("#editOperationButton").setAttribute("data-id-operations", operationsId)
             const operationSelect = getData("operations").find(operations => operations.id === operationsId)
             $("#description-new-operation").value = operationSelect.description
             $("#category-new-operation").value = operationSelect.category
+            $("#type-new-operation").value = operationSelect.type
             $("#date-new-operation").value = operationSelect.date
             $("#amount-new-operation").value = operationSelect.amount
         }
@@ -451,7 +452,7 @@ const defaultCategories = [
             let highestExpenses2 = 0;
             for (const month in expensesMonth) {
                 if (expensesMonth[month] > highestExpenses2) {
-                    highestExpenses2 += expensesMonth[month]
+                    highestExpenses2 = expensesMonth[month]
                     highestExpensesMonth = month
                 }
             }

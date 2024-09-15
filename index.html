@@ -157,15 +157,15 @@
             </div>
         </div>
         <!-- CATEGORÍAS -->
-        <div class="categories-view hidden w-full justify-items-center py-10 grid grid-rows-3 grid-flow-col grid-cols-5 gap-1">
+        <div class="categories-view hidden py-10 flex justify-center">
             <div class="categories-box container flex flex-col col-start-2 row-span-3 col-span-3 bg-slate-300 rounded-md p-4 m-2">
-                <h2 class="text-2xl font-bold">Categorías</h2>
-                <div class="py-5  justify-center">
+                <h2 class="text-xl font-bold">Categorías</h2>
+                <div class="py-5 justify-center">
                     <form class="newCategoryForm">
-                        <label for="nameCategory" class="font-bold text-lg">Nombre</label>
+                        <label for="nameCategory" class="font-bold text-sx">Nombre</label>
                         <div class="w-full">                        
                             <input type="text" id="nameCategory" placeholder="nombre de la categoria" class="w-10/12 rounded-md p-2 bg-slate-200" required> 
-                            <p class="bannerNameCategory-error mt-2 text-sm text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>                       
+                            <p class="bannerNameCategory-error mt-2 text-xs text-red-600 dark:text-red-500 hidden"><span class="font-medium">Campo requerido!</span></p>                       
                         </div>
                         <button id="nameCategoryButton" class="bg-slate-400 rounded-md 
                         px-4 mt-6 text-neutral-50 "  >Agregar</button>
@@ -178,9 +178,9 @@
             </div>
         </div>
         <!-- EDITAR CATEGORÍA -->
-         <div class="edit-category-view hidden w-full justify-items-center py-10 grid grid-rows-4 grid-flow-col grid-cols-5 gap-1">
+         <div class="edit-category-view hidden py-10 flex justify-center">
             <div class="editCategory-box container flex flex-col col-start-2 row-span-2 col-span-3 bg-slate-300 rounded-md p-4 m-2 ">
-                <h2 class="text-2xl font-bold">Editar Categoría</h2>
+                <h2 class="text-xl font-bold">Editar Categoría</h2>
                 <div class="flex py-4 w-full">
                     <form class="w-full">
                         <label for="editCategoryTittle" class="font-bold text-lg">Nombre</label>
@@ -207,7 +207,7 @@
           </div>
         </dialog>
         <!-- REPORTES -->
-        <div class="reports-view hidden py-10  sm:snap-x ">
+        <div class="reports-view hidden py-10 flex justify-center">
             <div class="reports-box container md:flex flex-col col-start-2 row-span-5  col-span-3 bg-slate-300 rounded-md p-4 m-2 space-between snap-center">
                 <h2 class="text-2xl font-bold">Reportes</h2>
                 <!-- CON REPORTES -->

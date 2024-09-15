@@ -153,7 +153,7 @@ const defaultCategories = [
             clearTable("#categoryTable")
             for (const category of categories) {
                 $("#categoryTable").innerHTML += 
-                `<tr>
+                `<tr class="text-xs">
                     <td>${category.name}</td>
                     <td class="flex flex-row-reverse">  
                         <button class="bg-slate-500 text-neutral-50 rounded-md px-2 mx-1" id="category-modal-remove" onclick="my_modal_5.showModal(),buttonDeleteCategory('${category.name}')">remove</button>                       
@@ -633,6 +633,7 @@ const initializeApp = () => {
                 if (category.id === categoriesId){
                 return saveEditedCategory(categoriesId)
                 }
+
                 return category
             })
             addCategory(currentData)

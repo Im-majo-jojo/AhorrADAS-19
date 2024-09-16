@@ -61,17 +61,17 @@
         <!-- BALANCE -->
         <div class="balance-view justify-items-center py-10 lg:grid lg:grid-rows-3 lg:grid-flow-col grid-cols-7 gap-1">
             <div class="balance-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2">
-                <h2 class="text-2xl font-bold">Balance</h2>
-                <table id="balanceTable" class="mt-6">
+                <h2 class="text-sm lg:text-xl  font-bold">Balance</h2>
+                <table id="balanceTable" class="mt-6 text-xs">
                 </table>
             </div>
             <div class="filters-box container flex flex-col col-start-2 col-span-2 bg-slate-300 rounded-md p-4 m-2 row-span-2">
                 <div class="flex  justify-between">
-                    <h2 class="text-2xl font-bold">Filtros</h2>
-                    <button class="hide-filters-button justify-between">Ocultar filtros</button>
-                    <button class="show-filters-button hidden justify-between">Mostrar filtros</button>
+                    <h2 class="text-sm lg:text-xl font-bold">Filtros</h2>
+                    <button class="hide-filters-button justify-between text-xs">Ocultar filtros</button>
+                    <button class="show-filters-button hidden justify-between text-xs">Mostrar filtros</button>
                 </div>
-                <form class="formulary-visibility flex flex-col space-y-4 mt-3">
+                <form class="formulary-visibility flex flex-col space-y-4 mt-3 text-xs">
                     <label for="type-select">Tipo</label>
                     <select name="" id="type-select" class="rounded-md p-2 bg-slate-200" required>
                         <option value="todos">todos</option>
@@ -97,12 +97,12 @@
             </div>
             <div class="operations-box container flex flex-col bg-slate-300 rounded-md lg:p-4 lg:my-2 lg:ml-4 lg:row-span-2 lg:col-span-3 p-4 m-2 row-span-2">
                 <div class="flex justify-between">
-                    <h2 class="text-2xl font-bold">Operaciones</h2>
+                    <h2 class="text-sm lg:text-xl font-bold">Operaciones</h2>
                     <button id="newOperationButton" class="bg-slate-400 rounded-md 
                     px-2 text-neutral-50">+ Nueva operación</button>
                 </div>
                 <!--CON OPERACIONES-->
-                <table id="tableOperation"  class="tableOperation mt-6">
+                <table id="tableOperation"  class="tableOperation mt-6 text-xs">
                     <thead>
                         <tr>
                             <th>Descripción</th>
@@ -213,11 +213,13 @@
                 <!-- CON REPORTES -->
                 <div id="reportsTable">
                     <div>
-                        <div id="summary">
-                            <h2 class="text-xs font-bold mt-2">Resumen</h2>
+                        <div>
+                            <h2 class="text-sm font-bold mt-2">Resumen</h2>
+                            <div id="summary">
+                            </div>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold mt-6">Totales por categorías</h2>
+                            <h2 class="text-sm font-bold mt-6">Totales por categorías</h2>
                             <table class="w-full text-xs font-light mt-6">
                                 <thead>
                                     <tr>
@@ -232,7 +234,7 @@
                             </table>
                         </div>
                         <div class="pb-30">
-                            <h2 class="text-xl font-bold mt-6">Totales por mes</h2>
+                            <h2 class="text-sm font-bold mt-6">Totales por mes</h2>
                             <table class="w-full mt-6 text-xs">
                                 <thead>
                                     <tr>

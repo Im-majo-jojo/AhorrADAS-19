@@ -525,11 +525,11 @@ const defaultCategories = [
              if(balance!="0"){
                 $("#totalsByCategory").innerHTML += 
                 ` 
-                <tr class="">              
-                <td class="justify-center">${category.name}</th>
-                <td class="justify-center text-green-600">+$${summary.earnings}</th>
-                <td class="justify-center text-red-600">${summary.expenses}</th>
-                <td class="justify-center ">${balance}</th>
+                <tr >              
+                <td >${category.name}</th>
+                <td class="text-green-600">+$${summary.earnings}</th>
+                <td class="text-red-600">${summary.expenses}</th>
+                <td class="">${balance}</th>
                 </tr>
                 `
              }
@@ -570,11 +570,11 @@ const defaultCategories = [
                 if(balance!="0"){
                     $("#totalsByMonth").innerHTML += 
                     ` 
-                    <tr class="">              
-                    <td class="justify-center">${month}</th>
-                    <td class="justify-center text-green-600">+$${byMonth.earnings}</th>
-                    <td class="justify-center text-red-600">${byMonth.expenses}</th>
-                    <td class="justify-center ">${balance}</th>
+                    <tr>              
+                    <td >${month}</th>
+                    <td class="text-green-600">+$${byMonth.earnings}</th>
+                    <td class="text-red-600">${byMonth.expenses}</th>
+                    <td >${balance}</th>
                     </tr>
                     `
                 }
